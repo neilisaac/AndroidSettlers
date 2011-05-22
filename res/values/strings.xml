@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<!-- Application name and misc strings: do no translate -->
+	<string name="app_name">Island Settlers</string>
+	<string name="nostring"></string>
+	<string name="website">omnionic.com</string>
+	<string name="website_url">http://github.com/neilisaac/AndroidSettlers/</string>
+	<string name="acknowledgements">Original code by Neil Isaac.
+		\nGraphics by Adam Garland.</string>
+	<string name="translators">Translations by:
+		\n→ Gerhard
+		\n→ Campanilla
+		\n→ Rik
+		\n→ Yingying
+		\n→ Ubinuri</string>
+
+	<!-- Main menu -->
+	<string name="new_button">New game</string>
+	<string name="rules_button">Instructions</string>
+	<string name="rules_failed">Couldn\'t load the rules file</string>
+	<string name="about_button">About this game</string>
+	<string name="about_text">Based on a popular economic board game.\n
+		\nThanks for playing!</string>
+	<string name="dismiss_button">Back to the game!</string>
+	<string name="donate_button">Donate</string>
+	<string name="site_button">Visit website</string>
+
+	<!-- Card types -->
+	<string name="soldier">soldier</string>
+	<string name="progress">progress</string>
+	<string name="victory">victory</string>
+	<string name="monopoly">monopoly</string>
+	<string name="harvest">harvest</string>
+
+	<!-- Colors -->
+	<string name="red">red</string>
+	<string name="blue">blue</string>
+	<string name="green">green</string>
+	<string name="orange">orange</string>
+
+	<!-- Resource types -->
+	<string name="desert">desert</string>
+	<string name="lumber">lumber</string>
+	<string name="wool">wool</string>
+	<string name="grain">grain</string>
+	<string name="brick">brick</string>
+	<string name="ore">ore</string>
+
+	<!-- Options screen -->
+	<string name="options">Options</string>
+	<string name="option_set">Save settings</string>
+	<string name="option_reset">Reset settings</string>
+	<string name="option_force_locale">Override language</string>
+	<string name="option_language_auto">Use system locale</string>
+	<string name="option_show_status">Show Android status bar in game</string>
+	<string name="option_vibrate_turn">Vibrate at the beginning of human turns</string>
+	<string name="option_vibrate_long">Vibrate on long press</string>
+	<string name="option_beep_turn">Beep at the beginning of human turns (requires
+		Audible selection)</string>
+	<string name="option_turn_log">Show log of other players\' turns</string>
+	<string name="option_turn_delay">Slow down AI turns</string>
+	<string name="option_humans">humans</string>
+	<string name="option_won">won</string>
+	<string name="option_turns">turns</string>
+	<string name="option_points">points</string>
+
+	<!-- Local game screen -->
+	<string name="start">Start</string>
+	<string name="resume_button">Resume</string>
+	<string name="load_button">Load saved game</string>
+	<string name="option_max_points">Points to win</string>
+	<string name="human">Human</string>
+	<string name="players_reset">Reset players</string>
+	<string name="player_set_names">Set player names</string>
+	<string name="player_humans">Add a human player</string>
+	<string name="player_red">Red player</string>
+	<string name="player_blue">Blue player</string>
+	<string name="player_green">Green player</string>
+	<string name="player_orange">Orange player</string>
+	<string name="player_name1">Doyle</string>
+	<string name="player_name2">Penny</string>
+	<string name="player_name3">Boyd</string>
+	<string name="player_name4">Saffron</string>
+	<string name="points_to_win">points to win</string>
+	<string name="option_mixed_trade">Allow trading mixed types in 4:1 trades</string>
+	<string name="option_auto_discard">Discard automatically when 7 is rolled</string>
+	<string name="length_quick">(quick)</string>
+	<string name="length_standard">(standard)</string>
+	<string name="length_long">(long)</string>
+
+	<!-- Game stats screen -->
+	<string name="stats">Game results</string>
+	<string name="stats_none">No game results in log</string>
+	<string name="stats_clear">Clear results</string>
+
+	<!-- Trade screen -->
+	<string name="trade">Trade</string>
+	<string name="trade_bank">Trade with bank</string>
+	<string name="trade_select">Select resource to trade for</string>
+	<string name="trade_offer">Select trade to offer</string>
+	<string name="trade_confirm">Trade</string>
+	<string name="trade_done">Cancel</string>
+	<string name="trade_for">Trade for</string>
+	<string name="trade_for_resource">Trade for %s</string> 
+	<string name="trade_for_past">Traded for</string>
+	<string name="trade_invalid">Invalid trade</string>
+	<string name="resources">Road: lumber, brick
+		\nTown: lumber, wool, grain,
+		brick
+		\nCity: 2 grain, 3 ore
+		\nCard: wool, grain, ore</string>
+		
+	<!-- Inter-player trade screen -->
+	<string name="trade_other_players">Trade with other players</string>
+	<string name="trade_your_resources">Your resources</string>
+	<string name="trade_propose">Propose trade</string>
+	<string name="trade_consider_trades">Consider trades</string>
+	<string name="trade_player_consider">Consider the offer</string>
+	<string name="trade_player_wants">Trade for %s</string>
+	<string name="trade_ratio" formatted="false">%s (%d:1)</string>
+	<string name="trade_player_offer">%s is offering</string>
+	<string name="trade_make_offer">Make offer</string>
+	<string name="trade_accept_offer">Accept offer</string>
+	<string name="trade_no_resources">Add resources to offer</string>
+	<string name="trade_accepted">Trade with %s</string>
+	<string name="trade_counter">%s proposed a counter-offer</string>
+	<string name="trade_counter_offer">Counter-offer</string>
+	<string name="trade_counter_make">Make counter-offer</string>
+	<string name="trade_rejected">%s has not accepted the offer</string>
+
+	<!-- Discard screen -->
+	<string name="discard_reason">%s rolled a 7</string>
+	<string name="discard_instruction">discard %d resources</string>
+	<string name="discard_select">Select resources to discard</string>
+	<string name="discard_button">Discard resources</string>
+
+	<!-- Status screen -->
+	<string name="status">Status</string>
+	<string name="status_turn">Turn</string>
+	<string name="status_resources">Resources</string>
+	<string name="status_dev_cards">Development cards</string>
+	<string name="status_towns">Towns (1 point)</string>
+	<string name="status_cities">Cities (2 points)</string>
+	<string name="status_roads">Total roads</string>
+	<string name="status_road_length">Road length</string>
+	<string name="status_longest_road">Longest road</string>
+	<string name="status_army_size">Army size</string>
+	<string name="status_largest_army">Largest army</string>
+	<string name="status_soldier_cards">Soldier cards</string>
+	<string name="status_progress_cards">Progress cards</string>
+	<string name="status_victory_cards">Victory cards (1 point)</string>
+	<string name="status_trader">trader</string>
+	<string name="status_points">points</string>
+	<string name="status_victory_points">Victory points</string>
+	<string name="status_color">Color</string>
+	<string name="status_this_turn">This turn</string>
+	<string name="status_last_turn">Last turn</string>
+	
+	<!-- Player turn log messages -->
+	<string name="player_roll">Rolled %s</string>
+	<string name="player_road">Built a road</string>
+	<string name="player_town">Built a town</string>
+	<string name="player_city">Built a city</string>
+	<string name="player_longest_road">Has the longest road</string>
+	<string name="player_largest_army">Has the largest army</string>
+	<string name="player_stole_from">Stole from %s</string>
+	<string name="player_discarded">Discarded %s</string>
+	<string name="player_traded_with">Traded with %s</string>
+	<string name="player_traded_for">Traded for %s</string>
+	<string name="player_got_resource">Got %s</string>
+	<string name="player_traded_away">Traded away %s</string>
+	<string name="player_ended_turn">Ended turn</string>
+	<string name="player_bought_card">Bought a card</string>
+	<string name="player_used_card">Used a %s card</string>
+	<string name="player_monopoly">Stole other players\' %s</string>
+	
+	<!-- Quick reference screen -->
+	<string name="reference">Quick reference</string>
+	<string name="reference_tab1">Building costs</string>
+	<string name="reference_tab2">Building reference</string>
+	<string name="reference_tab3">Development cards</string>
+	<string name="reference_road">Road</string>
+	<string name="reference_town">Town</string>
+	<string name="reference_city">City</string>
+	<string name="reference_card">Development card</string>
+	<string name="reference_costs">Road:\n1 lumber, 1 brick\n
+		\nTown:\n1 lumber, 1
+		wool, 1 grain, 1 brick\n
+		\nCity:\n2 grain, 3 ore\n
+		\nDevelopment
+		card:\n1 wool, 1 grain, 1 ore</string>
+	<string name="reference_build">Towns:
+		\n- produce 1 resource when an adjacent tile
+		is rolled
+		\n- can build up to 5 towns
+		\n- can\'t build beside another
+		town or city
+		\n- can only build where you have a road reaching
+		\n- each
+		town is worth 1 point\n
+		\nCities:
+		\n- produce 2 resources when an
+		adjacent tile is rolled
+		\n- replace a town
+		\n- can build up to 4 cities
+		\n- each city is worth 2 points\n
+		\nRoads:
+		\n- can build up to 15 roads
+		\n- must build from a settlement or another road
+		\n- the longest road
+		is worth 2 points
+		\n- minimum length for longest road is 5</string>
+	<string name="reference_cards">Soldier cards:
+		\n- most common development card
+		\n-
+		lets you move the robber
+		\n- after moving robber, you steal from an
+		adjacent player
+		\n- no resources are produced from the tile where the
+		robber resides\n
+		\nProgress cards:
+		\n- let you build 2 roads for free
+		\n- road building rules still apply\n
+		\nHarvest cards:
+		\n- get 2 free resources\n
+		\nMonopoly cards:
+		\n- pick a resource type
+		\n- steal all of this type from the other players\n
+		\nVictory cards:
+		\n- worth 1
+		points
+		\n- aren\'t shown to other players</string>
+
+	<!-- Prompt strings -->
+	<string name="phase_first_town">Place first town</string>
+	<string name="phase_first_road">Place first road</string>
+	<string name="phase_second_town">Place second town</string>
+	<string name="phase_second_road">Place second road</string>
+	<string name="phase_roll_production">Roll for production</string>
+	<string name="phase_build">Build</string>
+	<string name="phase_progress1">Build first progress road</string>
+	<string name="phase_progress2">Build second progress road</string>
+	<string name="phase_move_robber">Move the robber</string>
+	<string name="phase_game_over">Game over</string>
+
+	<!-- In-game buttons -->
+	<string name="button_status">Status</string>
+	<string name="button_roll">Roll dice</string>
+	<string name="button_end">End turn</string>
+	<string name="button_trade">Trade</string>
+	<string name="button_cards">Buy or use cards</string>
+	<string name="button_town">Build town</string>
+	<string name="button_city">Build city</string>
+	<string name="button_road">Build road</string>
+	<string name="button_cancel">Cancel</string>
+	<string name="button_undo">Undo</string>
+
+	<!-- Various strings in the game -->
+	<string name="game_turn_log">Turn log</string>
+	<string name="game_rolled">Rolled</string>
+	<string name="game_move_robber">move the robber</string>
+	<string name="game_build_road">Build a road</string>
+	<string name="game_build_town">Build a town</string>
+	<string name="game_build_city">Build a city</string>
+	<string name="game_build_fail">Can\'t build</string>
+	<string name="game_robber_fail">Can\'t move robber</string>
+	<string name="game_robber_same">You must move the robber to a new location</string>
+	<string name="game_build_town_max">Reached the maximum number of towns.</string>
+	<string name="game_build_city_max">Reached the maximum number of cities.</string>
+	<string name="game_build_road_max">Reached the maximum number of roads.</string>
+	<string name="game_build_town_fail">There\'s nowhere to build a town. Towns must have a
+		road reaching them and can\'t be built beside another town or city.
+	</string>
+	<string name="game_build_city_fail">There\'s nowhere to build a city. Cities must
+		replace a town.</string>
+	<string name="game_build_road_fail">There\'s nowhere to build a road.</string>
+	<string name="game_build_prog1_fail">Cancelling card use.</string>
+	<string name="game_build_prog2_fail">You can\'t build the second road.</string>
+	<string name="game_won">won</string>
+	<string name="game_see_board">See board</string>
+	<string name="game_return_menu">Return to menu</string>
+	<string name="game_use">Use</string>
+	<string name="game_bought">Bought a</string>
+	<string name="game_use_soldier">Use soldier card: move the robber</string>
+	<string name="game_use_progress">Use progress card: build 2 roads</string>
+	<string name="game_use_monopoly">Use monopoly card: steal all of one type of resource</string>
+	<string name="game_use_harvest">Use harvest card: get 2 free resources</string>
+	<string name="game_monopoly_prompt">Pick resource to steal from everyone</string>
+	<string name="game_harvest_prompt">Select a resource</string>
+	<string name="game_monopoly_select">Steal %s</string>
+	<string name="game_harvest_select">Get 2 free %s</string>
+	<string name="game_no_cards">No more cards available in the stack</string>
+	<string name="game_used_soldier">Used a soldier card: move the robber</string>
+	<string name="game_used_progress">Used a progress card: build roads</string>
+	<string name="game_used_harvest">Used a harvest card</string>
+	<string name="game_used_monopoly">Used a monopoly card: stole %d resources</string>
+	<string name="game_card">card</string>
+	<string name="game_ok">Ok</string>
+	<string name="game_cancel">Cancel</string>
+	<string name="game_dev_cards">Development cards</string>
+	<string name="game_buy_dev">Buy development card (wool, grain, ore)</string>
+	<string name="game_card_fail">Can\'t use card. Limit 1 per turn.</string>
+	<string name="game_steal_from">Steal card from</string>
+	<string name="game_resources">resources</string>
+	<string name="game_steal_fail">Nobody to steal from</string>
+	<string name="game_stole">Stole</string>
+	<string name="game_from">from</string>
+	<string name="game_player_steal_fail">Couldn\'t steal from</string>
+	<string name="game_did_nothing">Did nothing</string>
+
+</resources>

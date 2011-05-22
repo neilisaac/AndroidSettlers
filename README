@@ -1,0 +1,11 @@
+This is based off the "Island Settlers" code.  Android 1.6 or higher is required.
+
+It is here for the academic interests of fellow developers :)
+
+To build it, you need the Android API version 8 and either Ant or the ADT Eclipse plugin.
+
+
+With the new graphics, some devices (such as the emulator) run out of memory while scaling textures.  It works fine on many phones though.  I use a Nexus One for testing.
+
+Some support exists in the code for saving/loading games to sqlite, but it's a malfunctioning work-in-progress.
+

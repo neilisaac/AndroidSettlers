@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<!-- Dutch translation by Rik -->
+
+	<!-- Main menu -->
+	<string name="new_button">Nieuw spel</string>
+	<string name="rules_button">Instructies</string>
+	<string name="rules_failed">Kon de spelregels niet laden</string>
+	<string name="about_button">Over dit spel</string>
+	<string name="about_text">Gebaseerd op het bordspel "Settlers of Catan" door Klaus Teuber\n
+		\nBedankt voor het spelen!</string>
+	<string name="dismiss_button">Terug naar het spel!</string>
+	<string name="donate_button">Doneer</string>
+	<string name="site_button">Bezoek website</string>
+
+	<!-- Card types -->
+	<string name="soldier">soldaat</string>
+	<string name="progress">voortgang</string>
+	<string name="victory">overwinning</string>
+
+	<!-- Colors -->
+	<string name="red">rood</string>
+	<string name="blue">blauw</string>
+	<string name="green">groen</string>
+	<string name="orange">oranje</string>
+
+	<!-- Resource types -->
+	<string name="desert">woestijn</string>
+	<string name="lumber">hout</string>
+	<string name="wool">wol</string>
+	<string name="grain">graan</string>
+	<string name="brick">steen</string>
+	<string name="ore">erts</string>
+
+	<!-- Options screen -->
+	<string name="options">Opties</string>
+	<string name="option_set">Instellingen opslaan</string>
+	<string name="option_reset">Instellingen reseten</string>
+	<string name="option_show_status">Laat Android status bar zien in spel</string>
+	<string name="option_vibrate_turn">Tril bij het begin van menselijke beurt</string>
+	<string name="option_vibrate_long">Tril bij lang drukken</string>
+	<string name="option_beep_turn">Beep bij het begin van menselijke beurt (heeft audio selectie nodig)</string>
+	<string name="option_turn_log">Laat het log bestand zien van andere spelers</string>
+	<string name="option_humans">mensen</string>
+	<string name="option_won">gewonnen</string>
+	<string name="option_turns">beurten</string>
+	<string name="option_points">punten</string>
+
+	<!-- Local game screen -->
+	<string name="start">Start</string>
+	<string name="resume_button">Ga door</string>
+	<string name="option_max_points">Punten om te winnen</string>
+	<string name="human">Mens</string>
+	<string name="players_reset">Reset speler</string>
+	<string name="player_set_names">Verander speler naam</string>
+	<string name="player_humans">Voeg menselijke speler toe</string>
+	<string name="player_name1">Henk</string>
+	<string name="player_name2">Harry</string>
+	<string name="player_name3">Bert</string>
+	<string name="player_name4">Piet</string>
+	<string name="points_to_win">punten om te winnen</string>
+	<string name="option_mixed_trade">Sta gemixte types toe in 4:1 ruilen</string>
+	<string name="length_quick">(snel)</string>
+	<string name="length_standard">(standaard)</string>
+	<string name="length_long">(lang)</string>
+
+	<!-- Game stats screen -->
+	<string name="stats">Spel resultaat</string>
+	<string name="stats_none">Geen spel resultaat in log</string>
+	<string name="stats_clear">Verwijder resultaat</string>
+
+	<!-- Trade screen -->
+	<string name="trade">Ruil</string>
+	<string name="trade_select">Selecteer grondstof op te ruilen</string>
+	<string name="trade_offer">Selecteer ruilwaarde</string>
+	<string name="trade_confirm">Ruil</string>
+	<string name="trade_done">Annuleren</string>
+	<string name="trade_for">Ruil voor</string>
+	<string name="trade_for_past">Geruild voor</string>
+	<string name="trade_invalid">Ongeldige ruil</string>
+	<string name="resources">Weg: hout, steen
+		\nDorp: hout, wol, graan,
+		steen
+		\nStad: 2 graan, 3 erts
+		\nKaart: wol, graan, erts</string>
+
+	<!-- Status screen -->
+	<string name="status">Status</string>
+	<string name="status_turn">Beurt</string>
+	<string name="status_resources">Grondstoffen</string>
+	<string name="status_dev_cards">Ontwikkelings kaarten</string>
+	<string name="status_towns">Dorpen (1 punt)</string>
+	<string name="status_cities">Steden (2 punten)</string>
+	<string name="status_roads">Totalen wegen</string>
+	<string name="status_road_length">Weg lengte</string>
+	<string name="status_longest_road">Langste weg</string>
+	<string name="status_army_size">Leger grote</string>
+	<string name="status_largest_army">Grootste leger</string>
+	<string name="status_soldier_cards">Soldaat kaarten</string>
+	<string name="status_progress_cards">Voortgangs kaarten</string>
+	<string name="status_victory_cards">Overwinnings kaarten (1 punt)</string>
+	<string name="status_trader">handelaar</string>
+	<string name="status_points">punten</string>
+	<string name="status_victory_points">Overwinnings punten</string>
+	<string name="status_color">Kleur</string>
+	<string name="status_this_turn">Deze beurt</string>
+	<string name="status_last_turn">Laaste beurt</string>
+
+	<!-- Quick reference screen -->
+	<string name="reference">Snelle verwijzing</string>
+	<string name="reference_tab1">Gebouw kosten</string>
+	<string name="reference_tab2">Gebouw verwijzing</string>
+	<string name="reference_tab3">Ontwikkelings kaarten</string>
+	<string name="reference_road">Weg</string>
+	<string name="reference_town">Dorp</string>
+	<string name="reference_city">Stad</string>
+	<string name="reference_card">Ontwikkelings kaart</string>
+	<string name="reference_costs">Weg:\n1 hout, 1 steen\n
+		\nDorp:\n1 hout, 1
+		wol, 1 graan, 1 steen\n
+		\nStad:\n2 graan, 3 erts\n
+		\nOntwikkelings
+		kaart:\n1 wol, 1 graan, 1 erts</string>
+	<string name="reference_build">Dorpen:
+		\n- produceerd 1 grondstof wanneer de aangrenzende tegel is gegooid
+		\n- kan 5 dorpen bouwen
+		\n- kan niet langs een ander dorp of stad bouwen
+		\n- kan alleen bouwen waar een weg aanligt
+		\n- elk
+		dorp is 1 punt waard\n
+		\nSteden:
+		\n- produceerd 2 grondstoffen wanneer de aangrenzende tegel is gegooid
+		\n- vervang een dorp
+		\n- kan 4 steden bouwen
+		\n- elke stad is 2 punten waard\n
+		\nWegen:
+		\n- kan 15 wegen bouwen
+		\n- moet bouwen vanaf een schikking bouwen of een andere weg
+		\n- de langste weg
+		is 2 punten waard
+		\n- de minimum lengte voor de langste weg is 5</string>
+	<string name="reference_cards">Soldaat kaarten:
+		\n- de meest voorkomende ontwikkelings kaart
+		\n-
+		laat je de rover verplaatsen
+		\n- na het verplaatsen van de rover, steel je van een aangrenzende speler
+		\n- er worden geen grondstoffen geproduceerd van de tegel waar de rover op staat\n
+		\nVoortgangs kaarten:
+		\n- laat je 2 gratis wegen bouwen
+		\n- wegen bouw regels zijn nog steeds geldig\n
+		\nOverwinnings kaarten:
+		\n- 1 punt waard
+		\n- worden niet gezien door andere spelers</string>
+
+	<!-- Prompt strings -->
+	<string name="phase_first_town">Plaats eerste dorp</string>
+	<string name="phase_first_road">Plaats eerste weg</string>
+	<string name="phase_second_town">Plaats tweede dorp</string>
+	<string name="phase_second_road">Plaats tweede weg</string>
+	<string name="phase_roll_production">Gooi voor productie</string>
+	<string name="phase_build">Bouw</string>
+	<string name="phase_progress1">Bouw eerste voortgangs weg</string>
+	<string name="phase_progress2">Bouw tweede voortgangs weg</string>
+	<string name="phase_move_robber">Verplaats de rover</string>
+	<string name="phase_game_over">Spel over</string>
+
+	<!-- In-game buttons -->
+	<string name="button_status">Status</string>
+	<string name="button_roll">Gooi stenen</string>
+	<string name="button_end">Eindig beurt</string>
+	<string name="button_trade">Ruil</string>
+	<string name="button_cards">Koop of gebruik kaarten</string>
+	<string name="button_town">Bouw dorp</string>
+	<string name="button_city">Bouw stad</string>
+	<string name="button_road">Bouw weg</string>
+	<string name="button_cancel">Annuleer</string>
+	<string name="button_undo">ongedaan maken</string>
+
+	<!-- Various strings in the game -->
+	<string name="game_turn_log">beurt log</string>
+	<string name="game_rolled">gegooid</string>
+	<string name="game_move_robber">verplaats de rover</string>
+	<string name="game_build_road">Bouw een weg</string>
+	<string name="game_build_town">Bouw een dorp</string>
+	<string name="game_build_city">Bouw een stad</string>
+	<string name="game_build_fail">Kan niet bouwen</string>
+	<string name="game_build_town_max">Maximum dorpen gehaald.</string>
+	<string name="game_build_city_max">Maximum steden gehaald.</string>
+	<string name="game_build_road_max">Maximum wegen gehaald.</string>
+	<string name="game_build_town_fail">Nergens kan een dorp gebouwd worden.</string>
+	<string name="game_build_city_fail">Nergens kan een stad gebouwd worden.</string>
+	<string name="game_build_road_fail">Nergens kan een weg gebouwd worden.</string>
+	<string name="game_build_prog1_fail">Annuleer kaart gebruik.</string>
+	<string name="game_build_prog2_fail">U kunt de tweede weg niet bouwen.</string>
+	<string name="game_won">Gewonnen</string>
+	<string name="game_see_board">Bekijk het bord</string>
+	<string name="game_return_menu">Terug naar menu</string>
+	<string name="game_use">Gebruik</string>
+	<string name="game_bought">Gekocht:</string>
+	<string name="game_use_soldier">Gebruik soldaat kaart: verplaats de rover</string>
+	<string name="game_use_progress">Gebruik voortgangs kaart: bouw 2 wegen</string>
+	<string name="game_no_cards">Geen kaarten meer beschikbaar in de stok</string>
+	<string name="game_used_soldier">Soldaat kaart gebruikt: verplaats de rover</string>
+	<string name="game_used_progress">Voortgangs kaart gebruikt: bouw wegen</string>
+	<string name="game_card">Kaart</string>
+	<string name="game_ok">Ok</string>
+	<string name="game_cancel">Annuleer</string>
+	<string name="game_dev_cards">Ontwikkelings kaarten</string>
+	<string name="game_buy_dev">Koop ontwikkelings kaart (wol, graan, erts)</string>
+	<string name="game_card_fail">Kan kaart niet gebruiken. Limiet 1 kaart per beurt.</string>
+	<string name="game_steal_from">Steel kaart van</string>
+	<string name="game_resources">grondstoffen</string>
+	<string name="game_steal_fail">Niemand om van te stelen</string>
+	<string name="game_stole">Gestolen</string>
+	<string name="game_from">van</string>
+	<string name="game_player_steal_fail">Kon niet stelen van</string>
+	<string name="game_did_nothing">Niks gedaan</string>
+
+</resources>

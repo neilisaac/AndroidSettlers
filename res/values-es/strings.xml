@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<!-- Spanish translation by Campanilla http://campanilla.info campanilla@campanilla.info -->
+
+	<!-- Main menu -->
+	<string name="new_button">Nuevo juego</string>
+	<string name="rules_button">Instrucciones</string>
+	<string name="rules_failed">No se ha podido cargar el fichero de reglas</string>
+	<string name="about_button">Acerca de este juego</string>
+	<string name="about_text">Basado en el juego de tablero
+		"Colonos de Catan" de Klaus Teuber\n
+		\nGracias por jugar!</string>
+	<string name="dismiss_button">Volver al juego!</string>
+	<string name="donate_button">Donar</string>
+	<string name="site_button">Visitar web</string>
+	<string name="website_url">http://omnionic.com/settlers</string>
+	
+	<!-- Card types -->
+	<string name="soldier">de soldado</string>
+	<string name="progress">de progreso</string>
+	<string name="victory">de victoria</string>
+    <string name="monopoly">monopolio</string>
+	<string name="harvest">cosecha</string>
+	
+	<!-- Colors -->
+	<string name="red">rojo</string>
+	<string name="blue">azul</string>
+	<string name="green">verde</string>
+	<string name="orange">naranja</string>
+	
+	<!-- Resource types -->
+	<string name="desert">desierto</string>
+	<string name="lumber">madera</string>
+	<string name="wool">ovejitas</string>
+	<string name="grain">trigo</string>
+	<string name="brick">ladrillo</string>
+	<string name="ore">mineral</string>
+	
+	<!-- Options screen -->
+	<string name="options">Opciones</string>
+	<string name="option_set">Guardar preferencias</string>
+	<string name="option_reset">Resetear preferencias</string>
+    <string name="option_force_locale">Ignorar idioma</string>
+    <string name="option_language_auto">Usar idioma del sistema</string>
+	<string name="option_show_status">Mostrar la barra de estado de Android durante el juego</string>
+	<string name="option_vibrate_turn">Vibrar al comienzo de los turnos humanos</string>
+	<string name="option_vibrate_long">Vibrar en las pulsaciones largas</string>
+	<string name="option_beep_turn">Beep al comienzo de los turnos humanos (necesita Audible)</string>
+	<string name="option_turn_log">Mostrar el registro del turno de los otros jugadores</string>
+    <string name="option_turn_delay">Reducir la velocidad de los turnos no humanos</string>
+	<string name="option_humans">humanos</string>
+	<string name="option_won">ha ganado</string>
+	<string name="option_turns">turnos</string>
+	<string name="option_points">puntos</string>
+	
+	<!-- Local game screen -->
+	<string name="start">Empezar</string>
+	<string name="resume_button">Resumir</string>
+    <string name="load_button">Cargar juego</string>
+	<string name="option_max_points">Puntos para la victoria</string>
+	<string name="human">Humano</string>
+	<string name="players_reset">Resetear jugadores</string>
+	<string name="player_set_names">Nombrar jugadores</string>
+	<string name="player_humans">Añadir jugador humano</string>
+    <string name="player_red">Jugador rojo</string>
+	<string name="player_blue">Jugador azul</string>
+	<string name="player_green">Jugador verde</string>
+	<string name="player_orange">Jugador naranja</string>
+	<string name="player_name1">Opikanoba</string>
+	<string name="player_name2">Paco</string>
+	<string name="player_name3">Campanilla</string>
+	<string name="player_name4">Leo</string>
+	<string name="points_to_win">puntos de victoria</string>
+	<string name="option_mixed_trade">Permitir mezclar recursos en el comercio 4:1</string>
+	<string name="option_auto_discard">Descartar automáticamente las tiradas con resultado 7</string>
+	<string name="length_quick">(rápido)</string>
+	<string name="length_standard">(estándar)</string>
+	<string name="length_long">(largo)</string>
+	
+	<!-- Game stats screen -->
+	<string name="stats">Registro de juego</string>
+	<string name="stats_none">No hay resultados de los juegos en el registro</string>
+	<string name="stats_clear">Limpiar puntuaciones</string>
+	
+	<!-- Trade screen -->
+	<string name="trade">Comercio</string>
+	<string name="trade_bank">Comerciar con el banco</string>
+	<string name="trade_select">Selecciona el recurso para comerciar</string>
+	<string name="trade_offer">Selecciona la oferta para comerciar</string>
+	<string name="trade_confirm">Comerciar</string>
+	<string name="trade_done">Cancelar</string>
+	<string name="trade_for">Cambiar por</string>
+	<string name="trade_for_resource">Comerciar por %s</string> 
+	<string name="trade_for_past">Cambiado por</string>
+	<string name="trade_invalid">Cambio inválido</string>
+	<string name="resources">Camino: madera, ladrillo
+		\nPueblo: madera, ovejita, trigo, ladrillo
+		\nCiudad: 2 trigos, 3 minerales
+		\nCarta: ovejita, trigo, mineral</string>
+
+<!-- Inter-player trade screen -->
+	<string name="trade_other_players">Comerciar con otros jugadores</string>
+	<string name="trade_your_resources">Tus recursos</string>
+	<string name="trade_propose">Propuestas de comercio</string>
+	<string name="trade_consider_trades">Considerar propuestas</string>
+	<string name="trade_player_consider">Consierar oferta</string>
+	<string name="trade_player_wants">Cambiar por %s</string>
+	<string name="trade_player_offer">%s es ofrecido</string>
+	<string name="trade_make_offer">Hacer oferta</string>
+	<string name="trade_accept_offer">Aceptar oferta</string>
+	<string name="trade_no_resources">Añadir recursos a la oferta</string>
+	<string name="trade_accepted">Comerciar con %s</string>
+	<string name="trade_counter">%s propone una contraoferta</string>
+	<string name="trade_counter_offer">Contraoferta</string>
+	<string name="trade_counter_make">Hacer contraoferta</string>
+	<string name="trade_rejected">%s no ha aceptado la oferta</string>
+
+    <!-- Discard screen -->
+	<string name="discard_reason">%s ha sacado 7 en la tirada</string>
+	<string name="discard_instruction">ha descartado %d recursos</string>
+	<string name="discard_select">Selecciona recursos para descartar</string>
+	<string name="discard_button">Descartar</string>
+
+<!-- Player turn log messages -->
+	<string name="player_roll">Ha sacado %s en la tirada</string>
+	<string name="player_road">Construye un camino</string>
+	<string name="player_town">Construye un pueblo</string>
+	<string name="player_city">Construye una ciudad</string>
+	<string name="player_longest_road">Tiene el camino mas largo</string>
+	<string name="player_largest_army">Tiene el ejercito mas grande</string>
+	<string name="player_stole_from">Roba de %s</string>
+	<string name="player_discarded">Descarta %s</string>
+	<string name="player_traded_with">Comercia con %s</string>
+	<string name="player_traded_for">Comercia por %s</string>
+	<string name="player_got_resource">Tiene %s</string>
+	<string name="player_traded_away">Comerciado con %s</string>
+	<string name="player_ended_turn">Finalizar turno</string>
+	<string name="player_bought_card">Ha comprado una carta</string>
+	<string name="player_used_card">Ha usado una carta de %s</string>
+	<string name="player_monopoly">Ha robado de otros jugadores %s</string>
+	
+
+	<!-- Status screen -->
+	<string name="status">Estado</string>
+	<string name="status_turn">Turno</string>
+	<string name="status_resources">Recursos</string>
+	<string name="status_dev_cards">Cartas de desarrollo</string>
+	<string name="status_towns">Pueblos (1 punto)</string>
+	<string name="status_cities">Ciudades (2 puntos)</string>
+	<string name="status_roads">Total caminos</string>
+	<string name="status_road_length">Longitud del camino</string>
+	<string name="status_longest_road">Camino más largo</string>
+	<string name="status_army_size">Tamaño del ejército</string>
+	<string name="status_largest_army">Ejército más grande</string>
+	<string name="status_soldier_cards">Cartas de soldado</string>
+	<string name="status_progress_cards">Cartas de progreso</string>
+	<string name="status_victory_cards">Cartas de victoria (1 punto)</string>
+	<string name="status_trader">comerciante</string>
+	<string name="status_points">puntos</string>
+	<string name="status_victory_points">Puntos de victoria</string>
+	<string name="status_color">Color</string>
+	<string name="status_this_turn">Este turno</string>
+	<string name="status_last_turn">Último turno</string>
+	
+	<!-- Quick reference screen -->
+	<string name="reference">Referencia rápida</string>
+	<string name="reference_tab1">Costes</string>
+	<string name="reference_tab2">Guía</string>
+	<string name="reference_tab3">Cartas</string>
+	<string name="reference_road">Camino</string>
+	<string name="reference_town">Pueblo</string>
+	<string name="reference_city">Ciudad</string>
+	<string name="reference_card">Carta de desarrollo</string>
+	<string name="reference_costs">Camino:\n1 madera, 1 ladrillo\n
+		\nPueblo:\n1 madera, 1 ovejita, 1 trigo, 1 ladrillo\n
+		\nCiudad:\n2 trigos, 3 minerales\n
+		\nCarta de desarrollo:\n1 ovejita, 1 trigo, 1 mineral</string>
+	<string name="reference_build">Pueblo:
+		\n- Produce 1 recurso cuando el número de los terrenos adyacentes sale en el dado
+		\n- Puedes construir hasta 5 pueblos
+		\n- No puedes construir junto a otro pueblo o ciudad
+		\n- Sólo puedes construirlo junto a un camino
+		\n- Cada pueblo da un punto de victoria\n
+		\nCiudades:
+		\n- Producen 2 recursos cuando el número de los terrenos adyacentes sale en el dado
+		\n- Reemplaza a un pueblo (debes construirla sobre un pueblo)
+		\n- Puedes construir hasta 4 ciudades
+		\n- Cada ciudad da dos puntos de victoria\n
+		\nCaminos:
+		\n- Puedes construir hasta 15 caminos
+		\n- Se construye desde un asentamiento u otro camino
+		\n- El camino más largo da dos puntos de victoria
+		\n- La longitud mínima para el camino más largo es de 5</string>
+	<string name="reference_cards">Cartas de soldado:
+		\n- Es la carta de desarrollo más común
+		\n- Permite mover al ladrón
+		\n- Tras mover al ladrón, permite robar a un jugador adyacente a ese terreno
+		\n- Los terrenos con un ladrón no producen recursos cuando su número sale en el dado\n
+		\nCartas de progreso:
+		\n- Permiten construir 2 caminos gratuitamente
+		\n- Las reglas de construcción de caminos se siguen aplicando\n
+		\nCartas de victoria:
+		\n- Conceden un punto de victoria
+		\n- No se muestran a otros jugadores
+        \nCarta de Monopolio:
+        \n- Permite robar todas las cartas en juego de un mismo recurso\n
+        \nCarta de Cosecha:
+        \n- Permite obtener dos recursos gratuitamente\n </string>
+	
+	<!-- Prompt strings -->
+	<string name="phase_first_town">Coloca el primer pueblo</string>
+	<string name="phase_first_road">Coloca el primer camino</string>
+	<string name="phase_second_town">Coloca el segundo pueblo</string>
+	<string name="phase_second_road">Coloca el segundo camino</string>
+	<string name="phase_roll_production">Tira el dado para la producción</string>
+	<string name="phase_build">Construir</string>
+	<string name="phase_progress1">Construir el primer camino de la carta de progreso</string>
+	<string name="phase_progress2">Construir el primer camino de la carta de progreso</string>
+	<string name="phase_move_robber">Mueve al ladrón</string>
+	<string name="phase_game_over">Juego finalizado</string>
+	
+	<!-- In-game buttons -->
+	<string name="button_status">Estado</string>
+	<string name="button_roll">Tirar dado</string>
+	<string name="button_end">Finalizar turno</string>
+	<string name="button_trade">Comerciar</string>
+	<string name="button_cards">Comprar o usar cartas</string>
+	<string name="button_town">Construir pueblo</string>
+	<string name="button_city">Construir ciudad</string>
+	<string name="button_road">Construir camino</string>
+	<string name="button_cancel">Cancelar</string>
+	<string name="button_undo">Deshacer</string>
+	
+	<!-- Various strings in the game -->
+	<string name="game_turn_log">Registro de turno</string>
+	<string name="game_rolled">Resultado de tirada</string>
+	<string name="game_move_robber">Mover al ladrón</string>
+	<string name="game_build_road">Construir un camino</string>
+	<string name="game_build_town">Construir un pueblo</string>
+	<string name="game_build_city">Construir una ciudad</string>
+	<string name="game_build_fail">No puedes construir</string>
+    <string name="game_robber_fail">No puedes mover al ladrón</string>
+    <string name="game_robber_same">Sólo puedes mover al ladrón a una nueva ubicación</string>
+	<string name="game_build_town_max">Has alcanzado el núumero máximo de pueblos</string>
+	<string name="game_build_city_max">Has alcanzado el número máximo de ciudades</string>
+	<string name="game_build_road_max">Has alcanzado el número máximo de caminos</string>
+	<string name="game_build_town_fail">No hay sitio para construir un pueblo.</string>
+	<string name="game_build_city_fail">No hay sitio para construir una ciudad.</string>
+	<string name="game_build_road_fail">No hay sitio para construir un camino.</string>
+	<string name="game_build_prog1_fail">Cancelar el uso de carta.</string>
+	<string name="game_build_prog2_fail">No puedes construir el segundo camino.</string>
+	<string name="game_won">ha ganado</string>
+	<string name="game_see_board">Mirar el tablero</string>
+	<string name="game_return_menu">Volver al menú</string>
+	<string name="game_use">Usar</string>
+	<string name="game_bought">Ha comprado un</string>
+	<string name="game_use_soldier">Usar carta de soldado: mueve al ladrón</string>
+	<string name="game_use_progress">Usar carta de progreso: construye 2 caminos</string>
+    <string name="game_use_monopoly">usar carta de monopolio: roba todas las cartas de un tipo de recurso</string>
+	<string name="game_use_harvest">Usar carta de cosecha: consigue dos recursos gratuitos</string>
+	<string name="game_monopoly_prompt">Permite robar un mismo recurso de todo el mundo</string>
+	<string name="game_harvest_prompt">Selecciona el recurso</string>
+	<string name="game_monopoly_select">Roba %s</string>
+	<string name="game_harvest_select">Consigue gratis 2 %s</string>
+	<string name="game_no_cards">Mazo agotado. No hay más cartas disponibles.</string>
+	<string name="game_used_soldier">Ha usado una carta de soldado: mueve al ladrón</string>
+	<string name="game_used_progress">Ha usado una carta de progreso: construye caminos</string>
+    <string name="game_used_harvest">Ha usado una carta de cosecha</string>
+	<string name="game_used_monopoly">Ha usado una carta de monopolio: roba %d recursos</string>
+	<string name="game_card">carta</string>
+    <string name="game_ok">Ok</string>
+	<string name="game_cancel">Cancelar</string>
+	<string name="game_dev_cards">Cartas de desarrollo</string>
+	<string name="game_buy_dev">Comprar una carta de desarrollo (ovejita, trigo, mineral)</string>
+	<string name="game_card_fail">No puedes usar cartas. Límite 1 por turno.</string>
+	<string name="game_steal_from">Robar recurso de</string>
+	<string name="game_resources">recursos</string>
+	<string name="game_steal_fail">No hay nadie a quien robar</string>
+	<string name="game_stole">Robado</string>
+	<string name="game_from">de</string>
+	<string name="game_player_steal_fail">No puedes robar a</string>
+	<string name="game_did_nothing">no hizo nada</string>
+	
+</resources>

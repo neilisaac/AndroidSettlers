@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+
+	<ScrollView android:layout_width="fill_parent"
+		android:layout_height="fill_parent" android:layout_weight="1">
+
+		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			android:orientation="vertical" android:layout_width="fill_parent"
+			android:layout_height="fill_parent" android:padding="10dip">
+
+			<Button android:text="@string/start" android:id="@+id/start"
+				android:layout_width="fill_parent" android:layout_height="wrap_content"></Button>
+
+			<Button android:text="@string/resume_button" android:id="@+id/resume"
+				android:layout_width="fill_parent" android:layout_height="wrap_content"
+				android:enabled="false"></Button>
+
+			<Spinner android:id="@+id/option_max_points"
+				android:layout_width="fill_parent" android:layout_height="wrap_content"
+				android:prompt="@string/option_max_points"></Spinner>
+
+			<TextView android:text="@string/player_red"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+
+			<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+				android:layout_width="fill_parent" android:layout_height="wrap_content">
+
+				<EditText android:text="" android:id="@+id/name1"
+					android:layout_weight="1" android:layout_width="fill_parent"
+					android:layout_height="wrap_content"></EditText>
+
+				<CheckBox android:text="@string/human" android:id="@+id/human1"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckBox>
+
+			</LinearLayout>
+
+			<TextView android:text="@string/player_blue"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+
+			<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+				android:layout_width="fill_parent" android:layout_height="wrap_content">
+
+				<EditText android:text="" android:id="@+id/name2"
+					android:layout_weight="1" android:layout_width="fill_parent"
+					android:layout_height="wrap_content"></EditText>
+
+				<CheckBox android:text="@string/human" android:id="@+id/human2"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckBox>
+
+			</LinearLayout>
+
+			<TextView android:text="@string/player_green"
+				android:layout_width="wrap_content" android:layout_height="fill_parent"></TextView>
+
+			<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+				android:layout_width="fill_parent" android:layout_height="wrap_content">
+
+				<EditText android:text="" android:id="@+id/name3"
+					android:layout_weight="1" android:layout_width="fill_parent"
+					android:layout_height="wrap_content"></EditText>
+
+				<CheckBox android:text="@string/human" android:id="@+id/human3"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckBox>
+
+			</LinearLayout>
+
+			<TextView android:text="@string/player_orange"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+
+			<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+				android:layout_width="fill_parent" android:layout_height="wrap_content">
+
+				<EditText android:text="" android:id="@+id/name4"
+					android:layout_weight="1" android:layout_width="fill_parent"
+					android:layout_height="wrap_content"></EditText>
+
+				<CheckBox android:text="@string/human" android:id="@+id/human4"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckBox>
+
+			</LinearLayout>
+
+			<Button android:text="@string/players_reset" android:id="@+id/reset"
+				android:layout_width="fill_parent" android:layout_height="wrap_content"></Button>
+
+			<TextView android:text="@string/options"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+
+			<CheckBox android:text="@string/option_mixed_trade"
+				android:id="@+id/mixed_trade" android:layout_width="wrap_content"
+				android:layout_height="wrap_content"></CheckBox>
+
+			<CheckBox android:text="@string/option_auto_discard"
+				android:id="@+id/auto_discard" android:layout_width="wrap_content"
+				android:layout_height="wrap_content"></CheckBox>
+
+		</LinearLayout>
+
+	</ScrollView>
+
+</LinearLayout>

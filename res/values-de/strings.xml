@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<!-- German translation by Gerhard -->
+
+	<!-- Main menu -->
+	<string name="new_button">Neues Spiel</string>
+	<string name="rules_button">Anleitung</string>
+	<string name="rules_failed">Kann die Regeldatei nicht laden</string>
+	<string name="about_button">Über dieses Spiel</string>
+	<string name="about_text">Basiert auf dem Brettspiel
+		"Siedler von Catan" von Klaus Teuber\n
+		\nDanke für\'s spielen!</string>
+	<string name="dismiss_button">Zurück zum Spiel!</string>
+	<string name="donate_button">Spenden</string>
+	<string name="site_button">Website aufrufen</string>
+
+	<!-- Card types -->
+	<string name="soldier">Ritter</string>
+	<string name="progress">Entwicklung</string>
+	<string name="victory">Siegpunkt</string>
+
+	<!-- Colors -->
+	<string name="red">Rot</string>
+	<string name="blue">Blau</string>
+	<string name="green">Grün</string>
+	<string name="orange">Orange</string>
+
+	<!-- Resource types -->
+	<string name="desert">Wüste</string>
+	<string name="lumber">Holz</string>
+	<string name="wool">Wolle</string>
+	<string name="grain">Getreide</string>
+	<string name="brick">Lehm</string>
+	<string name="ore">Erz</string>
+
+	<!-- Options screen -->
+	<string name="options">Optionen</string>
+	<string name="option_set">Einstellungen speichern</string>
+	<string name="option_reset">Einstellungen zurücksetzen</string>
+	<string name="option_show_status">Android Statusleiste anzeigen</string>
+	<string name="option_vibrate_turn">Bei Beginn eines Spielerzugs vibrieren</string>
+	<string name="option_vibrate_long">Vibrieren bei längerem Berühren</string>
+	<string name="option_beep_turn">Ton beim Beginn eines Spielerzugs</string>
+	<string name="option_turn_log">Log der anderen Spielerzüge anzeigen</string>
+	<string name="option_humans">Spieler</string>
+	<string name="option_won">Gewinn</string>
+	<string name="option_turns">Runden</string>
+	<string name="option_points">Punkte</string>
+
+	<!-- Local game screen -->
+	<string name="start">Start</string>
+	<string name="resume_button">Weiterspielen</string>
+	<string name="option_max_points">Anzahl der Gewinnpunkte</string>
+	<string name="human">Spieler</string>
+	<string name="players_reset">Spieler zurücksetzen</string>
+	<string name="player_set_names">Spielernamen festlegen</string>
+	<string name="player_humans">Spieler hinzufügen</string>
+	<string name="player_name1">Doyle</string>
+	<string name="player_name2">Penny</string>
+	<string name="player_name3">Boyd</string>
+	<string name="player_name4">Saffron</string>
+	<string name="points_to_win">Anzahl der Gewinnpunkte</string>
+	<string name="option_mixed_trade">Erlaube das Handeln von gemischten Waren im 4:1 Handel</string>
+	<string name="length_quick">(schnell)</string>
+	<string name="length_standard">(standard)</string>
+	<string name="length_long">(lang)</string>
+
+	<!-- Game stats screen -->
+	<string name="stats">Ergebnis</string>
+	<string name="stats_none">Kein Ergebnis im log</string>
+	<string name="stats_clear">Ergebnis löschen</string>
+
+	<!-- Trade screen -->
+	<string name="trade">Handel</string>
+	<string name="trade_select">Wähle einen Rohstoff zum Handeln</string>
+	<string name="trade_offer">Wähle Angebot</string>
+	<string name="trade_confirm">Handeln</string>
+	<string name="trade_done">Abbruch</string>
+	<string name="trade_for">Handel:</string>
+	<string name="trade_for_past">Gehandelt für</string>
+	<string name="trade_invalid">Ungültiger Handel</string>
+	<string name="resources">Straße: Holz, Lehm
+		\nSiedlung: Holz, Wolle, Getreide,
+		Lehm
+		\nStadt: 2 Getreide, 3 Erz
+		\nEntwicklung: Wolle, Getreide, Erz</string>
+
+	<!-- Status screen -->
+	<string name="status">Status</string>
+	<string name="status_turn">Zug</string>
+	<string name="status_resources">Rohstoffe</string>
+	<string name="status_dev_cards">Entwicklungs-Karten</string>
+	<string name="status_towns">Siedlungen (1 Punkt)</string>
+	<string name="status_cities">Städte (2 Punkte)</string>
+	<string name="status_roads">Anzahl Straßen</string>
+	<string name="status_road_length">Straßenlänge</string>
+	<string name="status_longest_road">Längste Straße</string>
+	<string name="status_army_size">Rittermacht</string>
+	<string name="status_largest_army">Größte Rittermacht</string>
+	<string name="status_soldier_cards">Ritterkarten</string>
+	<string name="status_progress_cards">Fortschrittskarten</string>
+	<string name="status_victory_cards">Siegpunktkarten (1 Punkt)</string>
+	<string name="status_trader">Händler</string>
+	<string name="status_points">Punkte</string>
+	<string name="status_victory_points">Siegpunkte</string>
+	<string name="status_color">Farbe</string>
+	<string name="status_this_turn">Aktueller Zug</string>
+	<string name="status_last_turn">Letzter Zug</string>
+
+	<!-- Quick reference screen -->
+	<string name="reference">Schnellanleitung</string>
+	<string name="reference_tab1">Baukosten</string>
+	<string name="reference_tab2">Baukosten Hinweis</string>
+	<string name="reference_tab3">Entwicklungskarten</string>
+	<string name="reference_road">Straße</string>
+	<string name="reference_town">Siedlung</string>
+	<string name="reference_city">Stadt</string>
+	<string name="reference_card">Entwicklung karte</string>
+	<string name="reference_costs">Straße:\n1 Holz, 1 Lehm\n
+		\nSiedlung:\n1 Holz, 1
+		Wolle, 1 Getreide, 1 Lehm\n
+		\nStadt:\n2 Getreide, 3 Erz\n
+		\nEntwicklung
+		Karte:\n1 Wolle, 1 Getreide, 1 Erz</string>
+	<string name="reference_build">Siedlungen:
+		\n- 1 Rohstoffertrag wenn ein angrenzender Rohstoff gewürfelt
+		wird
+		\n- bis zu 5 Siedlungen können gleichzeitig gebaut werden
+		\n- kann nicht direkt neben einer anderen Siedlung oder Stadt
+		gebaut werden
+		\n- kann nur bei einer angrenzenden Straße gebaut werden
+		\n- jede
+		Siedlung ist 1 Punkt wert\n
+		\nStädte:
+		\n- 2 Rohstofferträge wenn ein angrenzender Rohstoff gewürfelt
+        wird
+		\n- ersetzt eine Siedlung
+		\n- bis zu 4 Städte können gebaut werden
+		\n- jede Stadt ist 2 Punkte wert\n
+		\nStraßen:
+		\n- bis zu 15 Straßen können gebaut werden
+		\n- muss neben einer Siedlung, Stadt oder anderen Straße liegen
+		\n- die längste Straße ist 2 Punkte
+		wert
+		\n- die längste Straße muss mindestens 5 Straßen lang sein</string>
+	<string name="reference_cards">Ritterkarten:
+		\n- häufigste Entwicklungskarte
+		\n-
+		damit kann der Räuber versetzt werden
+		\n- nach dem Versetzen des Räubers kann ein Spieler beraubt werden,
+        der eine Siedlung oder Stadt an diesem Landfeld stehen hat
+		\n- der Räuber verhindert die Rohstoffproduktion des Feldes auf dem er
+        steht\n
+		\nFortschrittskarten:
+		\n- damit kann man 2 Straßen gratis bauen
+		\n- die Regeln für das Bauen von Straßen gelten auch hier\n
+		\nErntekarten:
+		\n- 2 Rohstoffe gratis\n
+		\nMonopolkarten:
+		\n- wähle einen Rohstofftyp
+		\n- stehle alle Karten dieses Typs von den anderen Mitspielern\n
+		\nSiegpunkte-Karten:
+		\n- 1 Siegpunkt
+        wert
+		\n- werden den anderen Spielern nicht gezeigt</string>
+
+	<!-- Prompt strings -->
+	<string name="phase_first_town">Erste Siedlung gründen</string>
+	<string name="phase_first_road">Erste Straße bauen</string>
+	<string name="phase_second_town">Zweite Siedlung gründen</string>
+	<string name="phase_second_road">Zweite Straße bauen</string>
+	<string name="phase_roll_production">Würfeln</string>
+	<string name="phase_build">Bauen</string>
+	<string name="phase_progress1">Erste Straße (Fortschritt) bauen</string>
+	<string name="phase_progress2">Zweite Straße (Fortschritt) bauen</string>
+	<string name="phase_move_robber">Räuber versetzen</string>
+	<string name="phase_game_over">Spielende</string>
+
+	<!-- In-game buttons -->
+	<string name="button_status">Status</string>
+	<string name="button_roll">Würfeln</string>
+	<string name="button_end">Zugende</string>
+	<string name="button_trade">Handeln</string>
+	<string name="button_cards">Karte kaufen/ spielen</string>
+	<string name="button_town">Siedlung bauen</string>
+	<string name="button_city">Stadt bauen</string>
+	<string name="button_road">Straße bauen</string>
+	<string name="button_cancel">Abbruch</string>
+	<string name="button_undo">Zurücknehmen</string>
+
+	<!-- Various strings in the game -->
+	<string name="game_turn_log">Zugprotokoll</string>
+	<string name="game_rolled">Gewürfelt</string>
+	<string name="game_move_robber">Räuber versetzen</string>
+	<string name="game_build_road">Straße bauen</string>
+	<string name="game_build_town">Siedlung bauen</string>
+	<string name="game_build_city">Stadt bauen</string>
+	<string name="game_build_fail">Bau nicht möglich:</string>
+	<string name="game_build_town_max">Maximale Anzahl an Siedlungen erreicht.</string>
+	<string name="game_build_city_max">Maximale Anzahl an Städten erreicht.</string>
+	<string name="game_build_road_max">Maximale Anzahl an Straßen erreicht.</string>
+	<string name="game_build_town_fail">Kein Platz um eine Siedlung zu bauen.</string>
+	<string name="game_build_city_fail">Kein Platz um eine Stadt zu bauen.</string>
+	<string name="game_build_road_fail">Kein Platz um Straßen zu bauen.</string>
+	<string name="game_build_prog1_fail">Karte nicht verwendet.</string>
+	<string name="game_build_prog2_fail">Zweite Straße kann nicht gebaut werden.</string>
+	<string name="game_won">hat gewonnen</string>
+	<string name="game_see_board">Brett anzeigen</string>
+	<string name="game_return_menu">Zurück zum Menü</string>
+	<string name="game_use">Verwende</string>
+	<string name="game_bought">Gekauft:</string>
+	<string name="game_use_soldier">Ritterkarte ausspielen: Räuber versetzen</string>
+	<string name="game_use_progress">Fortschrittskarte ausspielen: 2 Straßen bauen</string>
+	<string name="game_no_cards">Keine Karten mehr vorhanden</string>
+	<string name="game_used_soldier">Ritterkarte ausgespielt: Räuber wurde versetzt</string>
+	<string name="game_used_progress">Fortschrittskarte ausgespielt: Straßen gebaut</string>
+	<string name="game_card">Karte</string>
+	<string name="game_ok">OK</string>
+	<string name="game_cancel">Abbruch</string>
+	<string name="game_dev_cards">Entwicklungskarten</string>
+	<string name="game_buy_dev">Entwicklungskarte kaufen (Wolle, Getreide, Erz)</string>
+	<string name="game_card_fail">Es kann nur eine Karte pro Zug ausgespielt werden.</string>
+	<string name="game_steal_from">Karte rauben von</string>
+	<string name="game_resources">Rohstoffe</string>
+	<string name="game_steal_fail">Kein Raub möglich</string>
+	<string name="game_stole">raubte</string>
+	<string name="game_from">von</string>
+	<string name="game_player_steal_fail">Konnte nicht stehlen von</string>
+	<string name="game_did_nothing">hat keine Aktion durchgeführt</string>
+
+
+	<!-- NEW STRINGS -->
+	<string name="monopoly">Monopol</string>
+	<string name="harvest">Ernte</string>
+	<string name="option_force_locale">Sprache</string>
+	<string name="option_language_auto">Systemsprache benutzen</string>
+	<string name="option_turn_delay">Langsame Computerzüge</string>
+	<string name="load_button">Spiel laden</string>
+	<string name="player_red">Spieler Rot</string>
+	<string name="player_blue">Spieler Blau</string>
+	<string name="player_green">Spieler Grün</string>
+	<string name="player_orange">Spieler Orange</string>
+	<string name="option_auto_discard">Karten automatisch wegwerfen bei gewürfelter Sieben</string>
+	<string name="trade_bank">Mit der Bank handeln</string>
+	<string name="trade_for_resource">Handeln: %s</string>
+	<string name="trade_other_players">Mit anderen Spielern handeln</string>
+	<string name="trade_your_resources">Deine Rohstoffe</string>
+	<string name="trade_propose">Handel vorschlagen</string>
+	<string name="trade_consider_trades">Handel prüfen</string>
+	<string name="trade_player_consider">Angebot prüfen</string>
+	<string name="trade_player_wants">Handeln: %s</string>
+	<string name="trade_player_offer">%s bietet</string>
+	<string name="trade_make_offer">Anbieten</string>
+	<string name="trade_accept_offer">Angebot annehmen</string>
+	<string name="trade_no_resources">Rohstoffe zum Angebot hinzufügen</string>
+	<string name="trade_accepted">Handeln mit %s</string>
+	<string name="trade_counter">%s hat ein Gegenangebot gemacht</string>
+	<string name="trade_counter_offer">Gegenangebot</string>
+	<string name="trade_counter_make">Gegenangebot machen</string>
+	<string name="trade_rejected">%s hat das Angebot abgelehnt</string>
+	<string name="discard_reason">%s hat eine 7 gewürfelt</string>
+	<string name="discard_instruction">%d Rohstoffe wegwerfen</string>
+	<string name="discard_select">Wähle die Rohstoffe zum wegwerfen</string>
+	<string name="discard_button">Rohstoffe wegwerfen</string>
+	<string name="player_roll">%s gewürfelt</string>
+	<string name="player_road">Straße gebaut</string>
+	<string name="player_town">Siedlung gebaut</string>
+	<string name="player_city">Stadt gebaut</string>
+	<string name="player_longest_road">Längste Straße</string>
+	<string name="player_largest_army">Größte Rittermacht</string>
+	<string name="player_stole_from">Von %s gestohlen</string>
+	<string name="player_discarded">%s weggeworfen</string>
+	<string name="player_traded_with">Mit %s gehandelt</string>
+	<string name="player_traded_for">%s gehandelt (bekommen)</string>
+	<string name="player_got_resource">%s bekommen</string>
+	<string name="player_traded_away">%s hergegeben</string>
+	<string name="player_ended_turn">Zug beendet</string>
+	<string name="player_bought_card">Eine Karte gekauft</string>
+	<string name="player_used_card">Benutzte Karte: %s</string>
+	<string name="player_monopoly">Gestohlen: %s</string>
+	<string name="game_robber_fail">Räuber kann nicht versetzt werden</string>
+	<string name="game_robber_same">Du musst den Räuber auf eine andere Position setzen</string>
+	<string name="game_use_monopoly">Monopol ausspielen: alle Karten eines Rohstoffes stehlen</string>
+	<string name="game_use_harvest">Ernte ausspielen: zwei Rohstoffe bekommen</string>
+	<string name="game_monopoly_prompt">Wähle das Rohstoffmonopol</string>
+	<string name="game_harvest_prompt">Wähle den Rohstoff</string>
+	<string name="game_monopoly_select">Monopol: %s</string>
+	<string name="game_harvest_select">Get 2 free %s</string>
+	<string name="game_used_harvest">Ernte ausgespielt</string>
+	<string name="game_used_monopoly">Monopol gespielt: %d Rohstoffe gestohlen</string>
+
+</resources>

@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<!-- Chinese translation by Yingying -->
+
+	<!-- Main menu -->
+	<string name="new_button">新游戏</string>
+	<string name="rules_button">游戏规则</string>
+	<string name="rules_failed">无法显示游戏规则</string>
+	<string name="about_button">关于游戏</string>
+	<string name="about_text">此游戏是根据 Klaus Teuber 的
+		"Settlers of Catan"\n
+		\n希望你玩的开心!</string>
+	<string name="dismiss_button">回到游戏</string>
+	<string name="donate_button">捐献</string>
+	<string name="site_button">查看网站</string>
+
+	<!-- Card types -->
+	<string name="soldier">士兵卡</string>
+	<string name="progress">道路卡</string>
+	<string name="victory">得分卡</string>
+
+	<!-- Colors -->
+	<string name="red">红队</string>
+	<string name="blue">蓝队</string>
+	<string name="green">绿队</string>
+	<string name="orange">橙队</string>
+
+	<!-- Resource types -->
+	<string name="desert">沙漠</string>
+	<string name="lumber">木头</string>
+	<string name="wool">羊毛</string>
+	<string name="grain">麦子</string>
+	<string name="brick">砖头</string>
+	<string name="ore">矿石</string>
+
+	<!-- Options screen -->
+	<string name="options">游戏选项</string>
+	<string name="option_set">保存设置</string>
+	<string name="option_reset">恢复设置</string>
+	<string name="option_show_status">游戏中显示 Android 状态栏</string>
+	<string name="option_vibrate_turn">玩家下一轮前振动</string>
+	<string name="option_vibrate_long">延长按键时振动</string>
+	<string name="option_beep_turn">玩家下一轮前发出提醒声音</string>
+	<string name="option_turn_log">显示其他玩家上一轮记录</string>
+	<string name="option_humans">个玩家</string>
+	<string name="option_won">获胜</string>
+	<string name="option_turns">轮</string>
+	<string name="option_points">分</string>
+
+	<!-- Local game screen -->
+	<string name="start">开始</string>
+	<string name="resume_button">继续</string>
+	<string name="option_max_points">分获胜</string>
+	<string name="human">玩家</string>
+	<string name="players_reset">重选玩家</string>
+	<string name="player_set_names">选择玩家名字</string>
+	<string name="player_humans">选择玩家</string>
+	<string name="player_name1">曹操</string>
+	<string name="player_name2">诸葛亮</string>
+	<string name="player_name3">刘备</string>
+	<string name="player_name4">关羽</string>
+	<string name="player_red">红色玩家</string>
+	<string name="player_blue">蓝色玩家</string>
+	<string name="player_green">绿色玩家</string>
+	<string name="player_orange">橙色玩家r</string>
+	<string name="points_to_win">分获胜</string>
+	<string name="option_mixed_trade">允许在 4：1 交易时使用不同资源卡来换取其他资源卡。</string>
+	<string name="length_quick">(快速游戏)</string>
+	<string name="length_standard">(标准游戏)</string>
+	<string name="length_long">(加长游戏)</string>
+
+	<!-- Game stats screen -->
+	<string name="stats">游戏记录</string>
+	<string name="stats_none">无游戏记录</string>
+	<string name="stats_clear">清除游戏记录</string>
+
+	<!-- Trade screen -->
+	<string name="trade">交易</string>
+	<string name="trade_select">选择换得的卡</string>
+	<string name="trade_offer">选择换掉的卡 </string>
+	<string name="trade_confirm">确定交易</string>
+	<string name="trade_done">取消交易</string>
+	<string name="trade_for">换取</string>
+	<string name="trade_for_past">换得</string>
+	<string name="trade_invalid">无效交易</string>
+	<string name="resources">道路需: 木头, 砖头
+		\n营地需: 木头, 羊毛, 麦子,
+		砖头
+		\n城市需: 2 个麦子, 3 个矿石
+		\n发展卡需: 羊毛, 麦子, 矿石</string>
+
+	<!-- Status screen -->
+	<string name="status">进程</string>
+	<string name="status_turn">轮次：</string>
+	<string name="status_resources">资源卡</string>
+	<string name="status_dev_cards">发展卡</string>
+	<string name="status_towns">营地 (1分)</string>
+	<string name="status_cities">城市 (2分)</string>
+	<string name="status_roads">总共道路</string>
+	<string name="status_road_length">道路长度</string>
+	<string name="status_longest_road">最长的道路</string>
+	<string name="status_army_size">军队大小</string>
+	<string name="status_largest_army">最大的军队</string>
+	<string name="status_soldier_cards">士兵卡</string>
+	<string name="status_progress_cards">道路卡</string>
+	<string name="status_victory_cards">得分卡 (1分)</string>
+	<string name="status_trader">交易</string>
+	<string name="status_points">分</string>
+	<string name="status_victory_points">得分卡</string>
+	<string name="status_color">颜色</string>
+	<string name="status_this_turn">这一轮</string>
+	<string name="status_last_turn">上一轮</string>
+
+	<!-- Quick reference screen -->
+	<string name="reference">参考资料</string>
+	<string name="reference_tab1">建设费用</string>
+	<string name="reference_tab2">建设参考资料</string>
+	<string name="reference_tab3">发展卡</string>
+	<string name="reference_road">道路</string>
+	<string name="reference_town">营地</string>
+	<string name="reference_city">城市</string>
+	<string name="reference_card">发展卡</string>
+	<string name="reference_costs">道路:\n1 个木头, 1 个砖头\n
+		\n营地:\n1 个木头, 1
+		个羊毛, 1 个麦子, 1 个砖头\n
+		\n城市:\n2 个麦子, 3 个矿石\n
+		\n发展卡:\n1 个羊毛, 1 个麦子, 1 个矿石</string>
+	<string name="reference_build">营地:
+		\n- 所有与这个地区相邻的营地都可以收获1个资源卡
+		\n- 可建设5个营地以内 
+		\n- 不允许建在其他营地或城市边 
+		\n- 必须链接到一个道路
+		\n- 每个营地值1分\n
+		\n城市:
+		\n- 所有与这个地区相邻的城市都可以收获2个资源卡
+		\n- 替换一个营地
+		\n- 可建设4个城市以内 
+		\n- 每个城市值2分\n
+		\n道路:
+		\n- 可建设15个道路以内 
+		\n- 必须在营地或其他道路边上建设
+		\n- 最长的道路值2分
+		\n- 最长的道路必须在5条长以上</string>
+	<string name="reference_cards">士兵卡:
+		\n- 最常见的发展卡
+		\n-
+		让你移动盗贼
+		\n- 移动盗贼后，你可以放置盗贼在其他地区以此来偷取一张资源卡
+		\n- 被盗窃的地区不会在产生资源\n
+		\n道路卡:
+		\n- 让你免费建设2条道路
+		\n- 必须遵守道路建设规则\n
+		\n得分卡:
+		\n- 值1分
+		\n- 其他玩家无法看到此卡</string>
+
+	<!-- Prompt strings -->
+	<string name="phase_first_town">建设第一个营地</string>
+	<string name="phase_first_road">建设第一条道路</string>
+	<string name="phase_second_town">建设第二个营地</string>
+	<string name="phase_second_road">建设第二条道路</string>
+	<string name="phase_roll_production">掷骰子</string>
+	<string name="phase_build">建设</string>
+	<string name="phase_progress1">用道路卡建设第一条道路</string>
+	<string name="phase_progress2">用道路卡建设第二条道路</string>
+	<string name="phase_move_robber">移动盗贼</string>
+	<string name="phase_game_over">游戏结束</string>
+
+	<!-- In-game buttons -->
+	<string name="button_status">进程</string>
+	<string name="button_roll">掷骰子</string>
+	<string name="button_end">结束</string>
+	<string name="button_trade">交易</string>
+	<string name="button_cards">购买或使用发展卡</string>
+	<string name="button_town">建设营地</string>
+	<string name="button_city">建设城市</string>
+	<string name="button_road">建设道路</string>
+	<string name="button_cancel">取消</string>
+	<string name="button_undo">复原</string>
+
+	<!-- Various strings in the game -->
+	<string name="game_turn_log">进程记录</string>
+	<string name="game_rolled">掷出</string>
+	<string name="game_move_robber">移动盗贼</string>
+	<string name="game_build_road">建设道路</string>
+	<string name="game_build_town">建设营地</string>
+	<string name="game_build_city">建设城市</string>
+	<string name="game_build_fail">不许建设</string>
+	<string name="game_build_town_max">已到最多允许建设营地的数量</string>
+	<string name="game_build_city_max">已到最多允许建设城市的数量</string>
+	<string name="game_build_road_max">已到最多允许建设道路的数量</string>
+	<string name="game_build_town_fail">没有地方建设营地</string>
+	<string name="game_build_city_fail">没有地方建设城市</string>
+	<string name="game_build_road_fail">没有地方建设道路</string>
+	<string name="game_build_prog1_fail">取消道路卡使用</string>
+	<string name="game_build_prog2_fail">不允许用道路卡建第二条道路</string>
+	<string name="game_won">获胜</string>
+	<string name="game_see_board">查看建筑面板</string>
+	<string name="game_return_menu">回到菜单</string>
+	<string name="game_use">使用</string>
+	<string name="game_bought">购买</string>
+	<string name="game_use_soldier">使用士兵卡: 移动盗贼</string>
+	<string name="game_use_progress">使用道路卡： 建设2条道路</string>
+	<string name="game_no_cards">这组卡已用完</string>
+	<string name="game_used_soldier">用了士兵卡: 移动盗贼</string>
+	<string name="game_used_progress">用了道路卡： 建设了道路</string>
+	<string name="game_card">卡</string>
+	<string name="game_ok">Ok</string>
+	<string name="game_cancel">取消</string>
+	<string name="game_dev_cards">发展卡</string>
+	<string name="game_buy_dev">购买发展卡（羊毛，麦子，矿石）</string>
+	<string name="game_card_fail">不能使用此卡。一轮只能使用一张发展卡。</string>
+	<string name="game_steal_from">偷得卡从</string>
+	<string name="game_resources">资源</string>
+	<string name="game_steal_fail">无法从任何玩家盗窃资源</string>
+	<string name="game_stole">偷得的</string>
+	<string name="game_from">来自</string>
+	<string name="game_player_steal_fail">不能盗窃</string>
+	<string name="game_did_nothing">无进程</string>
+
+</resources>

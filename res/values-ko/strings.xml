@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<!-- Korean translation by Ubinuri -->
+
+	<!-- Main menu -->
+	<string name="new_button">새게임</string>
+	<string name="rules_button">설명</string>
+	<string name="rules_failed">규칙 파일을 찾을 수 없습니다</string>
+	<string name="about_button">이 게임에 대하여</string>
+	<string name="about_text">Klaus Teuber가 만든
+		보드게임인 "Settlers of Catan"을
+		기초로 하여 만들었습니다
+		\n감사합니다!</string>
+	<string name="dismiss_button">게임으로 돌아가기!</string>
+	<string name="donate_button">기부</string>
+	<string name="site_button">웹사이트 방문</string>
+
+	<!-- Card types -->
+	<string name="soldier">병사</string>
+	<string name="progress">진행</string>
+	<string name="victory">승리</string>
+
+	<!-- Colors -->
+	<string name="red">빨강</string>
+	<string name="blue">파랑</string>
+	<string name="green">녹색</string>
+	<string name="orange">주황</string>
+
+	<!-- Resource types -->
+	<string name="desert">사막</string>
+	<string name="lumber">통나무</string>
+	<string name="wool">양모</string>
+	<string name="grain">곡식</string>
+	<string name="brick">벽돌</string>
+	<string name="ore">광석</string>
+
+	<!-- Options screen -->
+	<string name="options">설정</string>
+	<string name="option_set">설정 저장</string>
+	<string name="option_reset">설정 초기화</string>
+	<string name="option_show_status">게임중 안드로이드 상태바 보이기</string>
+	<string name="option_vibrate_turn">인간 차례에 진동</string>
+	<string name="option_vibrate_long">길게 누르면 진동</string>
+	<string name="option_beep_turn">인간 차례에 소리내기
+		(음성 설정이 필요합니다)</string>
+	<string name="option_turn_log">다른 플레이어 게임 로그 보이기</string>
+	<string name="option_humans">인간</string>
+	<string name="option_won">승리</string>
+	<string name="option_turns">차례</string>
+	<string name="option_points">점</string>
+
+	<!-- Local game screen -->
+	<string name="start">시작</string>
+	<string name="resume_button">계속하기</string>
+	<string name="option_max_points">승리에 필요한 점수</string>
+	<string name="human">인간</string>
+	<string name="players_reset">플레이어 초기화</string>
+	<string name="player_set_names">플레이어 이름 설정</string>
+	<string name="player_humans">인간 플레이어 추가</string>
+	<string name="player_name1">상우</string>
+	<string name="player_name2">윤미</string>
+	<string name="player_name3">승빈</string>
+	<string name="player_name4">신훈</string>
+	<string name="points_to_win">승리에 필요한 점수</string>
+	<string name="option_mixed_trade">4:1 거래에서 교차 거래 허용</string>
+	<string name="length_quick">(빠르게)</string>
+	<string name="length_standard">(표준)</string>
+	<string name="length_long">(길게)</string>
+
+	<!-- Game stats screen -->
+	<string name="stats">게임 결과</string>
+	<string name="stats_none">로그에 게임 결과가 없습니다</string>
+	<string name="stats_clear">결과 초기화</string>
+
+	<!-- Trade screen -->
+	<string name="trade">거래</string>
+	<string name="trade_select">거래할 자원 선택</string>
+	<string name="trade_offer">제공할 거래 선택</string>
+	<string name="trade_confirm">거래</string>
+	<string name="trade_done">취소</string>
+	<string name="trade_for">거래 대상</string>
+	<string name="trade_for_past">거래한 대상</string>
+	<string name="trade_invalid">무효한 거래</string>
+	<string name="resources">도로: 목재, 벽돌
+		\n마을: 목재, 양모, 곡식,
+		벽돌
+		\n도시: 곡식 2, 광석 3
+		\n카드: 양모, 곡식, 광석</string>
+
+	<!-- Status screen -->
+	<string name="status">상태</string>
+	<string name="status_turn">차례</string>
+	<string name="status_resources">자원</string>
+	<string name="status_dev_cards">발전 카드</string>
+	<string name="status_towns">마을 (1점)</string>
+	<string name="status_cities">도시 (2점)</string>
+	<string name="status_roads">총 도로</string>
+	<string name="status_road_length">도로 길이</string>
+	<string name="status_longest_road">가장 긴 도로</string>
+	<string name="status_army_size">군대 규모</string>
+	<string name="status_largest_army">가장 큰 군대</string>
+	<string name="status_soldier_cards">병사 카드</string>
+	<string name="status_progress_cards">진행 카드</string>
+	<string name="status_victory_cards">승리 카드 (1점)</string>
+	<string name="status_trader">상인</string>
+	<string name="status_points">점수</string>
+	<string name="status_victory_points">승리 점수</string>
+	<string name="status_color">색상</string>
+	<string name="status_this_turn">이번 차례</string>
+	<string name="status_last_turn">이전 차례</string>
+
+	<!-- Quick reference screen -->
+	<string name="reference">빠른 참조</string>
+	<string name="reference_tab1">건설 비용</string>
+	<string name="reference_tab2">건설 참조</string>
+	<string name="reference_tab3">발전 카드</string>
+	<string name="reference_road">도로</string>
+	<string name="reference_town">다음</string>
+	<string name="reference_city">City</string>
+	<string name="reference_card">발전 카드</string>
+	<string name="reference_costs">도로:\n목재 1, 벽돌 1\n
+		\n다음:\n목재 1, 양모 1
+		곡식 1, 벽돌 1\n
+		\nCity:\n곡식 2, 광석 3\n
+		\n발전
+		카드:\n양모 1, 곡식 1, 광석 1</string>
+	<string name="reference_build">마을:
+		\n- 인접한 타일에 따라
+		하나의 자원을 생산합니다
+		\n- 최대 마을 5개를 지을 수 있습니다
+		\n- 다른 마을이나 도시 옆에는
+		건설할 수 없습니다
+		\n- 도로가 있는 곳에만 건설할 수 있습니다
+		\n- 마을 1개당
+		1점입니다\n
+		\n도시:
+		\n- 인접한 타일에 따라
+		2개의 자원을 생산합니다
+		\n- 마을에서 변환
+		\n- 최대 도시 4개를 지을 수 있습니다
+		\n- 각 도시는 2점입니다\n
+		\n도로:
+		\n- 도로는 최대 15개까지 지을 수 있습니다
+		\n- 정착지나 다른 도로에서부터 지어야합니다
+		\n- 가장 긴 도로는
+		2점입니다
+		\n- 가장 긴 도로의 최소 길이는 5입니다</string>
+	<string name="reference_cards">병사 카드:
+		\n- 가장 흔한 발전 카드
+		\n-
+		도적을 이동할 수 있습니다
+		\n- 도적 이동후, 인접 플레이어로부터
+		약탈할 수 있습니다
+		\n- 도적이 사는 타일로부터는
+		아무런 자원도 생산할 수 없습니다\n
+		\n발전 카드:
+		\n- 도로 2개를 무료로 지을 수 있습니다
+		\n- 도로 건설 규칙은 똑같이 적용됩니다\n
+		\n승리 카드:
+		\n- 1점에
+		해당합니다
+		\n- 다른 사람에게 보여주면 안됩니다</string>
+
+	<!-- Prompt strings -->
+	<string name="phase_first_town">첫번째 마을 배치</string>
+	<string name="phase_first_road">첫번째 도로 배치</string>
+	<string name="phase_second_town">두번째 마을 배치</string>
+	<string name="phase_second_road">두번째 도로 배치</string>
+	<string name="phase_roll_production">생산을 위해 주사위 굴림</string>
+	<string name="phase_build">건설</string>
+	<string name="phase_progress1">첫번째 발전된 도로 건설</string>
+	<string name="phase_progress2">두번째 발전된 도로 건설</string>
+	<string name="phase_move_robber">도적 이동</string>
+	<string name="phase_game_over">Game over</string>
+
+	<!-- In-game buttons -->
+	<string name="button_status">상대</string>
+	<string name="button_roll">주사위 굴리기</string>
+	<string name="button_end">차례 종료</string>
+	<string name="button_trade">거래</string>
+	<string name="button_cards">카드 사거나 사용</string>
+	<string name="button_town">마을 건설</string>
+	<string name="button_city">도시 건설</string>
+	<string name="button_road">도로 건설</string>
+	<string name="button_cancel">취소</string>
+	<string name="button_undo">되돌리기</string>
+
+	<!-- Various strings in the game -->
+	<string name="game_turn_log">차례 로그</string>
+	<string name="game_rolled">주사위를 굴렸습니다</string>
+	<string name="game_move_robber">도적 이동</string>
+	<string name="game_build_road">도로 건설</string>
+	<string name="game_build_town">마을 건설</string>
+	<string name="game_build_city">도시 건설</string>
+	<string name="game_build_fail">지을 수 없습니다</string>
+	<string name="game_build_town_max">마을이 최대치입니다.</string>
+	<string name="game_build_city_max">도시가 최대치입니다.</string>
+	<string name="game_build_road_max">도로가 최대치입니다.</string>
+	<string name="game_build_town_fail">마을을 지을 곳이 없습니다.</string>
+	<string name="game_build_city_fail">도시를 지을 곳이 없습니다.</string>
+	<string name="game_build_road_fail">도로를 지을 곳이 없습니다.</string>
+	<string name="game_build_prog1_fail">카드 사용 취소.</string>
+	<string name="game_build_prog2_fail">두번째 도로를 지을 수 없습니다.</string>
+	<string name="game_won">승리</string>
+	<string name="game_see_board">보드 보기</string>
+	<string name="game_return_menu">메뉴로 돌아가기</string>
+	<string name="game_use">사용</string>
+	<string name="game_bought">구매</string>
+	<string name="game_use_soldier">병사 카드 사용: 도적 이동</string>
+	<string name="game_use_progress">발전 카드 사용: 도로 2개 건설</string>
+	<string name="game_no_cards">사용할 수 있는 카드가 없습니다</string>
+	<string name="game_used_soldier">병사 카드 사용: 도적 이동</string>
+	<string name="game_used_progress">발전 카드 사용: 도로 건설</string>
+	<string name="game_card">카드</string>
+	<string name="game_ok">확인</string>
+	<string name="game_cancel">취소</string>
+	<string name="game_dev_cards">발전 카드</string>
+	<string name="game_buy_dev">발전 카드 구매 (양모, 곡식, 광석)</string>
+	<string name="game_card_fail">카드를 사용할 수 없습니다. 차례마다 1개로 제한합니다.</string>
+	<string name="game_steal_from">카드 훔치기</string>
+	<string name="game_resources">자원</string>
+	<string name="game_steal_fail">카드 훔칠 대상이 없습니다</string>
+	<string name="game_stole">훔쳤습니다</string>
+	<string name="game_from">누구로부터</string>
+	<string name="game_player_steal_fail">훔칠 수 없습니다</string>
+	<string name="game_did_nothing">아무것도 하지 않았습니다</string>
+
+</resources>

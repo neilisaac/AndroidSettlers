@@ -1,0 +1,8 @@
+This is just a bunch of junk I wrote while brainstorming...
+
+The basic idea is that centralized online games could be served through a php
+website.  Games would be coordinated by propagating a stream of actions to
+all the clients.  It's a very simple idea, which could work well for simple 
+games like this which are played on mobile devices that are unable to act as a
+globally-accessible TCP/IP server.
+

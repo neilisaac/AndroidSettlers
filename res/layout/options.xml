@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+
+	<ScrollView android:layout_width="fill_parent"
+		android:layout_height="fill_parent" android:layout_weight="1">
+
+		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			android:orientation="vertical" android:layout_width="fill_parent"
+			android:layout_height="fill_parent" android:padding="10dip">
+
+			<TextView android:text="@string/option_force_locale"
+				android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+
+			<Spinner android:prompt="@string/option_force_locale"
+				android:id="@+id/force_locale" android:layout_width="fill_parent"
+				android:layout_height="wrap_content"></Spinner>
+
+			<CheckBox android:text="@string/option_show_status"
+				android:id="@+id/show_status" android:layout_width="wrap_content"
+				android:layout_height="wrap_content"></CheckBox>
+
+			<CheckBox android:text="@string/option_beep_turn"
+				android:id="@+id/beep_turn" android:layout_width="wrap_content"
+				android:layout_height="wrap_content"></CheckBox>
+
+			<CheckBox android:text="@string/option_vibrate_turn"
+				android:id="@+id/vibrate_turn" android:layout_width="wrap_content"
+				android:layout_height="wrap_content"></CheckBox>
+
+			<CheckBox android:text="@string/option_vibrate_long"
+				android:id="@+id/vibrate_long" android:layout_width="wrap_content"
+				android:layout_height="wrap_content"></CheckBox>
+
+			<CheckBox android:text="@string/option_turn_log" android:id="@+id/turn_log"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckBox>
+
+			<CheckBox android:text="@string/option_turn_delay"
+				android:id="@+id/turn_delay" android:layout_width="wrap_content"
+				android:layout_height="wrap_content"></CheckBox>
+
+			<Button android:text="@string/option_set" android:id="@+id/set"
+				android:layout_width="fill_parent" android:layout_height="wrap_content"></Button>
+
+			<Button android:text="@string/option_reset" android:id="@+id/reset"
+				android:layout_width="fill_parent" android:layout_height="wrap_content"></Button>
+
+		</LinearLayout>
+
+	</ScrollView>
+
+</LinearLayout>
+	
