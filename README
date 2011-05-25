@@ -9,3 +9,20 @@ With the new graphics, some devices (such as the emulator) run out of memory whi
 
 Some support exists in the code for saving/loading games to sqlite, but it's a malfunctioning work-in-progress.
 
+
+Ideas and suggestions:
+- Create a new theme or setting
+- Improve tablet support
+- Fix texture loading (to require less memory or prevent crashes)
+- Add online multiplayer support
+- Save and load games to and from sqlite database
+
+
+License: GPL Version 3
+GNU GENERAL PUBLIC LICENSE
+http://www.gnu.org/licenses/gpl-3.0.html
+
+
+Original code by: Neil Isaac 
+Graphics by: Adam Garland
+Contact: omnionic@gmail.com
