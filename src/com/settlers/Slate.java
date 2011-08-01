@@ -455,7 +455,6 @@ public class Slate extends View implements OnGestureListener,
 		geometry.setSize(width, height);
 		geometry.setRealSize(getContext().getResources().getDisplayMetrics(),
 				texture.getSmallTileSize());
-		texture.scaleTextures(geometry);
 	}
 
 	@Override

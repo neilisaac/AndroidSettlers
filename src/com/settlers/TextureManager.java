@@ -1,6 +1,5 @@
 package com.settlers;
 
-import java.util.Enumeration;
 import java.util.Hashtable;
 
 import android.content.res.Resources;
@@ -8,7 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.BitmapFactory.Options;
 
@@ -22,23 +20,18 @@ public class TextureManager {
 		BOTTOM_LEFT, TOP_LEFT, TOP_RIGHT, BOTTOM_RIGHT
 	}
 
-	private enum Size {
-		GENERIC, SMALL, LARGE
-	}
-
 	public enum Background {
 		NONE, WAVES, WAVES_HORIZONTAL
 	}
 
 	private Hashtable<Integer, Bitmap> bitmap;
 
-	private double scaleFactor;
 	private int iconHeight, smallTileSize;
 
 	private static final int REFERENCE_ICON_HEIGHT = 75;
 
-	private static int hash(Type type, Size size, int variant) {
-		return variant << 6 | size.ordinal() << 4 | type.ordinal();
+	private static int hash(Type type, int variant) {
+		return variant << 6 | type.ordinal();
 	}
 
 	private static int hash(Location location) {
@@ -69,30 +62,20 @@ public class TextureManager {
 		return player.ordinal();
 	}
 
-	private static Size getSize(int key) {
-		return Size.values()[(key >> 4) & 3];
+	private Bitmap get(Type type, int variant) {
+		return bitmap.get(hash(type, variant));
 	}
 
-	private Bitmap get(Type type, Size size, int variant) {
-		return bitmap.get(hash(type, size, variant));
+	private void add(Type type, int variant, Bitmap bitmap) {
+		this.bitmap.put(hash(type, variant), bitmap);
 	}
 
-	private void add(Type type, Size size, int variant, Bitmap bitmap) {
-		this.bitmap.put(hash(type, size, variant), bitmap);
-	}
-
-	private void add(Type type, Size size, int variant, int id, Resources res) {
-		add(type, size, variant, load(id, res));
+	private void add(Type type, int variant, int id, Resources res) {
+		add(type, variant, load(id, res));
 	}
 
 	private static Bitmap load(int id, Resources res) {
 		return BitmapFactory.decodeResource(res, id, new Options());
-	}
-
-	private static Bitmap scale(Bitmap bitmap, double scale) {
-		int width = (int) (bitmap.getWidth() * scale);
-		int height = (int) (bitmap.getHeight() * scale);
-		return Bitmap.createScaledBitmap(bitmap, width, height, false);
 	}
 
 	private static void draw(Canvas canvas, Bitmap bitmap, int x, int y) {
@@ -108,268 +91,106 @@ public class TextureManager {
 		// initialize hash table
 		bitmap = new Hashtable<Integer, Bitmap>();
 
-		scaleFactor = 1.0;
-
 		// load background
-		add(Type.BACKGROUND, Size.GENERIC, hash(Background.WAVES),
+		add(Type.BACKGROUND, hash(Background.WAVES),
 				R.drawable.background_waves, res);
 
-		// load small tile textures
-		add(Type.TILE, Size.SMALL, hash(Hexagon.Type.SHORE),
-				R.drawable.tile_shore_small, res);
-		add(Type.TILE, Size.SMALL, hash(Hexagon.Type.DESERT),
-				R.drawable.tile_desert_small, res);
-		add(Type.TILE, Size.SMALL, hash(Hexagon.Type.WOOL),
-				R.drawable.tile_wool_small, res);
-		add(Type.TILE, Size.SMALL, hash(Hexagon.Type.GRAIN),
-				R.drawable.tile_grain_small, res);
-		add(Type.TILE, Size.SMALL, hash(Hexagon.Type.LUMBER),
-				R.drawable.tile_lumber_small, res);
-		add(Type.TILE, Size.SMALL, hash(Hexagon.Type.BRICK),
-				R.drawable.tile_brick_small, res);
-		add(Type.TILE, Size.SMALL, hash(Hexagon.Type.ORE),
-				R.drawable.tile_ore_small, res);
-		add(Type.TILE, Size.SMALL, hash(Hexagon.Type.DIM),
-				R.drawable.tile_dim_small, res);
-		add(Type.TILE, Size.SMALL, hash(Hexagon.Type.LIGHT),
-				R.drawable.tile_light_small, res);
-
 		// load large tile textures
-		add(Type.TILE, Size.LARGE, hash(Hexagon.Type.SHORE),
-				R.drawable.tile_shore_large, res);
-		add(Type.TILE, Size.LARGE, hash(Hexagon.Type.DESERT),
-				R.drawable.tile_desert_large, res);
-		add(Type.TILE, Size.LARGE, hash(Hexagon.Type.WOOL),
-				R.drawable.tile_wool_large, res);
-		add(Type.TILE, Size.LARGE, hash(Hexagon.Type.GRAIN),
-				R.drawable.tile_grain_large, res);
-		add(Type.TILE, Size.LARGE, hash(Hexagon.Type.LUMBER),
-				R.drawable.tile_lumber_large, res);
-		add(Type.TILE, Size.LARGE, hash(Hexagon.Type.BRICK),
-				R.drawable.tile_brick_large, res);
-		add(Type.TILE, Size.LARGE, hash(Hexagon.Type.ORE),
-				R.drawable.tile_ore_large, res);
-		add(Type.TILE, Size.LARGE, hash(Hexagon.Type.DIM),
-				R.drawable.tile_dim_large, res);
-		add(Type.TILE, Size.LARGE, hash(Hexagon.Type.LIGHT),
-				R.drawable.tile_light_large, res);
+		add(Type.TILE, hash(Hexagon.Type.SHORE), R.drawable.tile_shore, res);
+		add(Type.TILE, hash(Hexagon.Type.DESERT), R.drawable.tile_desert, res);
+		add(Type.TILE, hash(Hexagon.Type.WOOL), R.drawable.tile_wool, res);
+		add(Type.TILE, hash(Hexagon.Type.GRAIN), R.drawable.tile_grain, res);
+		add(Type.TILE, hash(Hexagon.Type.LUMBER), R.drawable.tile_lumber, res);
+		add(Type.TILE, hash(Hexagon.Type.BRICK), R.drawable.tile_brick, res);
+		add(Type.TILE, hash(Hexagon.Type.ORE), R.drawable.tile_ore, res);
+		add(Type.TILE, hash(Hexagon.Type.DIM), R.drawable.tile_dim, res);
+		add(Type.TILE, hash(Hexagon.Type.LIGHT), R.drawable.tile_light, res);
 
 		// load roll number textures
-		add(Type.ROLL, Size.SMALL, 2, R.drawable.roll_2_small, res);
-		add(Type.ROLL, Size.SMALL, 3, R.drawable.roll_3_small, res);
-		add(Type.ROLL, Size.SMALL, 4, R.drawable.roll_4_small, res);
-		add(Type.ROLL, Size.SMALL, 5, R.drawable.roll_5_small, res);
-		add(Type.ROLL, Size.SMALL, 6, R.drawable.roll_6_small, res);
-		add(Type.ROLL, Size.SMALL, 8, R.drawable.roll_8_small, res);
-		add(Type.ROLL, Size.SMALL, 9, R.drawable.roll_9_small, res);
-		add(Type.ROLL, Size.SMALL, 10, R.drawable.roll_10_small, res);
-		add(Type.ROLL, Size.SMALL, 11, R.drawable.roll_11_small, res);
-		add(Type.ROLL, Size.SMALL, 12, R.drawable.roll_12_small, res);
-		add(Type.ROLL, Size.LARGE, 2, R.drawable.roll_2_large, res);
-		add(Type.ROLL, Size.LARGE, 3, R.drawable.roll_3_large, res);
-		add(Type.ROLL, Size.LARGE, 4, R.drawable.roll_4_large, res);
-		add(Type.ROLL, Size.LARGE, 5, R.drawable.roll_5_large, res);
-		add(Type.ROLL, Size.LARGE, 6, R.drawable.roll_6_large, res);
-		add(Type.ROLL, Size.LARGE, 8, R.drawable.roll_8_large, res);
-		add(Type.ROLL, Size.LARGE, 9, R.drawable.roll_9_large, res);
-		add(Type.ROLL, Size.LARGE, 10, R.drawable.roll_10_large, res);
-		add(Type.ROLL, Size.LARGE, 11, R.drawable.roll_11_large, res);
-		add(Type.ROLL, Size.LARGE, 12, R.drawable.roll_12_large, res);
+		add(Type.ROLL, 2, R.drawable.roll_2, res);
+		add(Type.ROLL, 3, R.drawable.roll_3, res);
+		add(Type.ROLL, 4, R.drawable.roll_4, res);
+		add(Type.ROLL, 5, R.drawable.roll_5, res);
+		add(Type.ROLL, 6, R.drawable.roll_6, res);
+		add(Type.ROLL, 8, R.drawable.roll_8, res);
+		add(Type.ROLL, 9, R.drawable.roll_9, res);
+		add(Type.ROLL, 10, R.drawable.roll_10, res);
+		add(Type.ROLL, 11, R.drawable.roll_11, res);
+		add(Type.ROLL, 12, R.drawable.roll_12, res);
 
 		// load robber textures
-		add(Type.ROBBER, Size.SMALL, 0, R.drawable.tile_robber_small, res);
-		add(Type.ROBBER, Size.LARGE, 0, R.drawable.tile_robber_large, res);
+		add(Type.ROBBER, 0, R.drawable.tile_robber, res);
 
 		// load button textures
-		add(Type.BUTTONBG, Size.GENERIC, hash(UIButton.Background.BACKDROP),
+		add(Type.BUTTONBG, hash(UIButton.Background.BACKDROP),
 				R.drawable.button_backdrop, res);
-		add(Type.BUTTONBG, Size.GENERIC, hash(UIButton.Background.PRESSED),
+		add(Type.BUTTONBG, hash(UIButton.Background.PRESSED),
 				R.drawable.button_press, res);
-		add(Type.BUTTON, Size.GENERIC, hash(UIButton.Type.INFO),
-				R.drawable.button_status, res);
-		add(Type.BUTTON, Size.GENERIC, hash(UIButton.Type.ROLL),
-				R.drawable.button_roll, res);
-		add(Type.BUTTON, Size.GENERIC, hash(UIButton.Type.ROAD),
-				R.drawable.button_road, res);
-		add(Type.BUTTON, Size.GENERIC, hash(UIButton.Type.TOWN),
+		add(Type.BUTTON, hash(UIButton.Type.INFO), R.drawable.button_status,
+				res);
+		add(Type.BUTTON, hash(UIButton.Type.ROLL), R.drawable.button_roll, res);
+		add(Type.BUTTON, hash(UIButton.Type.ROAD), R.drawable.button_road, res);
+		add(Type.BUTTON, hash(UIButton.Type.TOWN),
 				R.drawable.button_settlement, res);
-		add(Type.BUTTON, Size.GENERIC, hash(UIButton.Type.CITY),
-				R.drawable.button_city, res);
-		add(Type.BUTTON, Size.GENERIC, hash(UIButton.Type.DEVCARD),
+		add(Type.BUTTON, hash(UIButton.Type.CITY), R.drawable.button_city, res);
+		add(Type.BUTTON, hash(UIButton.Type.DEVCARD),
 				R.drawable.button_development, res);
-		add(Type.BUTTON, Size.GENERIC, hash(UIButton.Type.TRADE),
-				R.drawable.button_trade, res);
-		add(Type.BUTTON, Size.GENERIC, hash(UIButton.Type.ENDTURN),
+		add(Type.BUTTON, hash(UIButton.Type.TRADE), R.drawable.button_trade,
+				res);
+		add(Type.BUTTON, hash(UIButton.Type.ENDTURN),
 				R.drawable.button_endturn, res);
-		add(Type.BUTTON, Size.GENERIC, hash(UIButton.Type.CANCEL),
-				R.drawable.button_cancel, res);
-
-		// load small town textures
-		add(Type.TOWN, Size.SMALL, hash(Player.Color.SELECT),
-				R.drawable.settlement_purple_small, res);
-		add(Type.TOWN, Size.SMALL, hash(Player.Color.RED),
-				R.drawable.settlement_red_small, res);
-		add(Type.TOWN, Size.SMALL, hash(Player.Color.BLUE),
-				R.drawable.settlement_blue_small, res);
-		add(Type.TOWN, Size.SMALL, hash(Player.Color.GREEN),
-				R.drawable.settlement_green_small, res);
-		add(Type.TOWN, Size.SMALL, hash(Player.Color.ORANGE),
-				R.drawable.settlement_orange_small, res);
+		add(Type.BUTTON, hash(UIButton.Type.CANCEL), R.drawable.button_cancel,
+				res);
 
 		// load large town textures
-		add(Type.TOWN, Size.LARGE, hash(Player.Color.SELECT),
-				R.drawable.settlement_purple_large, res);
-		add(Type.TOWN, Size.LARGE, hash(Player.Color.RED),
-				R.drawable.settlement_red_large, res);
-		add(Type.TOWN, Size.LARGE, hash(Player.Color.BLUE),
-				R.drawable.settlement_blue_large, res);
-		add(Type.TOWN, Size.LARGE, hash(Player.Color.GREEN),
-				R.drawable.settlement_green_large, res);
-		add(Type.TOWN, Size.LARGE, hash(Player.Color.ORANGE),
-				R.drawable.settlement_orange_large, res);
-
-		// load small city textures
-		add(Type.CITY, Size.SMALL, hash(Player.Color.SELECT),
-				R.drawable.city_purple_small, res);
-		add(Type.CITY, Size.SMALL, hash(Player.Color.RED),
-				R.drawable.city_red_small, res);
-		add(Type.CITY, Size.SMALL, hash(Player.Color.BLUE),
-				R.drawable.city_blue_small, res);
-		add(Type.CITY, Size.SMALL, hash(Player.Color.GREEN),
-				R.drawable.city_green_small, res);
-		add(Type.CITY, Size.SMALL, hash(Player.Color.ORANGE),
-				R.drawable.city_orange_small, res);
+		add(Type.TOWN, hash(Player.Color.SELECT), R.drawable.settlement_purple,
+				res);
+		add(Type.TOWN, hash(Player.Color.RED), R.drawable.settlement_red, res);
+		add(Type.TOWN, hash(Player.Color.BLUE), R.drawable.settlement_blue, res);
+		add(Type.TOWN, hash(Player.Color.GREEN), R.drawable.settlement_green,
+				res);
+		add(Type.TOWN, hash(Player.Color.ORANGE), R.drawable.settlement_orange,
+				res);
 
 		// load large city textures
-		add(Type.CITY, Size.LARGE, hash(Player.Color.SELECT),
-				R.drawable.city_purple_large, res);
-		add(Type.CITY, Size.LARGE, hash(Player.Color.RED),
-				R.drawable.city_red_large, res);
-		add(Type.CITY, Size.LARGE, hash(Player.Color.BLUE),
-				R.drawable.city_blue_large, res);
-		add(Type.CITY, Size.LARGE, hash(Player.Color.GREEN),
-				R.drawable.city_green_large, res);
-		add(Type.CITY, Size.LARGE, hash(Player.Color.ORANGE),
-				R.drawable.city_orange_large, res);
-
-		// load small resource icons
-		add(Type.RESOURCE, Size.SMALL, hash(Hexagon.Type.LUMBER),
-				R.drawable.res_lumber_small, res);
-		add(Type.RESOURCE, Size.SMALL, hash(Hexagon.Type.WOOL),
-				R.drawable.res_wool_small, res);
-		add(Type.RESOURCE, Size.SMALL, hash(Hexagon.Type.GRAIN),
-				R.drawable.res_grain_small, res);
-		add(Type.RESOURCE, Size.SMALL, hash(Hexagon.Type.BRICK),
-				R.drawable.res_brick_small, res);
-		add(Type.RESOURCE, Size.SMALL, hash(Hexagon.Type.ORE),
-				R.drawable.res_ore_small, res);
-		add(Type.RESOURCE, Size.SMALL, hash(Hexagon.Type.ANY),
-				R.drawable.trader_any_small, res);
+		add(Type.CITY, hash(Player.Color.SELECT), R.drawable.city_purple, res);
+		add(Type.CITY, hash(Player.Color.RED), R.drawable.city_red, res);
+		add(Type.CITY, hash(Player.Color.BLUE), R.drawable.city_blue, res);
+		add(Type.CITY, hash(Player.Color.GREEN), R.drawable.city_green, res);
+		add(Type.CITY, hash(Player.Color.ORANGE), R.drawable.city_orange, res);
 
 		// load large resource icons
-		add(Type.RESOURCE, Size.LARGE, hash(Hexagon.Type.LUMBER),
-				R.drawable.res_lumber_large, res);
-		add(Type.RESOURCE, Size.LARGE, hash(Hexagon.Type.WOOL),
-				R.drawable.res_wool_large, res);
-		add(Type.RESOURCE, Size.LARGE, hash(Hexagon.Type.GRAIN),
-				R.drawable.res_grain_large, res);
-		add(Type.RESOURCE, Size.LARGE, hash(Hexagon.Type.BRICK),
-				R.drawable.res_brick_large, res);
-		add(Type.RESOURCE, Size.LARGE, hash(Hexagon.Type.ORE),
-				R.drawable.res_ore_large, res);
-		add(Type.RESOURCE, Size.LARGE, hash(Hexagon.Type.ANY),
-				R.drawable.trader_any_large, res);
-
-		// load small trader textures
-		add(Type.TRADER, Size.SMALL, hash(Trader.Position.NORTH),
-				R.drawable.trader_north_small, res);
-		add(Type.TRADER, Size.SMALL, hash(Trader.Position.SOUTH),
-				R.drawable.trader_south_small, res);
-		add(Type.TRADER, Size.SMALL, hash(Trader.Position.NORTHEAST),
-				R.drawable.trader_northeast_small, res);
-		add(Type.TRADER, Size.SMALL, hash(Trader.Position.NORTHWEST),
-				R.drawable.trader_northwest_small, res);
-		add(Type.TRADER, Size.SMALL, hash(Trader.Position.SOUTHEAST),
-				R.drawable.trader_southeast_small, res);
-		add(Type.TRADER, Size.SMALL, hash(Trader.Position.SOUTHWEST),
-				R.drawable.trader_southwest_small, res);
+		add(Type.RESOURCE, hash(Hexagon.Type.LUMBER), R.drawable.res_lumber,
+				res);
+		add(Type.RESOURCE, hash(Hexagon.Type.WOOL), R.drawable.res_wool, res);
+		add(Type.RESOURCE, hash(Hexagon.Type.GRAIN), R.drawable.res_grain, res);
+		add(Type.RESOURCE, hash(Hexagon.Type.BRICK), R.drawable.res_brick, res);
+		add(Type.RESOURCE, hash(Hexagon.Type.ORE), R.drawable.res_ore, res);
+		add(Type.RESOURCE, hash(Hexagon.Type.ANY), R.drawable.trader_any, res);
 
 		// load large trader textures
-		add(Type.TRADER, Size.LARGE, hash(Trader.Position.NORTH),
-				R.drawable.trader_north_large, res);
-		add(Type.TRADER, Size.LARGE, hash(Trader.Position.SOUTH),
-				R.drawable.trader_south_large, res);
-		add(Type.TRADER, Size.LARGE, hash(Trader.Position.NORTHEAST),
-				R.drawable.trader_northeast_large, res);
-		add(Type.TRADER, Size.LARGE, hash(Trader.Position.NORTHWEST),
-				R.drawable.trader_northwest_large, res);
-		add(Type.TRADER, Size.LARGE, hash(Trader.Position.SOUTHEAST),
-				R.drawable.trader_southeast_large, res);
-		add(Type.TRADER, Size.LARGE, hash(Trader.Position.SOUTHWEST),
-				R.drawable.trader_southwest_large, res);
+		add(Type.TRADER, hash(Trader.Position.NORTH), R.drawable.trader_north,
+				res);
+		add(Type.TRADER, hash(Trader.Position.SOUTH), R.drawable.trader_south,
+				res);
+		add(Type.TRADER, hash(Trader.Position.NORTHEAST),
+				R.drawable.trader_northeast, res);
+		add(Type.TRADER, hash(Trader.Position.NORTHWEST),
+				R.drawable.trader_northwest, res);
+		add(Type.TRADER, hash(Trader.Position.SOUTHEAST),
+				R.drawable.trader_southeast, res);
+		add(Type.TRADER, hash(Trader.Position.SOUTHWEST),
+				R.drawable.trader_southwest, res);
 
 		// load corner ornaments
-		add(Type.ORNAMENT, Size.GENERIC, hash(Location.BOTTOM_LEFT),
-				R.drawable.bl_corner, res);
-		add(Type.ORNAMENT, Size.GENERIC, hash(Location.TOP_LEFT),
-				R.drawable.tl_corner, res);
-		add(Type.ORNAMENT, Size.GENERIC, hash(Location.TOP_RIGHT),
-				R.drawable.tr_corner, res);
+		add(Type.ORNAMENT, hash(Location.BOTTOM_LEFT), R.drawable.bl_corner,
+				res);
+		add(Type.ORNAMENT, hash(Location.TOP_LEFT), R.drawable.tl_corner, res);
+		add(Type.ORNAMENT, hash(Location.TOP_RIGHT), R.drawable.tr_corner, res);
 
 		// get some size measurements
-		iconHeight = get(Type.RESOURCE, Size.LARGE, hash(Hexagon.Type.LUMBER))
-				.getHeight();
-		smallTileSize = get(Type.TILE, Size.SMALL, hash(Hexagon.Type.LUMBER))
-				.getHeight();
-	}
-
-	public void scaleTextures(Geometry geometry) {
-		double scale = geometry.getScaleFactor();
-		double relative = scale / scaleFactor;
-		
-		int key = hash(Type.BACKGROUND, Size.GENERIC, hash(Background.WAVES));
-		Bitmap background = bitmap.get(key);
-		
-		int width = geometry.getRealWidth();
-		int height = geometry.getRealHeight();
-		if (width != background.getWidth() || height != background.getHeight()) {
-			background = Bitmap.createScaledBitmap(background, width, height, false);
-			bitmap.remove(key);
-			bitmap.put(key, background);
-		}
-		
-		key = hash(Type.BACKGROUND, Size.GENERIC, hash(Background.WAVES_HORIZONTAL));
-		if (bitmap.get(key) == null) {
-			Matrix rotate = new Matrix();
-			rotate.postRotate(90);
-			background = Bitmap.createBitmap(background, 0, 0, width, height, rotate, false);
-			bitmap.put(key, background);
-		}
-
-		if (Math.abs(relative - 1.0) < 0.2)
-			return;
-
-		Enumeration<Integer> keys = bitmap.keys();
-		while (keys.hasMoreElements()) {
-			key = keys.nextElement();
-
-			// skip generic elements (not scaled)
-			if (getSize(key) == Size.GENERIC)
-				continue;
-
-			// scale bitmap relative to current size
-			Bitmap texture = bitmap.get(key);
-			Bitmap scaled = scale(texture, relative);
-			texture.recycle();
-
-			// replace image with scaled bitmap
-			bitmap.remove(key);
-			bitmap.put(key, scaled);
-		}
-
-		scaleFactor = scale;
-		iconHeight *= relative;
-		smallTileSize *= relative;
+		iconHeight = get(Type.RESOURCE, hash(Hexagon.Type.LUMBER)).getHeight();
+		smallTileSize = get(Type.TILE, hash(Hexagon.Type.LUMBER)).getHeight();
 	}
 
 	private static void shorten(int[] points, double factor) {
@@ -410,7 +231,7 @@ public class TextureManager {
 			return;
 		}
 
-		Bitmap bitmap = get(Type.BACKGROUND, Size.GENERIC, hash(background));
+		Bitmap bitmap = get(Type.BACKGROUND, hash(background));
 		int xsize = bitmap.getWidth();
 		int ysize = bitmap.getHeight();
 
@@ -424,16 +245,15 @@ public class TextureManager {
 	}
 
 	public void draw(UIButton button, Player.Color player, Canvas canvas) {
-		Bitmap background = get(Type.BUTTONBG, Size.GENERIC,
+		Bitmap background = get(Type.BUTTONBG,
 				hash(UIButton.Background.BACKDROP));
-		Bitmap pressed = get(Type.BUTTONBG, Size.GENERIC,
-				hash(UIButton.Background.PRESSED));
+		Bitmap pressed = get(Type.BUTTONBG, hash(UIButton.Background.PRESSED));
 
 		button.draw(canvas, background, pressed);
 	}
 
 	public void draw(Location location, int x, int y, Canvas canvas) {
-		Bitmap image = get(Type.ORNAMENT, Size.GENERIC, hash(location));
+		Bitmap image = get(Type.ORNAMENT, hash(location));
 
 		int dx = x;
 		int dy = y;
@@ -452,9 +272,8 @@ public class TextureManager {
 		int id = hexagon.getId();
 		int x = geometry.getHexagonX(id);
 		int y = geometry.getHexagonY(id);
-		Size size = geometry.isZoomed() ? Size.LARGE : Size.SMALL;
 
-		Bitmap bitmap = get(Type.TILE, size, hash(Hexagon.Type.SHORE));
+		Bitmap bitmap = get(Type.TILE, hash(Hexagon.Type.SHORE));
 		draw(canvas, bitmap, x, y);
 	}
 
@@ -463,36 +282,34 @@ public class TextureManager {
 		int id = hexagon.getId();
 		int x = geometry.getHexagonX(id);
 		int y = geometry.getHexagonY(id);
-		Size size = geometry.isZoomed() ? Size.LARGE : Size.SMALL;
 
-		Bitmap bitmap = get(Type.TILE, size, hash(hexagon.getType()));
+		Bitmap bitmap = get(Type.TILE, hash(hexagon.getType()));
 		draw(canvas, bitmap, x, y);
 
 		int roll = hexagon.getRoll();
 
 		if (hexagon.hasRobber())
-			draw(canvas, get(Type.ROBBER, size, 0), x, y);
+			draw(canvas, get(Type.ROBBER, 0), x, y);
 		else if (lastRoll != 0 && roll == lastRoll)
-			draw(canvas, get(Type.TILE, size, hash(Hexagon.Type.LIGHT)), x, y);
+			draw(canvas, get(Type.TILE, hash(Hexagon.Type.LIGHT)), x, y);
 
 		if (roll != 0)
-			draw(canvas, get(Type.ROLL, size, roll), x, y);
-		
-//		// debug label
-//		Paint paint = new Paint();
-//		paint.setColor(Color.WHITE);
-//		paint.setTextSize(20);
-//		canvas.drawText("H" + hexagon.getId(), x, y, paint);
+			draw(canvas, get(Type.ROLL, roll), x, y);
+
+		// // debug label
+		// Paint paint = new Paint();
+		// paint.setColor(Color.WHITE);
+		// paint.setTextSize(20);
+		// canvas.drawText("H" + hexagon.getId(), x, y, paint);
 	}
 
 	public void draw(Trader trader, Canvas canvas, Geometry geometry) {
 		int id = trader.getIndex();
 		int x = geometry.getTraderX(id);
 		int y = geometry.getTraderY(id);
-		Size size = geometry.isZoomed() ? Size.LARGE : Size.SMALL;
 
 		// draw shore access notches
-		Bitmap notches = get(Type.TRADER, size, hash(trader.getPosition()));
+		Bitmap notches = get(Type.TRADER, hash(trader.getPosition()));
 		draw(canvas, notches, x, y);
 
 		// get offset from shore
@@ -500,7 +317,7 @@ public class TextureManager {
 		y = (int) (geometry.getTraderIconOffsetY(id));
 
 		// draw type icon
-		Bitmap icon = get(Type.RESOURCE, size, hash(trader.getType()));
+		Bitmap icon = get(Type.RESOURCE, hash(trader.getType()));
 		draw(canvas, icon, x, y);
 	}
 
@@ -530,9 +347,7 @@ public class TextureManager {
 		}
 
 		// set size
-		paint
-				.setStrokeWidth((int) (geometry.getUnitSize()
-						* geometry.getZoom() / 12));
+		paint.setStrokeWidth((int) (geometry.getUnitSize() * geometry.getZoom() / 12));
 		shorten(x, 0.95);
 		shorten(y, 0.95);
 
@@ -545,11 +360,12 @@ public class TextureManager {
 		// draw road
 		if (owner != null || build)
 			canvas.drawLine(x[0], y[0], x[1], y[1], paint);
-		
-//		// debug label
-//		paint.setColor(Color.WHITE);
-//		paint.setTextSize(20);
-//		canvas.drawText("E" + edge.getIndex(), (x[0] + x[1]) / 2, (y[0] + y[1]) / 2, paint);
+
+		// // debug label
+		// paint.setColor(Color.WHITE);
+		// paint.setTextSize(20);
+		// canvas.drawText("E" + edge.getIndex(), (x[0] + x[1]) / 2, (y[0] +
+		// y[1]) / 2, paint);
 	}
 
 	public void draw(Vertex vertex, boolean buildTown, boolean buildCity,
@@ -571,17 +387,16 @@ public class TextureManager {
 			color = Player.Color.NONE;
 
 		int id = vertex.getIndex();
-		Size size = geometry.isZoomed() ? Size.LARGE : Size.SMALL;
-		Bitmap bitmap = get(type, size, hash(color));
+		Bitmap bitmap = get(type, hash(color));
 		draw(canvas, bitmap, geometry.getVertexX(id), geometry.getVertexY(id));
 	}
 
 	public Bitmap get(UIButton.Type type) {
-		return get(Type.BUTTON, Size.GENERIC, hash(type));
+		return get(Type.BUTTON, hash(type));
 	}
 
 	public Bitmap get(Hexagon.Type type) {
-		return get(Type.RESOURCE, Size.LARGE, hash(type));
+		return get(Type.RESOURCE, hash(type));
 	}
 
 	public int getIconSize() {
