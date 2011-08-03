@@ -1,11 +1,11 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 
 def printarr(name, arr):
-	print "private static final double[]", name, "= {",
+	print "private static final float[]", name, "= {",
 	for i in range(len(arr)):
 		if i != 0:
 			print ",",
-		print round(arr[i], 3),
+		print str(round(arr[i], 3)) + "f",
 	print "};"
 
 def printhex(index, points):
@@ -37,23 +37,23 @@ edgey = []
 
 for i in range(3):
 	hexx.append(-1.5)
-	hexy.append(2 * height * (i - 1))
+	hexy.append(-2 * height * (i - 1))
 
 for i in range(4):
 	hexx.append(-0.75)
-	hexy.append(2 * height * (i - 1.5))
+	hexy.append(-2 * height * (i - 1.5))
 
 for i in range(5):
 	hexx.append(0)
-	hexy.append(2 * height * (i - 2))
+	hexy.append(-2 * height * (i - 2))
 
 for i in range(4):
 	hexx.append(0.75)
-	hexy.append(2 * height * (i - 1.5))
+	hexy.append(-2 * height * (i - 1.5))
 
 for i in range(3):
 	hexx.append(1.5)
-	hexy.append(2 * height * (i - 1))
+	hexy.append(-2 * height * (i - 1))
 
 offx = [ -width, width, radius, width, -width, -radius ]
 offy = [ height, height, 0, -height, -height, 0 ]

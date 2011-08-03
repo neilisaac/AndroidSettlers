@@ -2,18 +2,20 @@ package com.settlers;
 
 import java.util.Hashtable;
 
+import javax.microedition.khronos.opengles.GL10;
+
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.BitmapFactory.Options;
+import android.opengl.GLUtils;
 
 public class TextureManager {
 
 	private enum Type {
-		NONE, BACKGROUND, BUTTON, BUTTONBG, TILE, ROLL, ROBBER, RESOURCE, TRADER, ROAD, TOWN, CITY, ORNAMENT
+		NONE, BACKGROUND, TILE, RESOURCE, TRADER, ROBBER, ROLL, ROAD, TOWN, CITY, ORNAMENT, BUTTONBG, BUTTON
 	}
 
 	public enum Location {
@@ -25,10 +27,8 @@ public class TextureManager {
 	}
 
 	private Hashtable<Integer, Bitmap> bitmap;
-
-	private int iconHeight, smallTileSize;
-
-	private static final int REFERENCE_ICON_HEIGHT = 75;
+	private Hashtable<Integer, Integer> resource;
+	private Hashtable<Integer, Square> square;
 
 	private static int hash(Type type, int variant) {
 		return variant << 6 | type.ordinal();
@@ -66,30 +66,26 @@ public class TextureManager {
 		return bitmap.get(hash(type, variant));
 	}
 
-	private void add(Type type, int variant, Bitmap bitmap) {
-		this.bitmap.put(hash(type, variant), bitmap);
-	}
-
 	private void add(Type type, int variant, int id, Resources res) {
-		add(type, variant, load(id, res));
+		int key = hash(type, variant);
+		Bitmap bitmap = load(id, res);
+		this.bitmap.put(key, bitmap);
+		this.resource.put(key, id);
+		this.square.put(key,
+				new Square(id, 0, 0, type.ordinal(), bitmap.getWidth()
+						/ Geometry.TILE_SIZE, bitmap.getHeight()
+						/ Geometry.TILE_SIZE));
 	}
 
 	private static Bitmap load(int id, Resources res) {
 		return BitmapFactory.decodeResource(res, id, new Options());
 	}
 
-	private static void draw(Canvas canvas, Bitmap bitmap, int x, int y) {
-		if (bitmap == null)
-			return;
-
-		int w = bitmap.getWidth();
-		int h = bitmap.getHeight();
-		canvas.drawBitmap(bitmap, x - w / 2, y - h / 2, null);
-	}
-
 	public TextureManager(Resources res) {
 		// initialize hash table
 		bitmap = new Hashtable<Integer, Bitmap>();
+		resource = new Hashtable<Integer, Integer>();
+		square = new Hashtable<Integer, Square>();
 
 		// load background
 		add(Type.BACKGROUND, hash(Background.WAVES),
@@ -187,17 +183,13 @@ public class TextureManager {
 				res);
 		add(Type.ORNAMENT, hash(Location.TOP_LEFT), R.drawable.tl_corner, res);
 		add(Type.ORNAMENT, hash(Location.TOP_RIGHT), R.drawable.tr_corner, res);
-
-		// get some size measurements
-		iconHeight = get(Type.RESOURCE, hash(Hexagon.Type.LUMBER)).getHeight();
-		smallTileSize = get(Type.TILE, hash(Hexagon.Type.LUMBER)).getHeight();
 	}
 
-	private static void shorten(int[] points, double factor) {
-		int center = (points[0] + points[1]) / 2;
-		points[0] = (int) (center - factor * (center - points[0]));
-		points[1] = (int) (center - factor * (center - points[1]));
-	}
+	// private static void shorten(int[] points, double factor) {
+	// int center = (points[0] + points[1]) / 2;
+	// points[0] = (int) (center - factor * (center - points[0]));
+	// points[1] = (int) (center - factor * (center - points[1]));
+	// }
 
 	public static int getColor(Player.Color color) {
 		switch (color) {
@@ -225,151 +217,153 @@ public class TextureManager {
 		paint.setColor(getColor(color));
 	}
 
-	public void draw(Background background, Canvas canvas, Geometry geometry) {
-		if (background == Background.NONE) {
-			canvas.drawColor(Color.BLACK);
-			return;
-		}
+	// public void draw(Background background, Canvas canvas, Geometry geometry)
+	// {
+	// if (background == Background.NONE) {
+	// canvas.drawColor(Color.BLACK);
+	// return;
+	// }
+	//
+	// Bitmap bitmap = get(Type.BACKGROUND, hash(background));
+	// int xsize = bitmap.getWidth();
+	// int ysize = bitmap.getHeight();
+	//
+	// int width = geometry.getWidth();
+	// int height = geometry.getHeight();
+	//
+	// for (int y = 0; y < height; y += ysize) {
+	// for (int x = 0; x < width; x += xsize)
+	// canvas.drawBitmap(bitmap, x, y, null);
+	// }
+	// }
 
-		Bitmap bitmap = get(Type.BACKGROUND, hash(background));
-		int xsize = bitmap.getWidth();
-		int ysize = bitmap.getHeight();
+	// public void draw(UIButton button, Player.Color player, Canvas canvas) {
+	// Bitmap background = get(Type.BUTTONBG,
+	// hash(UIButton.Background.BACKDROP));
+	// Bitmap pressed = get(Type.BUTTONBG, hash(UIButton.Background.PRESSED));
+	//
+	// button.draw(canvas, background, pressed);
+	// }
 
-		int width = geometry.getWidth();
-		int height = geometry.getHeight();
-
-		for (int y = 0; y < height; y += ysize) {
-			for (int x = 0; x < width; x += xsize)
-				canvas.drawBitmap(bitmap, x, y, null);
-		}
-	}
-
-	public void draw(UIButton button, Player.Color player, Canvas canvas) {
-		Bitmap background = get(Type.BUTTONBG,
-				hash(UIButton.Background.BACKDROP));
-		Bitmap pressed = get(Type.BUTTONBG, hash(UIButton.Background.PRESSED));
-
-		button.draw(canvas, background, pressed);
-	}
-
-	public void draw(Location location, int x, int y, Canvas canvas) {
+	public void draw(Location location, int x, int y, GL10 gl) {
 		Bitmap image = get(Type.ORNAMENT, hash(location));
 
 		int dx = x;
 		int dy = y;
 
 		if (location == Location.BOTTOM_RIGHT || location == Location.TOP_RIGHT)
-			dx -= image.getWidth();
+			dx -= image.getWidth() / 2;
 
 		if (location == Location.BOTTOM_LEFT
 				|| location == Location.BOTTOM_RIGHT)
-			dy -= image.getHeight();
+			dy -= image.getHeight() / 2;
 
-		canvas.drawBitmap(image, dx, dy, null);
+		gl.glPushMatrix();
+		gl.glTranslatef(dx, dy, 0);
+		square.get(hash(location)).render(gl);
+		gl.glPopMatrix();
 	}
 
-	public void draw(Hexagon hexagon, Canvas canvas, Geometry geometry) {
+	public void draw(Hexagon hexagon, GL10 gl, Geometry geometry) {
+		gl.glPushMatrix();
+
 		int id = hexagon.getId();
-		int x = geometry.getHexagonX(id);
-		int y = geometry.getHexagonY(id);
+		gl.glTranslatef(geometry.getHexagonX(id), geometry.getHexagonY(id), 0);
+		square.get(hash(Type.TILE, hash(Hexagon.Type.SHORE))).render(gl);
 
-		Bitmap bitmap = get(Type.TILE, hash(Hexagon.Type.SHORE));
-		draw(canvas, bitmap, x, y);
+		gl.glPopMatrix();
 	}
 
-	public void draw(Hexagon hexagon, boolean robber, Canvas canvas,
+	public void draw(Hexagon hexagon, boolean robber, GL10 gl,
 			Geometry geometry, int lastRoll) {
-		int id = hexagon.getId();
-		int x = geometry.getHexagonX(id);
-		int y = geometry.getHexagonY(id);
+		gl.glPushMatrix();
 
-		Bitmap bitmap = get(Type.TILE, hash(hexagon.getType()));
-		draw(canvas, bitmap, x, y);
+		int id = hexagon.getId();
+		gl.glTranslatef(geometry.getHexagonX(id), geometry.getHexagonY(id), 0);
+
+		square.get(hash(Type.TILE, hash(hexagon.getType()))).render(gl);
 
 		int roll = hexagon.getRoll();
 
 		if (hexagon.hasRobber())
-			draw(canvas, get(Type.ROBBER, 0), x, y);
+			square.get(hash(Type.ROBBER, 0)).render(gl);
 		else if (lastRoll != 0 && roll == lastRoll)
-			draw(canvas, get(Type.TILE, hash(Hexagon.Type.LIGHT)), x, y);
+			square.get(hash(Type.TILE, hash(Hexagon.Type.LIGHT))).render(gl);
 
-		if (roll != 0)
-			draw(canvas, get(Type.ROLL, roll), x, y);
+		// if (roll != 0)
+		// square.get(hash(Type.ROLL, roll)).render(gl);
 
-		// // debug label
-		// Paint paint = new Paint();
-		// paint.setColor(Color.WHITE);
-		// paint.setTextSize(20);
-		// canvas.drawText("H" + hexagon.getId(), x, y, paint);
+		gl.glPopMatrix();
 	}
 
-	public void draw(Trader trader, Canvas canvas, Geometry geometry) {
+	public void draw(Trader trader, GL10 gl, Geometry geometry) {
 		int id = trader.getIndex();
-		int x = geometry.getTraderX(id);
-		int y = geometry.getTraderY(id);
 
 		// draw shore access notches
-		Bitmap notches = get(Type.TRADER, hash(trader.getPosition()));
-		draw(canvas, notches, x, y);
-
-		// get offset from shore
-		x = (int) (geometry.getTraderIconOffsetX(id));
-		y = (int) (geometry.getTraderIconOffsetY(id));
+		gl.glPushMatrix();
+		gl.glTranslatef(geometry.getTraderX(id), geometry.getTraderY(id), 0);
+		square.get(hash(Type.TRADER, hash(trader.getPosition()))).render(gl);
+		gl.glPopMatrix();
 
 		// draw type icon
-		Bitmap icon = get(Type.RESOURCE, hash(trader.getType()));
-		draw(canvas, icon, x, y);
+		gl.glPushMatrix();
+		gl.glTranslatef((float) geometry.getTraderIconOffsetX(id),
+				(float) geometry.getTraderIconOffsetY(id), 0);
+		square.get(hash(Type.RESOURCE, hash(trader.getType()))).render(gl);
+		gl.glPopMatrix();
 	}
 
-	public void draw(Edge edge, boolean build, Canvas canvas, Geometry geometry) {
-		int[] x = new int[2];
-		int[] y = new int[2];
-		x[0] = geometry.getVertexX(edge.getVertex1().getIndex());
-		x[1] = geometry.getVertexX(edge.getVertex2().getIndex());
-		y[0] = geometry.getVertexY(edge.getVertex1().getIndex());
-		y[1] = geometry.getVertexY(edge.getVertex2().getIndex());
-
-		shorten(x, 0.55);
-		shorten(y, 0.55);
-
-		Paint paint = new Paint();
-		Player owner = edge.getOwner();
-
-		paint.setAntiAlias(true);
-		paint.setStrokeCap(Paint.Cap.SQUARE);
-
-		// draw black backdrop
-		if (owner != null || build) {
-			paint.setARGB(255, 0, 0, 0);
-			paint.setStrokeWidth((int) (geometry.getUnitSize()
-					* geometry.getZoom() / 7));
-			canvas.drawLine(x[0], y[0], x[1], y[1], paint);
-		}
-
-		// set size
-		paint.setStrokeWidth((int) (geometry.getUnitSize() * geometry.getZoom() / 12));
-		shorten(x, 0.95);
-		shorten(y, 0.95);
-
-		// set the color
-		if (owner != null)
-			setPaintColor(paint, owner.getColor());
-		else
-			setPaintColor(paint, Player.Color.SELECT);
-
-		// draw road
-		if (owner != null || build)
-			canvas.drawLine(x[0], y[0], x[1], y[1], paint);
-
-		// // debug label
-		// paint.setColor(Color.WHITE);
-		// paint.setTextSize(20);
-		// canvas.drawText("E" + edge.getIndex(), (x[0] + x[1]) / 2, (y[0] +
-		// y[1]) / 2, paint);
-	}
+	// public void draw(Edge edge, boolean build, Canvas canvas, Geometry
+	// geometry) {
+	// int[] x = new int[2];
+	// int[] y = new int[2];
+	// x[0] = geometry.getVertexX(edge.getVertex1().getIndex());
+	// x[1] = geometry.getVertexX(edge.getVertex2().getIndex());
+	// y[0] = geometry.getVertexY(edge.getVertex1().getIndex());
+	// y[1] = geometry.getVertexY(edge.getVertex2().getIndex());
+	//
+	// shorten(x, 0.55);
+	// shorten(y, 0.55);
+	//
+	// Paint paint = new Paint();
+	// Player owner = edge.getOwner();
+	//
+	// paint.setAntiAlias(true);
+	// paint.setStrokeCap(Paint.Cap.SQUARE);
+	//
+	// // draw black backdrop
+	// if (owner != null || build) {
+	// paint.setARGB(255, 0, 0, 0);
+	// paint.setStrokeWidth((int) (geometry.getUnitSize()
+	// * geometry.getZoom() / 7));
+	// canvas.drawLine(x[0], y[0], x[1], y[1], paint);
+	// }
+	//
+	// // set size
+	// paint.setStrokeWidth((int) (geometry.getUnitSize() * geometry.getZoom() /
+	// 12));
+	// shorten(x, 0.95);
+	// shorten(y, 0.95);
+	//
+	// // set the color
+	// if (owner != null)
+	// setPaintColor(paint, owner.getColor());
+	// else
+	// setPaintColor(paint, Player.Color.SELECT);
+	//
+	// // draw road
+	// if (owner != null || build)
+	// canvas.drawLine(x[0], y[0], x[1], y[1], paint);
+	//
+	// // // debug label
+	// // paint.setColor(Color.WHITE);
+	// // paint.setTextSize(20);
+	// // canvas.drawText("E" + edge.getIndex(), (x[0] + x[1]) / 2, (y[0] +
+	// // y[1]) / 2, paint);
+	// }
 
 	public void draw(Vertex vertex, boolean buildTown, boolean buildCity,
-			Canvas canvas, Geometry geometry) {
+			GL10 gl, Geometry geometry) {
 
 		Type type = Type.NONE;
 		if (vertex.getBuilding() == Vertex.CITY || buildCity)
@@ -386,9 +380,14 @@ public class TextureManager {
 		else
 			color = Player.Color.NONE;
 
-		int id = vertex.getIndex();
-		Bitmap bitmap = get(type, hash(color));
-		draw(canvas, bitmap, geometry.getVertexX(id), geometry.getVertexY(id));
+		Square object = square.get(hash(type, hash(color)));
+		if (square != null) {
+			gl.glPushMatrix();
+			int id = vertex.getIndex();
+			gl.glTranslatef(geometry.getVertexX(id), geometry.getVertexY(id), 0);
+			object.render(gl);
+			gl.glPopMatrix();
+		}
 	}
 
 	public Bitmap get(UIButton.Type type) {
@@ -399,15 +398,22 @@ public class TextureManager {
 		return get(Type.RESOURCE, hash(type));
 	}
 
-	public int getIconSize() {
-		return iconHeight;
-	}
+	public void initGL(GL10 gl) {
+		for (Integer key : bitmap.keySet()) {
+			gl.glBindTexture(GL10.GL_TEXTURE_2D, resource.get(key));
 
-	public int getSmallTileSize() {
-		return smallTileSize;
-	}
+			gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER,
+					GL10.GL_LINEAR);
+			gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER,
+					GL10.GL_LINEAR);
+			gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_S,
+					GL10.GL_REPEAT);
+			gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_T,
+					GL10.GL_REPEAT);
+			gl.glTexEnvf(GL10.GL_TEXTURE_ENV, GL10.GL_TEXTURE_ENV_MODE,
+					GL10.GL_MODULATE);
 
-	public double getRelativeScaling() {
-		return (double) iconHeight / (double) REFERENCE_ICON_HEIGHT;
+			GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, bitmap.get(key), 0);
+		}
 	}
 }

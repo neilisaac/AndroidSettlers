@@ -39,7 +39,7 @@
 			android:launchMode="standard">
 		</activity>
 
-		<activity android:label="@string/app_name" android:name=".Game"
+		<activity android:label="@string/app_name" android:name=".GameActivity"
 			android:launchMode="standard">
 		</activity>
 

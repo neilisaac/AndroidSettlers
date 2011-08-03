@@ -1,7 +1,7 @@
 package com.settlers;
 
 import com.settlers.Board.Cards;
-import com.settlers.Slate.Action;
+import com.settlers.GameRenderer.Action;
 import com.settlers.UIButton.Type;
 
 import android.app.Activity;
@@ -27,18 +27,20 @@ import android.view.ViewParent;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-public class Game extends Activity {
+public class GameActivity extends Activity {
 
 	private static final int MIN_BOT_DELAY = 1000;
 
 	private static final int UPDATE_MESSAGE = 1, LOG_MESSAGE = 2,
 			DISCARD_MESSAGE = 3;
 
-	private Slate slate;
+	private GameView view;
 	private Board board;
 
 	private Handler turnHandler;
 	private TurnThread turnThread;
+	
+	private GameRenderer renderer;
 
 	private boolean isActive;
 
@@ -103,7 +105,6 @@ public class Game extends Activity {
 
 			case UPDATE_MESSAGE:
 				setup(false);
-				slate.invalidate();
 				break;
 
 			case LOG_MESSAGE:
@@ -121,11 +122,11 @@ public class Game extends Activity {
 				if (extra == 0)
 					break;
 
-				Intent intent = new Intent(Game.this, Discard.class);
+				Intent intent = new Intent(GameActivity.this, Discard.class);
 				intent.setClassName("com.settlers", "com.settlers.Discard");
 				intent.putExtra(Discard.PLAYER_KEY, toDiscard.getIndex());
 				intent.putExtra(Discard.QUANTITY_KEY, extra);
-				Game.this.startActivity(intent);
+				GameActivity.this.startActivity(intent);
 				break;
 			}
 
@@ -164,7 +165,7 @@ public class Game extends Activity {
 	public void select(Action action, Edge edge) {
 		Player player = board.getCurrentPlayer();
 		if (player.build(edge)) {
-			slate.setAction(Action.NONE);
+			renderer.setAction(Action.NONE);
 
 			if (board.isSetupRoad()) {
 				board.nextPhase();
@@ -181,7 +182,7 @@ public class Game extends Activity {
 	public boolean buttonPress(Type button) {
 		switch (button) {
 		case INFO:
-			Game.this.startActivity(new Intent(Game.this, Status.class));
+			GameActivity.this.startActivity(new Intent(GameActivity.this, Status.class));
 			break;
 
 		case ROLL:
@@ -214,7 +215,7 @@ public class Game extends Activity {
 				break;
 			}
 
-			slate.setAction(Action.ROAD);
+			renderer.setAction(Action.ROAD);
 			setButtons(Action.ROAD);
 			this.setTitle(board.getCurrentPlayer().getName() + ": "
 					+ getString(R.string.game_build_road));
@@ -227,7 +228,7 @@ public class Game extends Activity {
 				break;
 			}
 
-			slate.setAction(Action.TOWN);
+			renderer.setAction(Action.TOWN);
 			setButtons(Action.TOWN);
 			this.setTitle(board.getCurrentPlayer().getName() + ": "
 					+ getString(R.string.game_build_town));
@@ -240,7 +241,7 @@ public class Game extends Activity {
 				break;
 			}
 
-			slate.setAction(Action.CITY);
+			renderer.setAction(Action.CITY);
 			setButtons(Action.CITY);
 			this.setTitle(board.getCurrentPlayer().getName() + ": "
 					+ getString(R.string.game_build_city));
@@ -263,7 +264,7 @@ public class Game extends Activity {
 
 		case CANCEL:
 			// return false if there is nothing to cancel
-			boolean result = slate.cancel();
+			boolean result = renderer.cancel();
 
 			setup(false);
 			return result;
@@ -339,11 +340,11 @@ public class Game extends Activity {
 		TextureManager texture = app.getTextureManagerInstance();
 		Player player = board.getCurrentPlayer();
 
-		slate.setState(this, board, player.isHuman() ? player : null, texture,
+		renderer.setState(this, board, player.isHuman() ? player : null, texture,
 				board.getRoll());
 
 		if (setZoom)
-			slate.unZoom();
+			renderer.unZoom();
 
 		// show card stealing dialog
 		if (board.isRobberPhase() && board.getRobber() != null)
@@ -369,22 +370,22 @@ public class Game extends Activity {
 					new OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							Game.this.finish();
+							GameActivity.this.finish();
 						}
 					});
 			infoDialog.show();
 		}
 
 		if (board.isSetupTown())
-			slate.setAction(Action.TOWN);
+			renderer.setAction(Action.TOWN);
 		else if (board.isSetupRoad() || board.isProgressPhase())
-			slate.setAction(Action.ROAD);
+			renderer.setAction(Action.ROAD);
 		else if (board.isRobberPhase() && board.getRobber() == null)
-			slate.setAction(Action.ROBBER);
+			renderer.setAction(Action.ROBBER);
 		else
-			slate.setAction(Action.NONE);
+			renderer.setAction(Action.NONE);
 
-		setButtons(slate.getAction());
+		setButtons(renderer.getAction());
 
 		setTitleColor(Color.WHITE);
 
@@ -406,14 +407,12 @@ public class Game extends Activity {
 					+ getString(resourceId));
 		else
 			setTitle(board.getCurrentPlayer().getName());
-
-		slate.invalidate();
 	}
 
-	private void setButtons(Slate.Action action) {
-		slate.removeButtons();
+	private void setButtons(Action action) {
+		renderer.removeButtons();
 
-		slate.addButton(Type.INFO);
+		renderer.addButton(Type.INFO);
 
 		Player player = board.getCurrentPlayer();
 		Player winner = board.getWinner(null);
@@ -429,27 +428,27 @@ public class Game extends Activity {
 			// do nothing
 		} else if (action != Action.NONE) {
 			// cancel the action
-			slate.addButton(Type.CANCEL);
+			renderer.addButton(Type.CANCEL);
 		} else if (board.isProduction()) {
-			slate.addButton(Type.ROLL);
+			renderer.addButton(Type.ROLL);
 
 			if (player.canUseCard())
-				slate.addButton(Type.DEVCARD);
+				renderer.addButton(Type.DEVCARD);
 		} else if (board.isBuild()) {
-			slate.addButton(Type.TRADE);
-			slate.addButton(Type.ENDTURN);
+			renderer.addButton(Type.TRADE);
+			renderer.addButton(Type.ENDTURN);
 
 			if (player.affordCard() || player.canUseCard())
-				slate.addButton(Type.DEVCARD);
+				renderer.addButton(Type.DEVCARD);
 
 			if (player.affordRoad())
-				slate.addButton(Type.ROAD);
+				renderer.addButton(Type.ROAD);
 
 			if (player.affordTown())
-				slate.addButton(Type.TOWN);
+				renderer.addButton(Type.TOWN);
 
 			if (player.affordCity())
-				slate.addButton(Type.CITY);
+				renderer.addButton(Type.CITY);
 		}
 	}
 
@@ -723,7 +722,7 @@ public class Game extends Activity {
 
 		// TODO: only works if "Audible selection" is enabled in Android
 		if (Options.beepTurn())
-			slate.playSoundEffect(SoundEffectConstants.CLICK);
+			view.playSoundEffect(SoundEffectConstants.CLICK);
 
 		// show turn log
 		if (Options.turnLog() && board.isProduction() && isActive)
@@ -765,10 +764,11 @@ public class Game extends Activity {
 	public void onCreate(Bundle state) {
 		super.onCreate(state);
 
-		setContentView(R.layout.game);
-
-		slate = (Slate) findViewById(R.id.game_view);
-		slate.requestFocus();
+		renderer = new GameRenderer();
+		view = new GameView(this);
+		view.setRenderer(renderer);
+		setContentView(view);
+		view.requestFocus();
 
 		Settlers app = (Settlers) getApplicationContext();
 
@@ -840,13 +840,13 @@ public class Game extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.reference:
-			Game.this.startActivity(new Intent(Game.this, Reference.class));
+			GameActivity.this.startActivity(new Intent(GameActivity.this, Reference.class));
 			return true;
 		case R.id.status:
-			Game.this.startActivity(new Intent(Game.this, Status.class));
+			GameActivity.this.startActivity(new Intent(GameActivity.this, Status.class));
 			return true;
 		case R.id.options:
-			Game.this.startActivity(new Intent(Game.this, Options.class));
+			GameActivity.this.startActivity(new Intent(GameActivity.this, Options.class));
 			return true;
 		}
 
@@ -858,14 +858,14 @@ public class Game extends Activity {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			// return to menu if there's nothing to cancel
 			if (buttonPress(Type.CANCEL))
-				slate.unZoom();
+				renderer.unZoom();
 			else
 				finish();
 
 			return true;
 		} else if (keyCode == KeyEvent.KEYCODE_SEARCH) {
 			// show status from search button
-			Game.this.startActivity(new Intent(Game.this, Status.class));
+			GameActivity.this.startActivity(new Intent(GameActivity.this, Status.class));
 			return true;
 		}
 

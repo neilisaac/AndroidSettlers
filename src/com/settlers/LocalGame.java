@@ -159,7 +159,7 @@ public class LocalGame extends Activity {
 				app.setBoardInstance(new Board(names, types, maxPoints,
 						autoDiscard));
 				LocalGame.this.startActivity(new Intent(LocalGame.this,
-						Game.class));
+						GameActivity.class));
 			}
 		});
 
@@ -167,7 +167,7 @@ public class LocalGame extends Activity {
 		resume.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				LocalGame.this.startActivity(new Intent(LocalGame.this,
-						Game.class));
+						GameActivity.class));
 			}
 		});
 

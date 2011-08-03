@@ -1,261 +1,29 @@
 package com.settlers;
 
-import android.util.DisplayMetrics;
+import android.util.Log;
 
 public class Geometry {
 
-	private static final double MAX_PAN = 2.5;
+	public static final int TILE_SIZE = 256;
+	
+	private static final int REFERENCE_SIZE = 5 * 256;
+	private static final float MAX_PAN = 2.5f;
 
-	private static final double[] HEXAGON_X = { -1.5, -1.5, -1.5, -0.75, -0.75,
-			-0.75, -0.75, 0.0, 0.0, 0.0, 0.0, 0.0, 0.75, 0.75, 0.75, 0.75, 1.5,
-			1.5, 1.5 };
-
-	private static final double[] HEXAGON_Y = { -0.866, 0.0, 0.866, -1.299,
-			-0.433, 0.433, 1.299, -1.732, -0.866, 0.0, 0.866, 1.732, -1.299,
-			-0.433, 0.433, 1.299, -0.866, 0.0, 0.866 };
-
-	private static final double[] POINT_X = { -0.25, 0.25, -1.0, -0.5, 0.5,
-			1.0, -1.75, -1.25, -0.25, 0.25, 1.25, 1.75, -2.0, -1.0, -0.5, 0.5,
-			1.0, 2.0, -1.75, -1.25, -0.25, 0.25, 1.25, 1.75, -2.0, -1.0, -0.5,
-			0.5, 1.0, 2.0, -1.75, -1.25, -0.25, 0.25, 1.25, 1.75, -2.0, -1.0,
-			-0.5, 0.5, 1.0, 2.0, -1.75, -1.25, -0.25, 0.25, 1.25, 1.75, -1.0,
-			-0.5, 0.5, 1.0, -0.25, 0.25 };
-
-	private static final double[] POINT_Y = { -2.165, -2.165, -1.732, -1.732,
-			-1.732, -1.732, -1.299, -1.299, -1.299, -1.299, -1.299, -1.299,
-			-0.866, -0.866, -0.866, -0.866, -0.866, -0.866, -0.433, -0.433,
-			-0.433, -0.433, -0.433, -0.433, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-			0.433, 0.433, 0.433, 0.433, 0.433, 0.433, 0.866, 0.866, 0.866,
-			0.866, 0.866, 0.866, 1.299, 1.299, 1.299, 1.299, 1.299, 1.299,
-			1.732, 1.732, 1.732, 1.732, 2.165, 2.165 };
-
-	private static final double[] EDGE_X = { 0.0, -0.375, 0.375, -0.75, -1.125,
-			-0.375, 0.75, 0.375, 1.125, -1.5, -1.875, -1.125, 0.0, -0.375,
-			0.375, 1.5, 1.125, 1.875, -1.875, -0.75, -1.125, -0.375, 0.75,
-			0.375, 1.125, 1.875, -1.5, -1.875, -1.125, 0.0, -0.375, 0.375, 1.5,
-			1.125, 1.875, -1.875, -0.75, -1.125, -0.375, 0.75, 0.375, 1.125,
-			1.875, -1.5, -1.875, -1.125, 0.0, -0.375, 0.375, 1.5, 1.125, 1.875,
-			-1.875, -0.75, -1.125, -0.375, 0.75, 0.375, 1.125, 1.875, -1.5,
-			-1.125, 0.0, -0.375, 0.375, 1.5, 1.125, -0.75, -0.375, 0.75, 0.375,
-			0.0 };
-
-	private static final double[] EDGE_Y = { -2.165, -1.949, -1.949, -1.732,
-			-1.515, -1.515, -1.732, -1.515, -1.515, -1.299, -1.083, -1.083,
-			-1.299, -1.083, -1.083, -1.299, -1.083, -1.083, -0.65, -0.866,
-			-0.65, -0.65, -0.866, -0.65, -0.65, -0.65, -0.433, -0.217, -0.217,
-			-0.433, -0.217, -0.217, -0.433, -0.217, -0.217, 0.217, 0.0, 0.217,
-			0.217, 0.0, 0.217, 0.217, 0.217, 0.433, 0.65, 0.65, 0.433, 0.65,
-			0.65, 0.433, 0.65, 0.65, 1.083, 0.866, 1.083, 1.083, 0.866, 1.083,
-			1.083, 1.083, 1.299, 1.515, 1.299, 1.515, 1.515, 1.299, 1.515,
-			1.732, 1.949, 1.732, 1.949, 2.165 };
-
-	private static final int[] TRADER_EDGE = { 0, 4, 8, 27, 34, 52, 59, 67, 69 };
-
-	private static final int[] TRADER_HEX = { 7, 3, 12, 1, 17, 2, 18, 6, 15 };
-
-	private static final double[] TRADER_OFFSET_X = { 0.0, -0.16, 0.15, -0.15,
-			0.15, -0.15, 0.15, 0.0, 0.0 };
-
-	private static final double[] TRADER_OFFSET_Y = { -0.18, -0.1, -0.1, -0.1,
-			-0.1, 0.1, 0.1, 0.16, 0.16 };
-
-	private static final int REFERENCE_WIDTH = 480;
-	private static final int REFERENCE_DENSITY = DisplayMetrics.DENSITY_HIGH;
-	private static final double TILE_UNIT_FACTOR = 0.96;
-
-	private int unit, width, height;
-	private double zoom, scale, cx, cy;
-	private int realWidth,realHeight;
-
-	private int xTranslate(double x) {
-		return (int) (width * 0.5 + zoom * unit * (x - cx));
-	}
-
-	private int yTranslate(double y) {
-		return (int) (height * 0.5 + zoom * unit * (y - cy));
-	}
-
-	private int getNearest(int x, int y, double[] xArray, double[] yArray,
-			int length) {
-		int best = -1;
-		double dist2 = unit * unit * zoom * zoom / 4;
-		for (int i = 0; i < length; i++) {
-			double x2 = Math.pow(x - xTranslate(xArray[i]), 2);
-			double y2 = Math.pow(y - yTranslate(yArray[i]), 2);
-			if (x2 + y2 < dist2) {
-				dist2 = x2 + y2;
-				best = i;
-			}
-		}
-		return best;
-	}
+	private int width, height;
+	private float cx, cy, zoom;
+	private float minZoom, maxZoom;
 
 	public Geometry() {
-		this.setSize(100, 100);
-		this.setZoom(0.0, 0.0, 1.0);
+		cx = cy = 0;
+		width = height = 480;
+		zoom = minZoom = maxZoom = 1;
 	}
 
-	public void setRealSize(DisplayMetrics screen, int tileSize) {
-		int width = screen.widthPixels;
-		int height = screen.heightPixels;
-		int density = screen.densityDpi;
-		int min = (width < height ? width : height);
-		
-		realWidth = width;
-		realHeight = height;
-
-		double reference = REFERENCE_WIDTH / REFERENCE_DENSITY;
-		double actual = min / density;
-		scale = actual / reference;
-		unit = (int) (tileSize * TILE_UNIT_FACTOR);
-	}
-	
-	public int getRealWidth() {
-		return realWidth;
-	}
-	
-	public int getRealHeight() {
-		return realHeight;
-	}
-
-	public double getScaleFactor() {
-		return scale;
-	}
-
-	public void setSize(int width, int height) {
-		this.width = width;
-		this.height = height;
-	}
-
-	private void clampPan() {
-		if (cx > MAX_PAN)
-			cx = MAX_PAN;
-		else if (cx < -MAX_PAN)
-			cx = -MAX_PAN;
-
-		if (cy > MAX_PAN)
-			cy = MAX_PAN;
-		else if (cy < -MAX_PAN)
-			cy = -MAX_PAN;
-	}
-
-	public void setZoom(int x, int y, double zoom) {
-		cx += (x - width * 0.5) / (unit * this.zoom);
-		cy += (y - height * 0.5) / (unit * this.zoom);
-		clampPan();
-		this.zoom = zoom;
-	}
-
-	public void setZoom(double cx, double cy, double zoom) {
-		this.cx = cx;
-		this.cy = cy;
-		clampPan();
-		this.zoom = zoom;
-	}
-
-	public void translate(double dx, double dy) {
-		cx += dx / (unit * zoom);
-		cy += dy / (unit * zoom);
-		clampPan();
-	}
-
-	public void setZoom(Hexagon hexagon, double zoom) {
-		this.cx = getOffsetX(hexagon);
-		this.cy = getOffsetY(hexagon);
-		this.zoom = zoom;
-	}
-
-	public double getZoom() {
-		return zoom;
-	}
-
-	public double getOffsetX(Hexagon hexagon) {
-		return HEXAGON_X[hexagon.getId()];
-	}
-
-	public double getOffsetY(Hexagon hexagon) {
-		return HEXAGON_Y[hexagon.getId()];
-	}
-
-	public double getOffsetX(Vertex vertex) {
-		return POINT_X[vertex.getIndex()];
-	}
-
-	public double getOffsetY(Vertex vertex) {
-		return POINT_Y[vertex.getIndex()];
-	}
-
-	public double getOffsetX(Edge edge) {
-		return EDGE_X[edge.getIndex()];
-	}
-
-	public double getOffsetY(Edge edge) {
-		return EDGE_Y[edge.getIndex()];
-	}
-
-	public int getHexagonX(int index) {
-		return xTranslate(HEXAGON_X[index]);
-	}
-
-	public int getHexagonY(int index) {
-		return yTranslate(HEXAGON_Y[index]);
-	}
-
-	public int getEdgeX(int index) {
-		return xTranslate(EDGE_X[index]);
-	}
-
-	public int getEdgeY(int index) {
-		return yTranslate(EDGE_Y[index]);
-	}
-
-	public int getVertexX(int index) {
-		return xTranslate(POINT_X[index]);
-	}
-
-	public int getVertexY(int index) {
-		return yTranslate(POINT_Y[index]);
-	}
-
-	public int getTraderX(int index) {
-		return xTranslate(HEXAGON_X[TRADER_HEX[index]]);
-	}
-
-	public int getTraderY(int index) {
-		return yTranslate(HEXAGON_Y[TRADER_HEX[index]]);
-	}
-
-	public int getTraderEdgeX(int index) {
-		return xTranslate(EDGE_X[TRADER_EDGE[index]]);
-	}
-
-	public int getTraderEdgeY(int index) {
-		return yTranslate(EDGE_Y[TRADER_EDGE[index]]);
-	}
-
-	public double getTraderIconOffsetX(int index) {
-		return getTraderEdgeX(index) + 1.5 * TRADER_OFFSET_X[index] * unit * zoom;
-	}
-
-	public double getTraderIconOffsetY(int index) {
-		return getTraderEdgeY(index) + 1.5 * TRADER_OFFSET_Y[index] * unit * zoom;
-	}
-
-	public int getNearestHexagon(int x, int y) {
-		return getNearest(x, y, HEXAGON_X, HEXAGON_Y, Hexagon.NUM_HEXAGONS);
-	}
-
-	public int getNearestEdge(int x, int y) {
-		int nearest = getNearest(x, y, EDGE_X, EDGE_Y, Edge.NUM_EDGES);
-		return nearest;
-	}
-
-	public int getNearestVertex(int x, int y) {
-		return getNearest(x, y, POINT_X, POINT_Y, Vertex.NUM_VERTEX);
-	}
-
-	public int getUnitSize() {
-		return unit;
+	public void setSize(int w, int h) {
+		width = w;
+		height = h;
+		maxZoom = (float) REFERENCE_SIZE / (float) (w < h ? w : h);
+		minZoom = 1f / maxZoom;
 	}
 
 	public int getWidth() {
@@ -269,11 +37,157 @@ public class Geometry {
 	public int getMinimalSize() {
 		return width < height ? width : height;
 	}
-
-	public boolean isZoomed() {
-		return (zoom > 1.01);
+	
+	public void reset() {
+		cx = cy = 0;
+		zoom = minZoom;
 	}
 
+	public void zoomTo(float x, float y) {
+		translate(x, y);
+		zoom = maxZoom;
+		Log.d("getZoom", "zoom is " + zoom);
+	}
+
+	public boolean isZoomed() {
+		return zoom > (minZoom + 0.01f);
+	}
+
+	public boolean toggleZoom() {
+		if (isZoomed()) {
+			zoom = minZoom;
+			return true;
+		} else {
+			zoom = maxZoom;
+			return false;
+		}
+	}
+
+	public float getZoom() {
+		return zoom;
+	}
+
+	public void translate(float dx, float dy) {
+		cx += dx;
+		if (cx > MAX_PAN)
+			cx = MAX_PAN;
+		else if (cx < -MAX_PAN)
+			cx = -MAX_PAN;
+
+		cy += dy;
+		if (cy > MAX_PAN)
+			cy = MAX_PAN;
+		else if (cy < -MAX_PAN)
+			cy = -MAX_PAN;
+	}
+
+	public float getTranslateX() {
+		return cx;
+	}
+
+	public float getTranslateY() {
+		return cy;
+	}
+
+	private int getNearest(float x, float y, float[] edgeX, float[] edgeY,
+			int length) {
+		int best = -1;
+		double dist2 = zoom * zoom / 4;
+		for (int i = 0; i < length; i++) {
+			double x2 = Math.pow(x - edgeX[i], 2);
+			double y2 = Math.pow(y - edgeY[i], 2);
+			if (x2 + y2 < dist2) {
+				dist2 = x2 + y2;
+				best = i;
+			}
+		}
+		return best;
+	}
+
+	public int getNearestHexagon(float x, float y) {
+		return getNearest(x, y, HEXAGON_X, HEXAGON_Y, Hexagon.NUM_HEXAGONS);
+	}
+
+	public int getNearestEdge(float x, float y) {
+		return getNearest(x, y, EDGE_X, EDGE_Y, Edge.NUM_EDGES);
+	}
+
+	public int getNearestVertex(float x, float y) {
+		return getNearest(x, y, POINT_X, POINT_Y, Vertex.NUM_VERTEX);
+	}
+
+	public float getOffsetX(Hexagon hexagon) {
+		return HEXAGON_X[hexagon.getId()];
+	}
+
+	public float getOffsetY(Hexagon hexagon) {
+		return HEXAGON_Y[hexagon.getId()];
+	}
+
+	public float getOffsetX(Vertex vertex) {
+		return POINT_X[vertex.getIndex()];
+	}
+
+	public float getOffsetY(Vertex vertex) {
+		return POINT_Y[vertex.getIndex()];
+	}
+
+	public float getOffsetX(Edge edge) {
+		return EDGE_X[edge.getIndex()];
+	}
+
+	public float getOffsetY(Edge edge) {
+		return EDGE_Y[edge.getIndex()];
+	}
+
+	public float getHexagonX(int index) {
+		return HEXAGON_X[index];
+	}
+
+	public float getHexagonY(int index) {
+		return HEXAGON_Y[index];
+	}
+
+	public float getEdgeX(int index) {
+		return EDGE_X[index];
+	}
+
+	public float getEdgeY(int index) {
+		return EDGE_Y[index];
+	}
+
+	public float getVertexX(int index) {
+		return POINT_X[index];
+	}
+
+	public float getVertexY(int index) {
+		return POINT_Y[index];
+	}
+
+	public float getTraderX(int index) {
+		return HEXAGON_X[TRADER_HEX[index]];
+	}
+
+	public float getTraderY(int index) {
+		return HEXAGON_Y[TRADER_HEX[index]];
+	}
+
+	private float getTraderEdgeX(int index) {
+		return EDGE_X[TRADER_EDGE[index]];
+	}
+
+	private float getTraderEdgeY(int index) {
+		return EDGE_Y[TRADER_EDGE[index]];
+	}
+
+	public float getTraderIconOffsetX(int index) {
+		return getTraderEdgeX(index) + 1.5f * TRADER_OFFSET_X[index] * zoom;
+	}
+
+	public float getTraderIconOffsetY(int index) {
+		return getTraderEdgeY(index) + 1.5f * TRADER_OFFSET_Y[index] * zoom;
+	}
+	
 	public static void setAssociations(Hexagon[] hexagon, Vertex[] vertex,
 			Edge[] edge, Trader[] trader) {
 		// associate vertices with hexagons
@@ -396,4 +310,62 @@ public class Geometry {
 			edge[TRADER_EDGE[i]].getVertex2().setTrader(trader[i]);
 		}
 	}
+
+	private static final float[] HEXAGON_X = { -1.5f, -1.5f, -1.5f, -0.75f,
+			-0.75f, -0.75f, -0.75f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.75f, 0.75f,
+			0.75f, 0.75f, 1.5f, 1.5f, 1.5f };
+
+	private static final float[] HEXAGON_Y = { 0.866f, -0.0f, -0.866f, 1.299f,
+			0.433f, -0.433f, -1.299f, 1.732f, 0.866f, -0.0f, -0.866f, -1.732f,
+			1.299f, 0.433f, -0.433f, -1.299f, 0.866f, -0.0f, -0.866f };
+
+	private static final float[] POINT_X = { -0.25f, 0.25f, -1.0f, -0.5f, 0.5f,
+			1.0f, -1.75f, -1.25f, -0.25f, 0.25f, 1.25f, 1.75f, -2.0f, -1.0f,
+			-0.5f, 0.5f, 1.0f, 2.0f, -1.75f, -1.25f, -0.25f, 0.25f, 1.25f,
+			1.75f, -2.0f, -1.0f, -0.5f, 0.5f, 1.0f, 2.0f, -1.75f, -1.25f,
+			-0.25f, 0.25f, 1.25f, 1.75f, -2.0f, -1.0f, -0.5f, 0.5f, 1.0f, 2.0f,
+			-1.75f, -1.25f, -0.25f, 0.25f, 1.25f, 1.75f, -1.0f, -0.5f, 0.5f,
+			1.0f, -0.25f, 0.25f };
+
+	private static final float[] POINT_Y = { -2.165f, -2.165f, -1.732f,
+			-1.732f, -1.732f, -1.732f, -1.299f, -1.299f, -1.299f, -1.299f,
+			-1.299f, -1.299f, -0.866f, -0.866f, -0.866f, -0.866f, -0.866f,
+			-0.866f, -0.433f, -0.433f, -0.433f, -0.433f, -0.433f, -0.433f,
+			0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.433f, 0.433f, 0.433f, 0.433f,
+			0.433f, 0.433f, 0.866f, 0.866f, 0.866f, 0.866f, 0.866f, 0.866f,
+			1.299f, 1.299f, 1.299f, 1.299f, 1.299f, 1.299f, 1.732f, 1.732f,
+			1.732f, 1.732f, 2.165f, 2.165f };
+
+	private static final float[] EDGE_X = { 0.0f, -0.375f, 0.375f, -0.75f,
+			-1.125f, -0.375f, 0.75f, 0.375f, 1.125f, -1.5f, -1.875f, -1.125f,
+			0.0f, -0.375f, 0.375f, 1.5f, 1.125f, 1.875f, -1.875f, -0.75f,
+			-1.125f, -0.375f, 0.75f, 0.375f, 1.125f, 1.875f, -1.5f, -1.875f,
+			-1.125f, 0.0f, -0.375f, 0.375f, 1.5f, 1.125f, 1.875f, -1.875f,
+			-0.75f, -1.125f, -0.375f, 0.75f, 0.375f, 1.125f, 1.875f, -1.5f,
+			-1.875f, -1.125f, 0.0f, -0.375f, 0.375f, 1.5f, 1.125f, 1.875f,
+			-1.875f, -0.75f, -1.125f, -0.375f, 0.75f, 0.375f, 1.125f, 1.875f,
+			-1.5f, -1.125f, 0.0f, -0.375f, 0.375f, 1.5f, 1.125f, -0.75f,
+			-0.375f, 0.75f, 0.375f, 0.0f };
+
+	private static final float[] EDGE_Y = { -2.165f, -1.949f, -1.949f, -1.732f,
+			-1.515f, -1.515f, -1.732f, -1.515f, -1.515f, -1.299f, -1.083f,
+			-1.083f, -1.299f, -1.083f, -1.083f, -1.299f, -1.083f, -1.083f,
+			-0.649f, -0.866f, -0.649f, -0.649f, -0.866f, -0.649f, -0.649f,
+			-0.649f, -0.433f, -0.216f, -0.216f, -0.433f, -0.216f, -0.216f,
+			-0.433f, -0.216f, -0.216f, 0.216f, 0.0f, 0.216f, 0.216f, 0.0f,
+			0.216f, 0.216f, 0.216f, 0.433f, 0.649f, 0.649f, 0.433f, 0.649f,
+			0.649f, 0.433f, 0.649f, 0.649f, 1.083f, 0.866f, 1.083f, 1.083f,
+			0.866f, 1.083f, 1.083f, 1.083f, 1.299f, 1.515f, 1.299f, 1.515f,
+			1.515f, 1.299f, 1.515f, 1.732f, 1.949f, 1.732f, 1.949f, 2.165f };
+
+	private static final int[] TRADER_EDGE = { 0, 4, 8, 27, 34, 52, 59, 67, 69 };
+
+	private static final int[] TRADER_HEX = { 7, 3, 12, 1, 17, 2, 18, 6, 15 };
+
+	private static final float[] TRADER_OFFSET_X = { 0.0f, -0.16f, 0.15f,
+			-0.15f, 0.15f, -0.15f, 0.15f, 0.0f, 0.0f };
+
+	private static final float[] TRADER_OFFSET_Y = { 0.18f, 0.1f, 0.1f, 0.1f,
+			0.1f, -0.1f, -0.1f, -0.16f, -0.16f };
+
 }

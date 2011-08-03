@@ -39,7 +39,7 @@ public class Main extends Activity {
 		final Button resume = (Button) findViewById(R.id.resume);
 		resume.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				Main.this.startActivity(new Intent(Main.this, Game.class));
+				Main.this.startActivity(new Intent(Main.this, GameActivity.class));
 			}
 		});
 
