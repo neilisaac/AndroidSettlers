@@ -1005,9 +1005,11 @@ public class Board {
 	public String dumpEvents() {
 		String dump = "";
 
-		for (String event : eventList)
-			dump += event + "\n";
-
+		synchronized(eventList) {
+			for (String event : eventList)
+				dump += event + "\n";
+		}
+		
 		return dump;
 	}
 	
