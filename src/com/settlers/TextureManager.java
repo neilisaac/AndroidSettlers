@@ -112,6 +112,8 @@ public class TextureManager {
 		add(Type.TOWN, Player.Color.RED.ordinal(), R.drawable.settlement_red,
 				res);
 		add(Type.TOWN, Player.Color.BLUE.ordinal(),
+				R.drawable.settlement_blue, res);
+		add(Type.TOWN, Player.Color.GREEN.ordinal(),
 				R.drawable.settlement_green, res);
 		add(Type.TOWN, Player.Color.ORANGE.ordinal(),
 				R.drawable.settlement_orange, res);
