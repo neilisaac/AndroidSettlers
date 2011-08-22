@@ -324,15 +324,19 @@ public class GameRenderer implements Renderer {
 		gl.glTranslatef(-geometry.getTranslateX(), -geometry.getTranslateY(), 0);
 		gl.glScalef(geometry.getZoom(), geometry.getZoom(), 1);
 
-		// draw the hexangons
+		// draw the hexangons with backdrop
+		for (int i = 0; i < Hexagon.NUM_HEXAGONS; i++)
+			texture.draw(board.getHexagon(i), gl, geometry);
+
+		// draw the roll numbers, robber, and highlighting
 		for (int i = 0; i < Hexagon.NUM_HEXAGONS; i++)
 			texture.draw(board.getHexagon(i), gl, geometry, lastRoll);
-
-		boolean canBuild = false;
 
 		// draw traders
 		for (int i = 0; i < Trader.NUM_TRADER; i++)
 			texture.draw(board.getTrader(i), gl, geometry);
+
+		boolean canBuild = false;
 
 		// // draw edges
 		// for (int i = 0; i < Edge.NUM_EDGES; i++) {

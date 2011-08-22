@@ -15,7 +15,7 @@ import android.opengl.GLUtils;
 public class TextureManager {
 
 	private enum Type {
-		NONE, BACKGROUND, SHORE, TILE, LIGHT, TRADER, RESOURCE, ROBBER, ROLL, ROAD, TOWN, CITY, ORNAMENT, BUTTONBG, BUTTON
+		NONE, BACKGROUND, SHORE, TILE, LIGHT, ROBBER, TRADER, RESOURCE, ROLL, ROAD, TOWN, CITY, ORNAMENT, BUTTONBG, BUTTON
 	}
 
 	public enum Location {
@@ -242,7 +242,7 @@ public class TextureManager {
 		gl.glPopMatrix();
 	}
 
-	public void draw(Hexagon hexagon, GL10 gl, Geometry geometry, int lastRoll) {
+	public void draw(Hexagon hexagon, GL10 gl, Geometry geometry) {
 		gl.glPushMatrix();
 
 		int id = hexagon.getId();
@@ -250,6 +250,15 @@ public class TextureManager {
 
 		square.get(hash(Type.SHORE, 0)).render(gl);
 		square.get(hash(Type.TILE, hexagon.getType().ordinal())).render(gl);
+
+		gl.glPopMatrix();
+	}
+
+	public void draw(Hexagon hexagon, GL10 gl, Geometry geometry, int lastRoll) {
+		gl.glPushMatrix();
+
+		int id = hexagon.getId();
+		gl.glTranslatef(geometry.getHexagonX(id), geometry.getHexagonY(id), 0);
 
 		int roll = hexagon.getRoll();
 
