@@ -20,9 +20,9 @@ def printedge(index, v1, v2):
 	print "edge[", index, "].setVertices(vertex[", v1, "], vertex[", v2, "]);"
 
 radius = 0.5
-height = 0.433
-width = 0.25
-testdist = 0.001
+height = 0.42
+width = 0.23
+testdist = 0.1
 testradius = radius + testdist
 testedge = 2 * width + testdist
 
@@ -36,11 +36,11 @@ edgex = []
 edgey = []
 
 for i in range(3):
-	hexx.append(-1.5)
+	hexx.append(-6 * width)
 	hexy.append(-2 * height * (i - 1))
 
 for i in range(4):
-	hexx.append(-0.75)
+	hexx.append(-3 * width)
 	hexy.append(-2 * height * (i - 1.5))
 
 for i in range(5):
@@ -48,11 +48,11 @@ for i in range(5):
 	hexy.append(-2 * height * (i - 2))
 
 for i in range(4):
-	hexx.append(0.75)
+	hexx.append(3 * width)
 	hexy.append(-2 * height * (i - 1.5))
 
 for i in range(3):
-	hexx.append(1.5)
+	hexx.append(6 * width)
 	hexy.append(-2 * height * (i - 1))
 
 offx = [ -width, width, radius, width, -width, -radius ]
