@@ -28,6 +28,12 @@ public class GameRenderer implements Renderer {
 
 	private UIButton[] button;
 
+	private static final float[] backgroundColors = { 0, 0.227f, 0.521f, 1,
+			0.262f, 0.698f, 0.878f, 1, 0, 0.384f, 0.600f, 1, 0.471f, 0.875f,
+			1f, 1 };
+
+	private Square background;
+
 	public GameRenderer() {
 		if (geometry == null)
 			geometry = new Geometry();
@@ -275,11 +281,14 @@ public class GameRenderer implements Renderer {
 		gl.glMatrixMode(GL10.GL_PROJECTION);
 		gl.glLoadIdentity();
 		float aspect = (float) width / (float) height;
-		if (width > height)
-			gl.glOrthof(-aspect, aspect, -1, 1, 0.1f, 100f);
-		else
-			gl.glOrthof(-1, 1, -1 / aspect, 1 / aspect, 0.1f, 100f);
-		
+		if (width > height) {
+			gl.glOrthof(-aspect, aspect, -1, 1, 0.1f, 40f);
+			background = new Square(backgroundColors, 0, 0, 0, 2 * aspect, 2);
+		} else {
+			gl.glOrthof(-1, 1, -1 / aspect, 1 / aspect, 0.1f, 40f);
+			background = new Square(backgroundColors, 0, 0, 0, 2, 2 / aspect);
+		}
+
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
 		gl.glLoadIdentity();
 	}
@@ -307,13 +316,13 @@ public class GameRenderer implements Renderer {
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
 
 		gl.glLoadIdentity();
-		gl.glTranslatef(0, 0, -100);
-		
+		gl.glTranslatef(0, 0, -30);
+
+		// draw background without transformation
+		background.render(gl);
+
 		gl.glTranslatef(-geometry.getTranslateX(), -geometry.getTranslateY(), 0);
-		gl.glScalef(geometry.getZoom(), geometry.getZoom(), 1f);
-
-		// texture.draw(Background.WAVES, canvas, geometry);
-
+		gl.glScalef(geometry.getZoom(), geometry.getZoom(), 1);
 		// draw hexagon shore backdrops
 		for (int i = 0; i < Hexagon.NUM_HEXAGONS; i++) {
 			Hexagon hexagon = board.getHexagon(i);
