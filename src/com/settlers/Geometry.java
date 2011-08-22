@@ -5,7 +5,7 @@ import android.util.Log;
 public class Geometry {
 
 	public static final int TILE_SIZE = 256;
-	
+
 	private static final int REFERENCE_SIZE = 5 * 256;
 	private static final float MAX_PAN = 2.5f;
 
@@ -37,7 +37,7 @@ public class Geometry {
 	public int getMinimalSize() {
 		return width < height ? width : height;
 	}
-	
+
 	public void reset() {
 		cx = cy = 0;
 		zoom = minZoom;
@@ -172,22 +172,14 @@ public class Geometry {
 		return HEXAGON_Y[TRADER_HEX[index]];
 	}
 
-	private float getTraderEdgeX(int index) {
-		return EDGE_X[TRADER_EDGE[index]];
-	}
-
-	private float getTraderEdgeY(int index) {
-		return EDGE_Y[TRADER_EDGE[index]];
-	}
-
 	public float getTraderIconOffsetX(int index) {
-		return getTraderEdgeX(index) + 1.5f * TRADER_OFFSET_X[index] * zoom;
+		return EDGE_X[TRADER_EDGE[index]] + 1.5f * TRADER_OFFSET_X[index];
 	}
 
 	public float getTraderIconOffsetY(int index) {
-		return getTraderEdgeY(index) + 1.5f * TRADER_OFFSET_Y[index] * zoom;
+		return EDGE_Y[TRADER_EDGE[index]] + 1.5f * TRADER_OFFSET_Y[index];
 	}
-	
+
 	public static void setAssociations(Hexagon[] hexagon, Vertex[] vertex,
 			Edge[] edge, Trader[] trader) {
 		// associate vertices with hexagons
@@ -327,14 +319,14 @@ public class Geometry {
 			-1.75f, -1.25f, -0.25f, 0.25f, 1.25f, 1.75f, -1.0f, -0.5f, 0.5f,
 			1.0f, -0.25f, 0.25f };
 
-	private static final float[] POINT_Y = { -2.165f, -2.165f, -1.732f,
-			-1.732f, -1.732f, -1.732f, -1.299f, -1.299f, -1.299f, -1.299f,
-			-1.299f, -1.299f, -0.866f, -0.866f, -0.866f, -0.866f, -0.866f,
-			-0.866f, -0.433f, -0.433f, -0.433f, -0.433f, -0.433f, -0.433f,
-			0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.433f, 0.433f, 0.433f, 0.433f,
-			0.433f, 0.433f, 0.866f, 0.866f, 0.866f, 0.866f, 0.866f, 0.866f,
-			1.299f, 1.299f, 1.299f, 1.299f, 1.299f, 1.299f, 1.732f, 1.732f,
-			1.732f, 1.732f, 2.165f, 2.165f };
+	private static final float[] POINT_Y = { 2.165f, 2.165f, 1.732f, 1.732f,
+			1.732f, 1.732f, 1.299f, 1.299f, 1.299f, 1.299f, 1.299f, 1.299f,
+			0.866f, 0.866f, 0.866f, 0.866f, 0.866f, 0.866f, 0.433f, 0.433f,
+			0.433f, 0.433f, 0.433f, 0.433f, -0.0f, -0.0f, -0.0f, -0.0f, -0.0f,
+			-0.0f, -0.433f, -0.433f, -0.433f, -0.433f, -0.433f, -0.433f,
+			-0.866f, -0.866f, -0.866f, -0.866f, -0.866f, -0.866f, -1.299f,
+			-1.299f, -1.299f, -1.299f, -1.299f, -1.299f, -1.732f, -1.732f,
+			-1.732f, -1.732f, -2.165f, -2.165f };
 
 	private static final float[] EDGE_X = { 0.0f, -0.375f, 0.375f, -0.75f,
 			-1.125f, -0.375f, 0.75f, 0.375f, 1.125f, -1.5f, -1.875f, -1.125f,
@@ -347,16 +339,16 @@ public class Geometry {
 			-1.5f, -1.125f, 0.0f, -0.375f, 0.375f, 1.5f, 1.125f, -0.75f,
 			-0.375f, 0.75f, 0.375f, 0.0f };
 
-	private static final float[] EDGE_Y = { -2.165f, -1.949f, -1.949f, -1.732f,
-			-1.515f, -1.515f, -1.732f, -1.515f, -1.515f, -1.299f, -1.083f,
-			-1.083f, -1.299f, -1.083f, -1.083f, -1.299f, -1.083f, -1.083f,
-			-0.649f, -0.866f, -0.649f, -0.649f, -0.866f, -0.649f, -0.649f,
-			-0.649f, -0.433f, -0.216f, -0.216f, -0.433f, -0.216f, -0.216f,
-			-0.433f, -0.216f, -0.216f, 0.216f, 0.0f, 0.216f, 0.216f, 0.0f,
-			0.216f, 0.216f, 0.216f, 0.433f, 0.649f, 0.649f, 0.433f, 0.649f,
-			0.649f, 0.433f, 0.649f, 0.649f, 1.083f, 0.866f, 1.083f, 1.083f,
-			0.866f, 1.083f, 1.083f, 1.083f, 1.299f, 1.515f, 1.299f, 1.515f,
-			1.515f, 1.299f, 1.515f, 1.732f, 1.949f, 1.732f, 1.949f, 2.165f };
+	private static final float[] EDGE_Y = { 2.165f, 1.949f, 1.949f, 1.732f,
+			1.515f, 1.515f, 1.732f, 1.515f, 1.515f, 1.299f, 1.083f, 1.083f,
+			1.299f, 1.083f, 1.083f, 1.299f, 1.083f, 1.083f, 0.649f, 0.866f,
+			0.649f, 0.649f, 0.866f, 0.649f, 0.649f, 0.649f, 0.433f, 0.216f,
+			0.216f, 0.433f, 0.216f, 0.216f, 0.433f, 0.216f, 0.216f, -0.216f,
+			-0.0f, -0.216f, -0.216f, -0.0f, -0.216f, -0.216f, -0.216f, -0.433f,
+			-0.649f, -0.649f, -0.433f, -0.649f, -0.649f, -0.433f, -0.649f,
+			-0.649f, -1.083f, -0.866f, -1.083f, -1.083f, -0.866f, -1.083f,
+			-1.083f, -1.083f, -1.299f, -1.515f, -1.299f, -1.515f, -1.515f,
+			-1.299f, -1.515f, -1.732f, -1.949f, -1.732f, -1.949f, -2.165f };
 
 	private static final int[] TRADER_EDGE = { 0, 4, 8, 27, 34, 52, 59, 67, 69 };
 

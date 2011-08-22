@@ -90,7 +90,7 @@ for h in range(len(heights)):
 		last = x
 		
 		uniquex.append(x)
-		uniquey.append(y)
+		uniquey.append(-y)
 
 for i in range(len(hexx)):
 	points = []
