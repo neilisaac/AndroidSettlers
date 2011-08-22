@@ -21,7 +21,7 @@ def printedge(index, v1, v2):
 
 radius = 0.5
 height = 0.42
-width = 0.23
+width = 0.24
 testdist = 0.1
 testradius = radius + testdist
 testedge = 2 * width + testdist
