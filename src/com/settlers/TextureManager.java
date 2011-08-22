@@ -286,8 +286,8 @@ public class TextureManager {
 
 		// draw type icon
 		gl.glPushMatrix();
-		gl.glTranslatef((float) geometry.getTraderIconOffsetX(id),
-				(float) geometry.getTraderIconOffsetY(id), 0);
+		gl.glTranslatef((float) geometry.getTraderIconX(id),
+				(float) geometry.getTraderIconY(id), 0);
 		square.get(hash(Type.RESOURCE, trader.getType().ordinal())).render(gl);
 		gl.glPopMatrix();
 	}

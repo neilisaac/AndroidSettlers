@@ -172,11 +172,11 @@ public class Geometry {
 		return HEXAGON_Y[TRADER_HEX[index]];
 	}
 
-	public float getTraderIconOffsetX(int index) {
+	public float getTraderIconX(int index) {
 		return EDGE_X[TRADER_EDGE[index]] + 1.5f * TRADER_OFFSET_X[index];
 	}
 
-	public float getTraderIconOffsetY(int index) {
+	public float getTraderIconY(int index) {
 		return EDGE_Y[TRADER_EDGE[index]] + 1.5f * TRADER_OFFSET_Y[index];
 	}
 
