@@ -349,7 +349,7 @@ public class TextureManager {
 			color = Player.Color.NONE;
 
 		Square object = square.get(hash(type, color.ordinal()));
-		if (square != null) {
+		if (object != null) {
 			gl.glPushMatrix();
 			int id = vertex.getIndex();
 			gl.glTranslatef(geometry.getVertexX(id), geometry.getVertexY(id), 0);
