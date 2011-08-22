@@ -323,17 +323,10 @@ public class GameRenderer implements Renderer {
 
 		gl.glTranslatef(-geometry.getTranslateX(), -geometry.getTranslateY(), 0);
 		gl.glScalef(geometry.getZoom(), geometry.getZoom(), 1);
-		// draw hexagon shore backdrops
-		for (int i = 0; i < Hexagon.NUM_HEXAGONS; i++) {
-			Hexagon hexagon = board.getHexagon(i);
-			texture.draw(hexagon, gl, geometry);
-		}
 
-		// draw hexagons
-		for (int i = 0; i < Hexagon.NUM_HEXAGONS; i++) {
-			Hexagon hexagon = board.getHexagon(i);
-			texture.draw(hexagon, false, gl, geometry, lastRoll);
-		}
+		// draw the hexangons
+		for (int i = 0; i < Hexagon.NUM_HEXAGONS; i++)
+			texture.draw(board.getHexagon(i), gl, geometry, lastRoll);
 
 		boolean canBuild = false;
 

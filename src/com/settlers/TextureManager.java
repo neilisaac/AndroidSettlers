@@ -240,17 +240,6 @@ public class TextureManager {
 		gl.glPopMatrix();
 	}
 
-	public void draw(Hexagon hexagon, GL10 gl, Geometry geometry) {
-		gl.glPushMatrix();
-
-		int id = hexagon.getId();
-		gl.glTranslatef(geometry.getHexagonX(id), geometry.getHexagonY(id), 0);
-		square.get(hash(Type.SHORE, 0)).render(gl);
-		square.get(hash(Type.TILE, hexagon.getType().ordinal())).render(gl);
-
-		gl.glPopMatrix();
-	}
-
 	public void draw(Hexagon hexagon, GL10 gl, Geometry geometry, int lastRoll) {
 		gl.glPushMatrix();
 
