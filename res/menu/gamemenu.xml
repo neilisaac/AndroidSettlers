@@ -11,13 +11,7 @@
         android:id="@+id/reference"
         android:icon="@drawable/ic_action_help"
         android:title="@string/reference"
-        android:showAsAction="ifRoom">
-    </item>
-    <item
-        android:id="@+id/options"
-        android:icon="@drawable/ic_action_settings"
-        android:title="@string/options"
-        android:showAsAction="ifRoom">
+        android:showAsAction="ifRoom|withText">
     </item>
 
 </menu>

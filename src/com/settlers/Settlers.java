@@ -22,7 +22,6 @@ public class Settlers extends Application {
 
 		// load settings
 		settingsInstance = new Settings(getBaseContext());
-		Options.load(settingsInstance);
 
 		setTextureManagerInstance(null);
 		setBoardInstance(null);

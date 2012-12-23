@@ -43,13 +43,6 @@ public class Main extends Activity {
 			}
 		});
 
-		final Button options = (Button) findViewById(R.id.options);
-		options.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				Main.this.startActivity(new Intent(Main.this, Options.class));
-			}
-		});
-
 		final Button stats = (Button) findViewById(R.id.stats);
 		stats.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {

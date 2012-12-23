@@ -15,6 +15,8 @@ import android.util.Log;
 public class Settings extends SQLiteOpenHelper {
 
 	private static final int DATABASE_VERSION = 2;
+	
+	private static final int DEFAULT_TURN_DELAY = 750;
 
 	private static final String DATABASE_NAME = "island_settings.db";
 	private static final String SETTINGS_TABLE = "settings";
@@ -154,6 +156,10 @@ public class Settings extends SQLiteOpenHelper {
 		db.delete(SCORES_TABLE, null, null);
 	}
 	
+	public static int getTurnDelay() {
+		return DEFAULT_TURN_DELAY;
+	}
+	
 	@Override
 	public void onOpen(SQLiteDatabase db) {
 		super.onOpen(db);
@@ -177,7 +183,6 @@ public class Settings extends SQLiteOpenHelper {
 				+ "TURNS integer)");
 
 		// add default options and players
-		Options.setup(this);
 		LocalGame.setup(this);
 	}
 
@@ -190,7 +195,7 @@ public class Settings extends SQLiteOpenHelper {
 		switch (oldVersion) {
 		case 1:
 			// add default value for turn delay
-			set("option_turn_delay", Options.DEFAULT_TURN_DELAY);
+			set("option_turn_delay", DEFAULT_TURN_DELAY);
 		}
 	}
 }

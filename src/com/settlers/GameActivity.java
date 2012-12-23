@@ -73,7 +73,7 @@ public class GameActivity extends Activity {
 						turnHandler.sendMessage(turn);
 					}
 
-					int delay = Options.turnDelay();
+					int delay = Settings.getTurnDelay();
 					if (delay > 0) {
 						try {
 							Thread.sleep(delay);
@@ -717,15 +717,10 @@ public class GameActivity extends Activity {
 	private void notifyTurn() {
 		// vibrate if enabled
 		Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-		if (Options.vibrateTurn())
-			vibrator.vibrate(400);
-
-		// TODO: only works if "Audible selection" is enabled in Android
-		if (Options.beepTurn())
-			view.playSoundEffect(SoundEffectConstants.CLICK);
+		vibrator.vibrate(400);
 
 		// show turn log
-		if (Options.turnLog() && board.isProduction() && isActive)
+		if (board.isProduction() && isActive)
 			turnLog();
 	}
 
@@ -808,13 +803,6 @@ public class GameActivity extends Activity {
 	public void onResume() {
 		super.onResume();
 
-		if (!Options.showStatus()) {
-			getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-					WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		} else {
-			getWindow().setFlags(0, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		}
-
 		turnThread = new TurnThread();
 		new Thread(turnThread).start();
 
@@ -844,9 +832,6 @@ public class GameActivity extends Activity {
 			return true;
 		case R.id.status:
 			GameActivity.this.startActivity(new Intent(GameActivity.this, Status.class));
-			return true;
-		case R.id.options:
-			GameActivity.this.startActivity(new Intent(GameActivity.this, Options.class));
 			return true;
 		}
 

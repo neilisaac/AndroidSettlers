@@ -21,9 +21,6 @@
 			<Button android:text="@string/stats" android:id="@+id/stats"
 				android:layout_width="fill_parent" android:layout_height="wrap_content"></Button>
 
-			<Button android:text="@string/options" android:id="@+id/options"
-				android:layout_width="fill_parent" android:layout_height="wrap_content"></Button>
-
 			<Button android:text="@string/rules_button" android:id="@+id/rules_button"
 				android:layout_width="fill_parent" android:layout_height="wrap_content"></Button>
 

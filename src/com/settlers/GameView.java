@@ -106,8 +106,7 @@ public class GameView extends GLSurfaceView implements OnGestureListener,
 			Vibrator vibrator = (Vibrator) getContext().getSystemService(
 					Context.VIBRATOR_SERVICE);
 
-			if (Options.vibrateLong())
-				vibrator.vibrate(50);
+			vibrator.vibrate(50);
 		}
 	}
 
