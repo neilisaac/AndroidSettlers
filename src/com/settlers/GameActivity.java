@@ -4,6 +4,7 @@ import com.settlers.Board.Cards;
 import com.settlers.GameRenderer.Action;
 import com.settlers.UIButton.Type;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -12,6 +13,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -22,8 +24,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.SoundEffectConstants;
-import android.view.View;
-import android.view.ViewParent;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -389,17 +389,14 @@ public class GameActivity extends Activity {
 
 		setTitleColor(Color.WHITE);
 
-		View titleView = getWindow().findViewById(android.R.id.title);
-		if (titleView != null) {
-			ViewParent parent = titleView.getParent();
-			if (parent != null && (parent instanceof View)) {
-				View parentView = (View) parent;
-				int color = TextureManager.getColor(board.getCurrentPlayer()
-						.getColor());
-				color = TextureManager.darken(color, 0.5);
-				parentView.setBackgroundColor(color);
-			}
-		}
+		int color = TextureManager.getColor(board.getCurrentPlayer().getColor());
+		color = TextureManager.darken(color, 0.35);
+
+		ActionBar actionBar = getActionBar();
+		actionBar.setHomeButtonEnabled(true);
+		actionBar.setDisplayHomeAsUpEnabled(true);
+		actionBar.setDisplayShowCustomEnabled(true);
+		actionBar.setBackgroundDrawable(new ColorDrawable(color));
 
 		int resourceId = board.getPhaseResource();
 		if (resourceId != 0)
@@ -827,6 +824,9 @@ public class GameActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
+		case android.R.id.home:
+			finish();
+			return true;
 		case R.id.reference:
 			GameActivity.this.startActivity(new Intent(GameActivity.this, Reference.class));
 			return true;
