@@ -77,9 +77,7 @@ public class Square implements Drawable {
 		indexBuffer.position(0);
 	}
 
-	public void render(GL10 gl) {
-		gl.glColor4f(1f, 1f, 1f, 1f);
-		
+	public void render(GL10 gl) {		
 		gl.glEnable(GL10.GL_CULL_FACE);
 		gl.glFrontFace(GL10.GL_CW);
 		gl.glCullFace(GL10.GL_BACK);
