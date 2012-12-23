@@ -6,7 +6,7 @@ public class Geometry {
 
 	public static final int TILE_SIZE = 256;
 
-	private static final int REFERENCE_SIZE = 5 * 256;
+	private static final float REFERENCE_SIZE = 5f * 256f;
 	private static final float MAX_PAN = 2.5f;
 
 	private int width, height;
@@ -22,9 +22,13 @@ public class Geometry {
 	public void setSize(int w, int h) {
 		width = w;
 		height = h;
-		maxZoom = (float) REFERENCE_SIZE / (float) (w < h ? w : h);
-		minZoom = 0.6f / maxZoom;
+		
+		minZoom = 0.6f * (w < h ? w : h) / REFERENCE_SIZE;
 		highZoom = 2 * minZoom;
+		maxZoom = 3 * minZoom;
+		
+		if (zoom == 1)
+			zoom = minZoom;
 	}
 
 	public int getWidth() {
@@ -66,6 +70,15 @@ public class Geometry {
 
 	public float getZoom() {
 		return zoom;
+	}
+	
+	public void setZoom(float z) {
+		zoom = z;
+		
+		if (zoom > maxZoom)
+			zoom = maxZoom;
+		else if (zoom < minZoom)
+			zoom = minZoom;
 	}
 
 	public void translate(float dx, float dy) {

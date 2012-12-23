@@ -92,6 +92,10 @@ public class GameRenderer implements Renderer {
 		geometry.zoomTo(translateScreenX(x), translateScreenY(y));
 	}
 	
+	public void zoomBy(float factor) {
+		geometry.setZoom(geometry.getZoom() * factor);
+	}
+	
 	public boolean isZoomed() {
 		return geometry.isZoomed();
 	}

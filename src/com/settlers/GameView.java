@@ -5,20 +5,25 @@ import android.opengl.GLSurfaceView;
 import android.os.Vibrator;
 import android.view.MotionEvent;
 import android.view.GestureDetector;
+import android.view.ScaleGestureDetector;
+import android.view.ScaleGestureDetector.OnScaleGestureListener;
 import android.view.View;
 import android.view.GestureDetector.OnDoubleTapListener;
 import android.view.GestureDetector.OnGestureListener;
 
 public class GameView extends GLSurfaceView implements OnGestureListener,
-		OnDoubleTapListener {
+		OnDoubleTapListener, OnScaleGestureListener {
 
 	private int width, height;
 	private GameRenderer renderer;
 	private GestureDetector gesture;
+	private ScaleGestureDetector pinch;
 
 	public GameView(Context context) {
 		super(context);
-		gesture = new GestureDetector(this);
+		
+		gesture = new GestureDetector(context, this);
+		pinch = new ScaleGestureDetector(context, this);
 		
 		setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
 	}
@@ -40,7 +45,7 @@ public class GameView extends GLSurfaceView implements OnGestureListener,
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		// handle touch events in GestureDetector
-		return gesture.onTouchEvent(event);
+		return gesture.onTouchEvent(event) || pinch.onTouchEvent(event);
 	}
 
 	@Override
@@ -121,5 +126,21 @@ public class GameView extends GLSurfaceView implements OnGestureListener,
 			renderer.zoom((int) event.getX(), (int) event.getY());
 
 		return true;
+	}
+
+	@Override
+	public boolean onScale(ScaleGestureDetector detector) {
+		float factor = detector.getScaleFactor();
+		renderer.zoomBy(factor);
+		return true;
+	}
+
+	@Override
+	public boolean onScaleBegin(ScaleGestureDetector detector) {
+		return true;
+	}
+
+	@Override
+	public void onScaleEnd(ScaleGestureDetector detector) {
 	}
 }
