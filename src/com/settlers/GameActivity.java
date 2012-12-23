@@ -19,7 +19,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -837,23 +836,9 @@ public class GameActivity extends Activity {
 
 		return super.onOptionsItemSelected(item);
 	}
-
+	
 	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			// return to menu if there's nothing to cancel
-			if (buttonPress(Type.CANCEL))
-				renderer.unZoom();
-			else
-				finish();
-
-			return true;
-		} else if (keyCode == KeyEvent.KEYCODE_SEARCH) {
-			// show status from search button
-			GameActivity.this.startActivity(new Intent(GameActivity.this, Status.class));
-			return true;
-		}
-
-		return super.onKeyDown(keyCode, event);
+	public void onBackPressed() {
+		finish();
 	}
 }
