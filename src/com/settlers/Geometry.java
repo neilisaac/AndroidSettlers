@@ -11,19 +11,20 @@ public class Geometry {
 
 	private int width, height;
 	private float cx, cy, zoom;
-	private float minZoom, maxZoom;
+	private float minZoom, maxZoom, highZoom;
 
 	public Geometry() {
 		cx = cy = 0;
 		width = height = 480;
-		zoom = minZoom = maxZoom = 1;
+		zoom = minZoom = maxZoom = highZoom = 1;
 	}
 
 	public void setSize(int w, int h) {
 		width = w;
 		height = h;
 		maxZoom = (float) REFERENCE_SIZE / (float) (w < h ? w : h);
-		minZoom = 1f / maxZoom;
+		minZoom = 0.6f / maxZoom;
+		highZoom = 2 * minZoom;
 	}
 
 	public int getWidth() {
@@ -45,12 +46,12 @@ public class Geometry {
 
 	public void zoomTo(float x, float y) {
 		translate(x, y);
-		zoom = maxZoom;
+		zoom = highZoom;
 		Log.d("getZoom", "zoom is " + zoom);
 	}
 
 	public boolean isZoomed() {
-		return zoom > (minZoom + 0.01f);
+		return zoom > (highZoom - 0.01f);
 	}
 
 	public boolean toggleZoom() {
@@ -58,7 +59,7 @@ public class Geometry {
 			zoom = minZoom;
 			return true;
 		} else {
-			zoom = maxZoom;
+			zoom = highZoom;
 			return false;
 		}
 	}
