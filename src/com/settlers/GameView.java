@@ -5,6 +5,7 @@ import android.opengl.GLSurfaceView;
 import android.os.Vibrator;
 import android.view.MotionEvent;
 import android.view.GestureDetector;
+import android.view.View;
 import android.view.GestureDetector.OnDoubleTapListener;
 import android.view.GestureDetector.OnGestureListener;
 
@@ -18,6 +19,8 @@ public class GameView extends GLSurfaceView implements OnGestureListener,
 	public GameView(Context context) {
 		super(context);
 		gesture = new GestureDetector(this);
+		
+		setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
 	}
 
 	@Override
@@ -63,6 +66,8 @@ public class GameView extends GLSurfaceView implements OnGestureListener,
 
 	@Override
 	public boolean onDown(MotionEvent event) {
+		setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
+		
 		// press down (consider activating buttons)
 		renderer.press((int) event.getX(), (int) event.getY());
 
