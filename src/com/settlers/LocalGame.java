@@ -154,18 +154,12 @@ public class LocalGame extends Activity {
 
 				CheckBox discardCheck = (CheckBox) findViewById(R.id.auto_discard);
 				boolean autoDiscard = discardCheck.isChecked();
+				
+				finish();
 
 				Settlers app = (Settlers) getApplicationContext();
 				app.setBoardInstance(new Board(names, types, maxPoints,
 						autoDiscard));
-				LocalGame.this.startActivity(new Intent(LocalGame.this,
-						GameActivity.class));
-			}
-		});
-
-		final Button resume = (Button) findViewById(R.id.resume);
-		resume.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
 				LocalGame.this.startActivity(new Intent(LocalGame.this,
 						GameActivity.class));
 			}
@@ -181,25 +175,5 @@ public class LocalGame extends Activity {
 
 		getWindow().setSoftInputMode(
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-	}
-
-	@Override
-	public void onResume() {
-		super.onResume();
-
-		final Button resume = (Button) findViewById(R.id.resume);
-
-		Board board = ((Settlers) getApplicationContext()).getBoardInstance();
-		Settings settings = ((Settlers) getApplicationContext())
-				.getSettingsInstance();
-
-		String events = settings.get("game_events");
-
-		if (board != null && board.getWinner(settings) == null) {
-			resume.setEnabled(true);
-		} else if (board == null && events != null && events != "") {
-			resume.setEnabled(true);
-			resume.setText(getString(R.string.load_button));
-		}
 	}
 }
