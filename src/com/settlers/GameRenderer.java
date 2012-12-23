@@ -34,7 +34,7 @@ public class GameRenderer implements Renderer {
 
 	private Square background;
 
-	public GameRenderer() {
+	public GameRenderer() {		
 		if (geometry == null)
 			geometry = new Geometry();
 
@@ -313,6 +313,7 @@ public class GameRenderer implements Renderer {
 
 	@Override
 	public void onDrawFrame(GL10 gl) {
+		gl.glColor4f(1, 1, 1, 1);
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
 
 		gl.glLoadIdentity();
@@ -338,15 +339,15 @@ public class GameRenderer implements Renderer {
 
 		boolean canBuild = false;
 
-		// // draw edges
-		// for (int i = 0; i < Edge.NUM_EDGES; i++) {
-		// Edge edge = board.getEdge(i);
-		// boolean build = action == Action.ROAD && player != null
-		// && player.canBuild(edge);
-		// canBuild |= build;
-		//
-		// texture.draw(edge, build, canvas, geometry);
-		// }
+		// draw edges
+		for (int i = 0; i < Edge.NUM_EDGES; i++) {
+			Edge edge = board.getEdge(i);
+			boolean build = action == Action.ROAD && player != null && player.canBuild(edge);
+			canBuild |= build;
+
+			if (build || edge.getOwner() != null)
+				texture.draw(edge, build, gl, geometry);
+		}
 
 		// draw vertices
 		for (int i = 0; i < Vertex.NUM_VERTEX; i++) {
@@ -357,14 +358,13 @@ public class GameRenderer implements Renderer {
 					&& player.canBuild(vertex, Vertex.CITY);
 			canBuild |= town | city;
 
-//			texture.draw(vertex, town, city, gl, geometry);
+			texture.draw(vertex, town, city, gl, geometry);
 		}
 
 		// check if player is trying to build but can't
-		if (player != null
-				&& !canBuild
-				&& (action == Action.ROAD || action == Action.TOWN || action == Action.CITY))
+		if (player != null && !canBuild && (action == Action.ROAD || action == Action.TOWN || action == Action.CITY)) {
 			game.cantBuild(action);
+		}
 
 		// // draw the buttons
 		// for (int i = 0; i < button.length; i++) {

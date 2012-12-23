@@ -106,6 +106,8 @@ public class TextureManager {
 		add(Type.BUTTON, UIButton.Type.CANCEL.ordinal(),
 				R.drawable.button_cancel, res);
 
+		add(Type.ROAD, 0, R.drawable.road, res);
+				
 		// load large town textures
 		add(Type.TOWN, Player.Color.SELECT.ordinal(),
 				R.drawable.settlement_purple, res);
@@ -163,12 +165,6 @@ public class TextureManager {
 				res);
 	}
 
-	// private static void shorten(int[] points, double factor) {
-	// int center = (points[0] + points[1]) / 2;
-	// points[0] = (int) (center - factor * (center - points[0]));
-	// points[1] = (int) (center - factor * (center - points[1]));
-	// }
-
 	public static int getColor(Player.Color color) {
 		switch (color) {
 		case RED:
@@ -183,6 +179,15 @@ public class TextureManager {
 			return Color.rgb(0x87, 0x87, 0x87);
 		}
 	}
+	
+	public static float[] getColorArray(int color) {
+		float[] array = new float[4];
+		array[0] = (float) Color.red(color) / 255.0f;
+		array[1] = (float) Color.green(color) / 255.0f;
+		array[2] = (float) Color.blue(color) / 255.0f;
+		array[3] = 1f;
+		return array;
+	}
 
 	public static int darken(int color, double factor) {
 		return Color.argb(Color.alpha(color),
@@ -194,26 +199,6 @@ public class TextureManager {
 	public static void setPaintColor(Paint paint, Player.Color color) {
 		paint.setColor(getColor(color));
 	}
-
-	// public void draw(Background background, Canvas canvas, Geometry geometry)
-	// {
-	// if (background == Background.NONE) {
-	// canvas.drawColor(Color.BLACK);
-	// return;
-	// }
-	//
-	// Bitmap bitmap = get(Type.BACKGROUND, hash(background));
-	// int xsize = bitmap.getWidth();
-	// int ysize = bitmap.getHeight();
-	//
-	// int width = geometry.getWidth();
-	// int height = geometry.getHeight();
-	//
-	// for (int y = 0; y < height; y += ysize) {
-	// for (int x = 0; x < width; x += xsize)
-	// canvas.drawBitmap(bitmap, x, y, null);
-	// }
-	// }
 
 	// public void draw(UIButton button, Player.Color player, Canvas canvas) {
 	// Bitmap background = get(Type.BUTTONBG,
@@ -292,54 +277,37 @@ public class TextureManager {
 		gl.glPopMatrix();
 	}
 
-	// public void draw(Edge edge, boolean build, Canvas canvas, Geometry
-	// geometry) {
-	// int[] x = new int[2];
-	// int[] y = new int[2];
-	// x[0] = geometry.getVertexX(edge.getVertex1().getIndex());
-	// x[1] = geometry.getVertexX(edge.getVertex2().getIndex());
-	// y[0] = geometry.getVertexY(edge.getVertex1().getIndex());
-	// y[1] = geometry.getVertexY(edge.getVertex2().getIndex());
-	//
-	// shorten(x, 0.55);
-	// shorten(y, 0.55);
-	//
-	// Paint paint = new Paint();
-	// Player owner = edge.getOwner();
-	//
-	// paint.setAntiAlias(true);
-	// paint.setStrokeCap(Paint.Cap.SQUARE);
-	//
-	// // draw black backdrop
-	// if (owner != null || build) {
-	// paint.setARGB(255, 0, 0, 0);
-	// paint.setStrokeWidth((int) (geometry.getUnitSize()
-	// * geometry.getZoom() / 7));
-	// canvas.drawLine(x[0], y[0], x[1], y[1], paint);
-	// }
-	//
-	// // set size
-	// paint.setStrokeWidth((int) (geometry.getUnitSize() * geometry.getZoom() /
-	// 12));
-	// shorten(x, 0.95);
-	// shorten(y, 0.95);
-	//
-	// // set the color
-	// if (owner != null)
-	// setPaintColor(paint, owner.getColor());
-	// else
-	// setPaintColor(paint, Player.Color.SELECT);
-	//
-	// // draw road
-	// if (owner != null || build)
-	// canvas.drawLine(x[0], y[0], x[1], y[1], paint);
-	//
-	// // // debug label
-	// // paint.setColor(Color.WHITE);
-	// // paint.setTextSize(20);
-	// // canvas.drawText("E" + edge.getIndex(), (x[0] + x[1]) / 2, (y[0] +
-	// // y[1]) / 2, paint);
-	// }
+	public void draw(Edge edge, boolean build, GL10 gl, Geometry geometry) {
+		float[] x = new float[2];
+		float[] y = new float[2];
+		x[0] = geometry.getVertexX(edge.getVertex1().getIndex());
+		x[1] = geometry.getVertexX(edge.getVertex2().getIndex());
+		y[0] = geometry.getVertexY(edge.getVertex1().getIndex());
+		y[1] = geometry.getVertexY(edge.getVertex2().getIndex());
+
+		Player owner = edge.getOwner();
+		float[] color;
+		if (owner != null)
+			color = getColorArray(getColor(owner.getColor()));
+		else
+			color = getColorArray(getColor(Player.Color.SELECT));
+		
+		float dx = x[1] - x[0];
+		float dy = y[1] - y[0];
+		
+		gl.glColor4f(color[0], color[1], color[2], color[3]);
+
+		gl.glPushMatrix();
+		
+		gl.glTranslatef(geometry.getEdgeX(edge.getIndex()), geometry.getEdgeY(edge.getIndex()), Type.ROAD.ordinal());
+		gl.glRotatef((float) (180 / Math.PI * Math.atan(dy / dx)), 0, 0, 1);
+		
+		square.get(hash(Type.ROAD, 0)).render(gl);
+		
+		gl.glPopMatrix();
+		
+		gl.glColor4f(1, 1, 1, 1);
+	}
 
 	public void draw(Vertex vertex, boolean buildTown, boolean buildCity,
 			GL10 gl, Geometry geometry) {
@@ -363,7 +331,7 @@ public class TextureManager {
 		if (object != null) {
 			gl.glPushMatrix();
 			int id = vertex.getIndex();
-			gl.glTranslatef(geometry.getVertexX(id), geometry.getVertexY(id), 0);
+			gl.glTranslatef(geometry.getVertexX(id), geometry.getVertexY(id), Type.TOWN.ordinal());
 			object.render(gl);
 			gl.glPopMatrix();
 		}
