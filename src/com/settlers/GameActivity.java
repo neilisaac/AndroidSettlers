@@ -31,7 +31,7 @@ public class GameActivity extends Activity {
 	private static final int MIN_BOT_DELAY = 1000;
 
 	private static final int UPDATE_MESSAGE = 1, LOG_MESSAGE = 2,
-			DISCARD_MESSAGE = 3;
+			DISCARD_MESSAGE = 3, CANT_BUILD_MESSAGE = 4;
 
 	private GameView view;
 	private Board board;
@@ -126,6 +126,10 @@ public class GameActivity extends Activity {
 				intent.putExtra(Discard.PLAYER_KEY, toDiscard.getIndex());
 				intent.putExtra(Discard.QUANTITY_KEY, extra);
 				GameActivity.this.startActivity(intent);
+				break;
+				
+			case CANT_BUILD_MESSAGE:
+				popup(getString(R.string.game_build_fail), msg.getData().getString("message"));
 				break;
 			}
 
@@ -329,9 +333,17 @@ public class GameActivity extends Activity {
 
 			break;
 		}
-
-		popup(getString(R.string.game_build_fail), message);
-		setup(false);
+		
+		Message msg = new Message();
+		Bundle bundle = new Bundle();
+		bundle.putString("message", message);
+		msg.what = CANT_BUILD_MESSAGE;
+		msg.setData(bundle);
+		turnHandler.sendMessage(msg);
+		
+		Message change = new Message();
+		change.what = UPDATE_MESSAGE;
+		turnHandler.sendMessage(change);
 	}
 
 	private void setup(boolean setZoom) {
