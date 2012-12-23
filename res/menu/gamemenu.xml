@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/status"
+        android:icon="@drawable/ic_action_about"
+        android:title="@string/status"
+        android:showAsAction="ifRoom|withText">
+    </item>
+    <item
+        android:id="@+id/reference"
+        android:icon="@drawable/ic_action_help"
+        android:title="@string/reference"
+        android:showAsAction="ifRoom">
+    </item>
+    <item
+        android:id="@+id/options"
+        android:icon="@drawable/ic_action_settings"
+        android:title="@string/options"
+        android:showAsAction="ifRoom">
+    </item>
 
-	<item android:id="@+id/reference" android:title="@string/reference"
-		android:icon="@drawable/reference"></item>
-		
-	<item android:id="@+id/status" android:title="@string/status"
-		android:icon="@drawable/status"></item>
-		
-	<item android:id="@+id/options" android:title="@string/options"
-		android:icon="@drawable/settings"></item>
-		
 </menu>
