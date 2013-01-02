@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/options"
-            android:textSize="24sp" >
+            android:textAppearance="?android:attr/textAppearanceMedium" >
         </TextView>
 
         <Spinner
@@ -48,8 +48,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/player_red" 
-            android:textSize="24sp" >
+            android:text="@string/player_red"
+            android:textAppearance="?android:attr/textAppearanceMedium" >
         </TextView>
 
         <LinearLayout
@@ -77,8 +77,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/player_blue" 
-            android:textSize="24sp" >
+            android:text="@string/player_blue"
+            android:textAppearance="?android:attr/textAppearanceMedium" >
         </TextView>
 
         <LinearLayout
@@ -106,8 +106,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:text="@string/player_green" 
-            android:textSize="24sp" >
+            android:text="@string/player_green"
+            android:textAppearance="?android:attr/textAppearanceMedium" >
         </TextView>
 
         <LinearLayout
@@ -135,8 +135,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/player_orange" 
-            android:textSize="24sp" >
+            android:text="@string/player_orange"
+            android:textAppearance="?android:attr/textAppearanceMedium" >
         </TextView>
 
         <LinearLayout
