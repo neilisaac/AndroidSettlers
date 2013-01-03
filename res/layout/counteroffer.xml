@@ -9,7 +9,7 @@
 
 		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 			android:orientation="vertical" android:layout_width="fill_parent"
-			android:layout_height="fill_parent">
+			android:layout_height="fill_parent" android:padding="10dip">
 
 			<TextView android:id="@+id/trade_player_wants"
 				android:textSize="24dip" android:textColor="#FFFFFF"

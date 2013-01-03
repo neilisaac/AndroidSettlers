@@ -75,7 +75,7 @@
             android:name=".PlayerTrade"
             android:label="@string/app_name"
             android:launchMode="standard"
-            android:theme="@android:style/Theme.Holo" >
+            android:theme="@android:style/Theme.Holo.Dialog" >
         </activity>
         <activity
             android:name=".AcceptTrade"
@@ -87,7 +87,7 @@
             android:name=".CounterOffer"
             android:label="@string/app_name"
             android:launchMode="standard"
-            android:theme="@android:style/Theme.Holo" >
+            android:theme="@android:style/Theme.Holo.Dialog" >
         </activity>
     </application>
 
