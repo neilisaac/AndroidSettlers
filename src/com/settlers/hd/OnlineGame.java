@@ -5,7 +5,7 @@
  * Sorry, it's pretty much completely unimplemented.
  */
 
-package com.settlers;
+package com.settlers.hd;
 
 import java.io.BufferedReader;
 import java.io.IOException;

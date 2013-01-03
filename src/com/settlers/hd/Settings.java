@@ -1,4 +1,4 @@
-package com.settlers;
+package com.settlers.hd;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;

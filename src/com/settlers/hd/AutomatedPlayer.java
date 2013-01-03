@@ -1,4 +1,4 @@
-package com.settlers;
+package com.settlers.hd;
 
 public interface AutomatedPlayer {
 

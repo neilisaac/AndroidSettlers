@@ -1,11 +1,11 @@
-package com.settlers;
+package com.settlers.hd;
 
 import java.util.Vector;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import com.settlers.UIButton.Type;
+import com.settlers.hd.UIButton.Type;
 
 import android.graphics.Bitmap;
 import android.opengl.GLSurfaceView.Renderer;

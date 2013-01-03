@@ -1,6 +1,6 @@
-package com.settlers;
+package com.settlers.hd;
 
-import com.settlers.Hexagon.Type;
+import com.settlers.hd.Hexagon.Type;
 
 public class Trader {
 

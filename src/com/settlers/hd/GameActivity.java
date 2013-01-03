@@ -1,8 +1,8 @@
-package com.settlers;
+package com.settlers.hd;
 
-import com.settlers.Board.Cards;
-import com.settlers.GameRenderer.Action;
-import com.settlers.UIButton.Type;
+import com.settlers.hd.Board.Cards;
+import com.settlers.hd.GameRenderer.Action;
+import com.settlers.hd.UIButton.Type;
 
 import android.app.ActionBar;
 import android.app.Activity;

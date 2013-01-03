@@ -1,4 +1,4 @@
-package com.settlers;
+package com.settlers.hd;
 
 import javax.microedition.khronos.opengles.GL10;
 

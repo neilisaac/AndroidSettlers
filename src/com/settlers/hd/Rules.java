@@ -1,4 +1,4 @@
-package com.settlers;
+package com.settlers.hd;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;

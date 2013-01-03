@@ -1,6 +1,6 @@
-package com.settlers;
+package com.settlers.hd;
 
-import com.settlers.Board.Cards;
+import com.settlers.hd.Board.Cards;
 
 import android.app.TabActivity;
 import android.os.Bundle;

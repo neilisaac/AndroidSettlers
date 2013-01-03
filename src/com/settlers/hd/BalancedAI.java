@@ -1,9 +1,9 @@
-package com.settlers;
+package com.settlers.hd;
 
 import java.util.Vector;
 
-import com.settlers.Board.Cards;
-import com.settlers.Hexagon.Type;
+import com.settlers.hd.Board.Cards;
+import com.settlers.hd.Hexagon.Type;
 
 public class BalancedAI extends Player implements AutomatedPlayer {
 

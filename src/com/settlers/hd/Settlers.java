@@ -1,4 +1,4 @@
-package com.settlers;
+package com.settlers.hd;
 
 import android.app.Application;
 import android.content.Context;
