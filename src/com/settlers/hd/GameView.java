@@ -5,7 +5,6 @@ import java.util.Vector;
 import com.settlers.hd.UIButton.Type;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.opengl.GLSurfaceView;
 import android.os.Vibrator;

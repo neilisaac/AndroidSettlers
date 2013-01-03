@@ -4,6 +4,7 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -98,6 +99,7 @@ public class Settings extends SQLiteOpenHelper {
 		db.delete(SETTINGS_TABLE, null, null);
 	}
 
+	@SuppressLint("SimpleDateFormat")
 	public void addScore(int humans, int score, String winner, int turns) {
 		if (db.isReadOnly())
 			return;

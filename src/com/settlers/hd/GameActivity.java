@@ -4,6 +4,7 @@ import com.settlers.hd.Board.Cards;
 import com.settlers.hd.GameRenderer.Action;
 import com.settlers.hd.UIButton.Type;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -22,8 +23,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.SoundEffectConstants;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -98,6 +97,7 @@ public class GameActivity extends Activity {
 		}
 	}
 
+	@SuppressLint("HandlerLeak")
 	class UpdateHandler extends Handler {
 		@Override
 		public void handleMessage(Message msg) {
@@ -345,6 +345,9 @@ public class GameActivity extends Activity {
 				message = getString(R.string.game_build_city_fail);
 
 			break;
+			
+		default:
+			return;
 		}
 		
 		Message msg = new Message();

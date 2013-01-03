@@ -13,6 +13,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URLConnection;
 import java.net.URL;
+import java.util.Locale;
 import java.util.Vector;
 
 import android.util.Log;
@@ -51,8 +52,8 @@ public class OnlineGame {
 		if (index == null)
 			return false;
 
-		this.player = new Integer(player);
-		this.index = new Integer(index);
+		this.player = Integer.valueOf(player);
+		this.index = Integer.valueOf(index);
 		return true;
 	}
 
@@ -67,7 +68,7 @@ public class OnlineGame {
 		if (index == null)
 			return false;
 
-		this.index = new Integer(index);
+		this.index = Integer.valueOf(index);
 		return true;
 	}
 
@@ -166,6 +167,9 @@ public class OnlineGame {
 				case END:
 					board.nextPhase();
 					break;
+					
+				default:
+					return false;
 				}
 			}
 
@@ -233,7 +237,7 @@ public class OnlineGame {
 	private static Command getCommand(String string) {
 		Command[] commands = Command.values();
 		for (int i = 0; i < commands.length; i++) {
-			if (string == commands[i].toString().toLowerCase())
+			if (string == commands[i].toString().toLowerCase(Locale.getDefault()))
 				return commands[i];
 		}
 
@@ -253,6 +257,6 @@ public class OnlineGame {
 		if (index >= args.length)
 			throw new ArrayIndexOutOfBoundsException();
 
-		return new Integer(args[index]);
+		return Integer.valueOf(args[index]);
 	}
 }

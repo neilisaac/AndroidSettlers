@@ -1,16 +1,10 @@
 package com.settlers.hd;
 
-import java.util.Vector;
-
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import com.settlers.hd.UIButton.Type;
-
-import android.graphics.Bitmap;
 import android.opengl.GLSurfaceView.Renderer;
 import android.util.DisplayMetrics;
-import android.util.Log;
 
 public class GameRenderer implements Renderer {
 
