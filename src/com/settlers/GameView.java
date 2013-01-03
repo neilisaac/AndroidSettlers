@@ -1,6 +1,12 @@
 package com.settlers;
 
+import java.util.Vector;
+
+import com.settlers.UIButton.Type;
+
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.opengl.GLSurfaceView;
 import android.os.Vibrator;
 import android.view.MotionEvent;
@@ -19,13 +25,22 @@ public class GameView extends GLSurfaceView implements OnGestureListener,
 	private GestureDetector gesture;
 	private ScaleGestureDetector pinch;
 
+	public Vector<UIButton> buttons;
+	private boolean buttonsPlaced = false;
+	private GameActivity game;
+
 	public GameView(Context context) {
 		super(context);
+		
+		game = (GameActivity) context;
 		
 		gesture = new GestureDetector(context, this);
 		pinch = new ScaleGestureDetector(context, this);
 		
 		setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
+
+		buttons = new Vector<UIButton>();
+		buttonsPlaced = false;
 	}
 
 	@Override
@@ -52,7 +67,7 @@ public class GameView extends GLSurfaceView implements OnGestureListener,
 	public boolean onScroll(MotionEvent e1, MotionEvent e2, float distX,
 			float distY) {
 		// throw out button press if scrolling over a button
-		renderer.release((int) e2.getX(), (int) e2.getY(), false);
+		release((int) e2.getX(), (int) e2.getY(), false);
 
 		// shift the board
 		renderer.translate(distX, distY);
@@ -63,7 +78,7 @@ public class GameView extends GLSurfaceView implements OnGestureListener,
 	@Override
 	public boolean onFling(MotionEvent e1, MotionEvent e2, float vx, float vy) {
 		// throw out button press if scrolling over a button
-		renderer.release((int) e2.getX(), (int) e2.getY(), false);
+		release((int) e2.getX(), (int) e2.getY(), false);
 
 		// ignore flings
 		return false;
@@ -74,7 +89,7 @@ public class GameView extends GLSurfaceView implements OnGestureListener,
 		setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
 		
 		// press down (consider activating buttons)
-		renderer.press((int) event.getX(), (int) event.getY());
+		press((int) event.getX(), (int) event.getY());
 
 		// always return true to allow gestures to register
 		return true;
@@ -94,15 +109,16 @@ public class GameView extends GLSurfaceView implements OnGestureListener,
 	@Override
 	public boolean onSingleTapConfirmed(MotionEvent event) {
 		// button click
-		return renderer.release((int) event.getX(), (int) event.getY(), true);
+		return release((int) event.getX(), (int) event.getY(), true);
 	}
 
 	@Override
 	public void onLongPress(MotionEvent event) {
 		// TODO: long press resource to trade for it
 
-		// consider a click on the board
-		if (renderer.click((int) event.getX(), (int) event.getY())) {
+		// consider buttons then a click on the board
+		if (release((int) event.getX(), (int) event.getY(), true) ||
+				renderer.click((int) event.getX(), (int) event.getY())) {
 			Vibrator vibrator = (Vibrator) getContext().getSystemService(
 					Context.VIBRATOR_SERVICE);
 
@@ -141,5 +157,107 @@ public class GameView extends GLSurfaceView implements OnGestureListener,
 
 	@Override
 	public void onScaleEnd(ScaleGestureDetector detector) {
+	}
+
+	@Override
+	public void onDraw(Canvas canvas) {
+		super.onDraw(canvas);
+	}
+
+	public void addButton(Type type) {
+		synchronized (buttons) {
+			buttons.add(new UIButton(type, Geometry.BUTTON_SIZE, Geometry.BUTTON_SIZE));
+			buttonsPlaced = false;
+		}
+	}
+
+	public void removeButtons() {
+		synchronized (buttons) {
+			buttons.clear();
+		}
+	}
+
+	public void placeButtons(int width, int height) {
+		if (buttonsPlaced)
+			return;
+		
+		// first button is always in the top left corner
+		int x = 0;
+		int y = height;
+
+		synchronized (buttons) {
+			for (UIButton button : buttons) {
+				int endwidth = width - button.getWidth() / 2;
+				int endheight = button.getHeight() / 2;
+
+				// set position
+				UIButton.Type type = button.getType();
+				if (type == UIButton.Type.CANCEL || type == UIButton.Type.ROLL
+						|| type == UIButton.Type.ENDTURN) {
+					// set position to far right/bottom
+					if (width < height)
+						button.setPosition(endwidth,
+								height - button.getHeight() / 2);
+					else
+						button.setPosition(button.getWidth() / 2, endheight);
+				} else {
+					// set to next available position
+					button.setPosition(x + button.getWidth() / 2,
+							y - button.getHeight() / 2);
+
+					// get next position
+					if (height >= width) {
+						// portrait
+						int size = button.getWidth();
+						x += size;
+						if (x + size > endwidth) {
+							x = 0;
+							y -= button.getHeight();
+						}
+					} else {
+						// landscape
+						int size = button.getHeight();
+						y -= size;
+						if (y - size < endheight) {
+							y = height;
+							x += button.getWidth();
+						}
+					}
+				}
+			}
+		}
+
+		buttonsPlaced = true;
+	}
+	
+	public boolean press(int x, int y) {
+		boolean pressed = false;
+
+		// consider buttons
+		synchronized (buttons) {
+			for (UIButton button : buttons) {
+				if (button != null && button.press(x, height - y))
+					pressed = true;
+			}
+		}
+
+		return pressed;
+	}
+
+	public boolean release(int x, int y, boolean activate) {
+		boolean released = false;
+
+		// consider buttons
+		synchronized (buttons) {
+			for (UIButton button : buttons) {
+				if (button.release(x, height - y)) {
+					released = true;
+					if (activate)
+						game.queueButtonPress(button.getType());
+				}
+			}
+		}
+
+		return released;
 	}
 }

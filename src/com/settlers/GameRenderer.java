@@ -1,12 +1,16 @@
 package com.settlers;
 
+import java.util.Vector;
+
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import com.settlers.UIButton.Type;
 
+import android.graphics.Bitmap;
 import android.opengl.GLSurfaceView.Renderer;
 import android.util.DisplayMetrics;
+import android.util.Log;
 
 public class GameRenderer implements Renderer {
 
@@ -24,29 +28,21 @@ public class GameRenderer implements Renderer {
 	private int width, height;
 
 	private static Geometry geometry = null;
-	private boolean buttonsPlaced = false;
-
-	private UIButton[] button;
 
 	private static final float[] backgroundColors = { 0, 0.227f, 0.521f, 1,
 			0.262f, 0.698f, 0.878f, 1, 0, 0.384f, 0.600f, 1, 0.471f, 0.875f,
 			1f, 1 };
 
 	private Square background;
+	private GameView view;
 
-	public GameRenderer() {		
+	public GameRenderer(GameView gameView) {
+		view = gameView;
+		
 		if (geometry == null)
 			geometry = new Geometry();
 
 		action = Action.NONE;
-		buttonsPlaced = false;
-
-		// allocate and clear buttons
-		// TODO: find better way
-		buttonsPlaced = false;
-		button = new UIButton[UIButton.Type.values().length];
-		for (int i = 0; i < button.length; i++)
-			button[i] = null;
 	}
 
 	public void setState(GameActivity game, Board board, Player player,
@@ -72,30 +68,14 @@ public class GameRenderer implements Renderer {
 		return action;
 	}
 
-	public void addButton(Type type) {
-		for (int i = 0; i < button.length; i++) {
-			if (button[i] != null)
-				continue;
-
-			button[i] = new UIButton(type, texture.get(type));
-			buttonsPlaced = false;
-			return;
-		}
-	}
-
-	public void removeButtons() {
-		for (int i = 0; i < button.length; i++)
-			button[i] = null;
-	}
-
 	public void zoom(int x, int y) {
 		geometry.zoomTo(translateScreenX(x), translateScreenY(y));
 	}
-	
+
 	public void zoomBy(float factor) {
 		geometry.setZoom(geometry.getZoom() * factor);
 	}
-	
+
 	public boolean isZoomed() {
 		return geometry.isZoomed();
 	}
@@ -104,51 +84,6 @@ public class GameRenderer implements Renderer {
 		geometry.reset();
 	}
 
-	private void placeButtons() {
-		// first button is always in the top left corner
-		int x = 0, y = 0;
-
-		for (int i = 0; i < button.length; i++) {
-			if (button[i] == null)
-				break;
-
-			int endwidth = width - button[i].getWidth();
-			int endheight = height - button[i].getHeight();
-
-			// set position
-			UIButton.Type type = button[i].getType();
-			if (type == UIButton.Type.CANCEL || type == UIButton.Type.ROLL
-					|| type == UIButton.Type.ENDTURN) {
-				// set position to far right/bottom
-				if (width < height)
-					button[i].setPosition(endwidth, 0);
-				else
-					button[i].setPosition(0, endheight);
-			} else {
-				// set to next available position
-				button[i].setPosition(x, y);
-
-				// get next position
-				if (height >= width) {
-					// portrait
-					int size = button[i].getWidth();
-					x += size;
-					if (x + size > endwidth) {
-						x = 0;
-						y += button[i].getHeight();
-					}
-				} else {
-					// landscape
-					int size = button[i].getHeight();
-					y += size;
-					if (y + size > endheight) {
-						y = 0;
-						x += button[i].getWidth();
-					}
-				}
-			}
-		}
-	}
 
 	public boolean cancel() {
 		// TODO: cancel intermediate interactions
@@ -159,34 +94,6 @@ public class GameRenderer implements Renderer {
 		return ((board.isProduction() || board.isBuild()) && action != Action.NONE);
 	}
 
-	public boolean press(int x, int y) {
-		boolean pressed = false;
-
-		// consider buttons
-		for (int i = 0; i < button.length; i++) {
-			if (button[i] != null && button[i].press(x, y))
-				pressed = true;
-		}
-
-		return pressed;
-	}
-
-	public boolean release(int x, int y, boolean activate) {
-		boolean released = false;
-
-		// consider buttons
-		for (int i = 0; i < button.length; i++) {
-			if (button[i] == null)
-				break;
-
-			if (button[i].release(x, y) && activate) {
-				game.buttonPress(button[i].getType());
-				released = true;
-			}
-		}
-
-		return released;
-	}
 
 	public void translate(float dx, float dy) {
 		int min = geometry.getMinimalSize();
@@ -194,35 +101,10 @@ public class GameRenderer implements Renderer {
 	}
 
 	public boolean click(int x, int y) {
-		// consider buttons first
-		if (release(x, y, true))
-			return true;
-
 		// ignore presses during non-human turns
 		if (player == null)
 			return false;
 
-		// find starting corner of resource bar
-		int startx = 0, starty = 0;
-		int barsize = geometry.getMinimalSize() / 5;
-		if (height >= width)
-			starty = height - barsize;
-		else
-			startx = width - barsize;
-
-		// consider clicking resource bar
-		if (x >= startx && y > starty) {
-			if (action != Action.NONE)
-				return false;
-
-			int width = geometry.getWidth();
-			int height = geometry.getHeight();
-			if (height >= width)
-				return game.clickResource(Hexagon.TYPES.length * x / width);
-			else
-				return game.clickResource(Hexagon.TYPES.length * y / height);
-		}
-		
 		// translate to centered coordinates
 		float px = translateScreenX(x);
 		float py = translateScreenY(y);
@@ -262,17 +144,17 @@ public class GameRenderer implements Renderer {
 
 		return false;
 	}
-	
+
 	private float translateScreenX(int x) {
-		int min = width < height ? width : height; 
-		float factor = geometry.getZoom();
-		return 2 * factor * (x - width / 2) / min;
+		float min = (width < height ? width : height) / 2f;
+		return (float) ((x - width / 2) / min + geometry.getTranslateX())
+				/ geometry.getZoom();
 	}
 
 	private float translateScreenY(int y) {
-		int min = width < height ? width : height;
-		float factor = geometry.getZoom();
-		return 2 * factor * (height / 2 - y) / min;
+		float min = (width < height ? width : height) / 2f;
+		return (float) ((height / 2 - y) / min + geometry.getTranslateY())
+				/ geometry.getZoom();
 	}
 
 	@Override
@@ -280,21 +162,13 @@ public class GameRenderer implements Renderer {
 		this.width = width;
 		this.height = height;
 
-		gl.glViewport(0, 0, width, height);
-
-		gl.glMatrixMode(GL10.GL_PROJECTION);
-		gl.glLoadIdentity();
 		float aspect = (float) width / (float) height;
-		if (width > height) {
-			gl.glOrthof(-aspect, aspect, -1, 1, 0.1f, 40f);
+		if (width > height)
 			background = new Square(backgroundColors, 0, 0, 0, 2 * aspect, 2);
-		} else {
-			gl.glOrthof(-1, 1, -1 / aspect, 1 / aspect, 0.1f, 40f);
+		else
 			background = new Square(backgroundColors, 0, 0, 0, 2, 2 / aspect);
-		}
 
-		gl.glMatrixMode(GL10.GL_MODELVIEW);
-		gl.glLoadIdentity();
+		gl.glViewport(0, 0, width, height);
 	}
 
 	@Override
@@ -320,7 +194,17 @@ public class GameRenderer implements Renderer {
 		gl.glColor4f(1, 1, 1, 1);
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
 
+		gl.glMatrixMode(GL10.GL_PROJECTION);
 		gl.glLoadIdentity();
+		float aspect = (float) width / (float) height;
+		if (width > height)
+			gl.glOrthof(-aspect, aspect, -1, 1, 0.1f, 40f);
+		else
+			gl.glOrthof(-1, 1, -1 / aspect, 1 / aspect, 0.1f, 40f);
+
+		gl.glMatrixMode(GL10.GL_MODELVIEW);
+		gl.glLoadIdentity();
+
 		gl.glTranslatef(0, 0, -30);
 
 		// draw background without transformation
@@ -346,7 +230,8 @@ public class GameRenderer implements Renderer {
 		// draw edges
 		for (int i = 0; i < Edge.NUM_EDGES; i++) {
 			Edge edge = board.getEdge(i);
-			boolean build = action == Action.ROAD && player != null && player.canBuild(edge);
+			boolean build = action == Action.ROAD && player != null
+					&& player.canBuild(edge);
 			canBuild |= build;
 
 			if (build || edge.getOwner() != null)
@@ -366,23 +251,32 @@ public class GameRenderer implements Renderer {
 		}
 
 		// check if player is trying to build but can't
-		if (player != null && !canBuild && (action == Action.ROAD || action == Action.TOWN || action == Action.CITY)) {
+		if (player != null
+				&& !canBuild
+				&& (action == Action.ROAD || action == Action.TOWN || action == Action.CITY)) {
 			game.cantBuild(action);
 		}
 
-		// // draw the buttons
-		// for (int i = 0; i < button.length; i++) {
-		// if (button[i] == null)
-		// break;
-		//
-		// texture
-		// .draw(button[i], board.getCurrentPlayer().getColor(),
-		// canvas);
-		// }
-		//
-		// // don't draw resource bar for non-human players
-		// if (player == null)
-		// return;
+		gl.glMatrixMode(GL10.GL_PROJECTION);
+		gl.glLoadIdentity();
+		gl.glOrthof(0, width, 0, height, 0.1f, 40f);
+		gl.glTranslatef(0, 0, -30);
+
+		gl.glMatrixMode(GL10.GL_MODELVIEW);
+		gl.glLoadIdentity();
+
+		// draw the buttons
+		view.placeButtons(width, height);
+
+		synchronized (view.buttons) {
+			for (UIButton button : view.buttons) {
+				texture.draw(button, gl);
+			}
+		}
+
+		// don't draw resource bar for non-human players
+		if (player == null)
+			return;
 
 		// int playerColor = TextureManager.getColor(player.getColor());
 		// int darkPlayerColor = TextureManager.darken(playerColor, 0.5);

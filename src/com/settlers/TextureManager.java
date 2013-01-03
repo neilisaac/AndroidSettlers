@@ -200,13 +200,23 @@ public class TextureManager {
 		paint.setColor(getColor(color));
 	}
 
-	// public void draw(UIButton button, Player.Color player, Canvas canvas) {
-	// Bitmap background = get(Type.BUTTONBG,
-	// hash(UIButton.Background.BACKDROP));
-	// Bitmap pressed = get(Type.BUTTONBG, hash(UIButton.Background.PRESSED));
-	//
-	// button.draw(canvas, background, pressed);
-	// }
+	public void draw(UIButton button, GL10 gl) {
+		gl.glPushMatrix();
+		gl.glTranslatef(button.getX(), button.getY(), 10);
+		gl.glScalef(Geometry.TILE_SIZE * 2, Geometry.TILE_SIZE * 2, 1);
+		
+		square.get(hash(Type.BUTTONBG, UIButton.Background.BACKDROP.ordinal())).render(gl);
+		
+		if (button.isPressed())
+			square.get(hash(Type.BUTTONBG, UIButton.Background.PRESSED.ordinal())).render(gl);
+
+		square.get(hash(Type.BUTTON, button.getType().ordinal())).render(gl);
+
+//		if (!button.isEnabled())
+//			square.get(hash(Type.BUTTONBG, UIButton.Background.ACTIVATED.ordinal())).render(gl);
+		
+		gl.glPopMatrix();
+	}
 
 	public void draw(Location location, int x, int y, GL10 gl) {
 		Bitmap image = get(Type.ORNAMENT, location.ordinal());

@@ -5,6 +5,7 @@ import android.util.Log;
 public class Geometry {
 
 	public static final int TILE_SIZE = 256;
+	public static final int BUTTON_SIZE = 128;
 
 	private static final float REFERENCE_SIZE = 5f * 256f;
 	private static final float MAX_PAN = 2.5f;

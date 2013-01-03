@@ -24,6 +24,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.SoundEffectConstants;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 public class GameActivity extends Activity {
@@ -31,7 +32,7 @@ public class GameActivity extends Activity {
 	private static final int MIN_BOT_DELAY = 1000;
 
 	private static final int UPDATE_MESSAGE = 1, LOG_MESSAGE = 2,
-			DISCARD_MESSAGE = 3, CANT_BUILD_MESSAGE = 4;
+			DISCARD_MESSAGE = 3, CANT_BUILD_MESSAGE = 4, BUTTON_PRESS_MESSAGE = 5;
 
 	private GameView view;
 	private Board board;
@@ -131,6 +132,9 @@ public class GameActivity extends Activity {
 			case CANT_BUILD_MESSAGE:
 				popup(getString(R.string.game_build_fail), msg.getData().getString("message"));
 				break;
+				
+			case BUTTON_PRESS_MESSAGE:
+				buttonPress(UIButton.Type.values()[msg.getData().getInt("button")]);
 			}
 
 			super.handleMessage(msg);
@@ -181,8 +185,17 @@ public class GameActivity extends Activity {
 			}
 		}
 	}
+	
+	public void queueButtonPress(Type button) {
+		Message msg = new Message();
+		Bundle bundle = new Bundle();
+		bundle.putInt("button", button.ordinal());
+		msg.what = BUTTON_PRESS_MESSAGE;
+		msg.setData(bundle);
+		turnHandler.sendMessage(msg);
+	}
 
-	public boolean buttonPress(Type button) {
+	private boolean buttonPress(Type button) {
 		switch (button) {
 		case INFO:
 			GameActivity.this.startActivity(new Intent(GameActivity.this, Status.class));
@@ -353,7 +366,7 @@ public class GameActivity extends Activity {
 
 		renderer.setState(this, board, player.isHuman() ? player : null, texture,
 				board.getRoll());
-
+		
 		if (setZoom)
 			renderer.unZoom();
 
@@ -418,9 +431,9 @@ public class GameActivity extends Activity {
 	}
 
 	private void setButtons(Action action) {
-		renderer.removeButtons();
+		view.removeButtons();
 
-		renderer.addButton(Type.INFO);
+		view.addButton(Type.INFO);
 
 		Player player = board.getCurrentPlayer();
 		Player winner = board.getWinner(null);
@@ -436,27 +449,27 @@ public class GameActivity extends Activity {
 			// do nothing
 		} else if (action != Action.NONE) {
 			// cancel the action
-			renderer.addButton(Type.CANCEL);
+			view.addButton(Type.CANCEL);
 		} else if (board.isProduction()) {
-			renderer.addButton(Type.ROLL);
+			view.addButton(Type.ROLL);
 
 			if (player.canUseCard())
-				renderer.addButton(Type.DEVCARD);
+				view.addButton(Type.DEVCARD);
 		} else if (board.isBuild()) {
-			renderer.addButton(Type.TRADE);
-			renderer.addButton(Type.ENDTURN);
+			view.addButton(Type.TRADE);
+			view.addButton(Type.ENDTURN);
 
 			if (player.affordCard() || player.canUseCard())
-				renderer.addButton(Type.DEVCARD);
+				view.addButton(Type.DEVCARD);
 
 			if (player.affordRoad())
-				renderer.addButton(Type.ROAD);
+				view.addButton(Type.ROAD);
 
 			if (player.affordTown())
-				renderer.addButton(Type.TOWN);
+				view.addButton(Type.TOWN);
 
 			if (player.affordCity())
-				renderer.addButton(Type.CITY);
+				view.addButton(Type.CITY);
 		}
 	}
 
@@ -767,13 +780,32 @@ public class GameActivity extends Activity {
 	public void onCreate(Bundle state) {
 		super.onCreate(state);
 
-		renderer = new GameRenderer();
-		view = new GameView(this);
-		view.setRenderer(renderer);
-		setContentView(view);
-		view.requestFocus();
-
 		Settlers app = (Settlers) getApplicationContext();
+		
+		LinearLayout layout = new LinearLayout(this);
+		layout.setOrientation(LinearLayout.VERTICAL);
+		
+		LinearLayout bar = new LinearLayout(this);
+		bar.setOrientation(LinearLayout.HORIZONTAL);
+		bar.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+				LinearLayout.LayoutParams.WRAP_CONTENT));
+		layout.addView(bar);
+
+		TextureManager texture = app.getTextureManagerInstance();
+		if (texture == null) {
+			texture = new TextureManager(getResources());
+			app.setTextureManagerInstance(texture);
+		}
+		
+		view = new GameView(this);
+		renderer = new GameRenderer(view);
+		view.setRenderer(renderer);
+		view.requestFocus();
+		view.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+				LinearLayout.LayoutParams.MATCH_PARENT));
+		layout.addView(view);
+		
+		setContentView(layout);
 
 		board = app.getBoardInstance();
 
@@ -796,12 +828,6 @@ public class GameActivity extends Activity {
 		if (board == null) {
 			finish();
 			return;
-		}
-
-		TextureManager texture = app.getTextureManagerInstance();
-		if (texture == null) {
-			texture = new TextureManager(getResources());
-			app.setTextureManagerInstance(texture);
 		}
 
 		turnHandler = new UpdateHandler();
