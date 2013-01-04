@@ -24,7 +24,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
+import android.widget.LinearLayout.LayoutParams;
 
 public class GameActivity extends Activity {
 
@@ -35,6 +37,7 @@ public class GameActivity extends Activity {
 
 	private GameView view;
 	private Board board;
+	private ResourceView resources;
 
 	private Handler turnHandler;
 	private TurnThread turnThread;
@@ -427,10 +430,11 @@ public class GameActivity extends Activity {
 
 		int resourceId = board.getPhaseResource();
 		if (resourceId != 0)
-			setTitle(board.getCurrentPlayer().getName() + ": "
-					+ getString(resourceId));
+			setTitle(player.getName() + ": " + getString(resourceId));
 		else
-			setTitle(board.getCurrentPlayer().getName());
+			setTitle(player.getName());
+		
+		resources.setValues(player);
 	}
 
 	private void setButtons(Action action) {
@@ -785,14 +789,7 @@ public class GameActivity extends Activity {
 
 		Settlers app = (Settlers) getApplicationContext();
 		
-		LinearLayout layout = new LinearLayout(this);
-		layout.setOrientation(LinearLayout.VERTICAL);
-		
-		LinearLayout bar = new LinearLayout(this);
-		bar.setOrientation(LinearLayout.HORIZONTAL);
-		bar.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-				LinearLayout.LayoutParams.WRAP_CONTENT));
-		layout.addView(bar);
+		RelativeLayout frame = new RelativeLayout(this);
 
 		TextureManager texture = app.getTextureManagerInstance();
 		if (texture == null) {
@@ -805,10 +802,15 @@ public class GameActivity extends Activity {
 		view.setRenderer(renderer);
 		view.requestFocus();
 		view.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-				LinearLayout.LayoutParams.MATCH_PARENT));
-		layout.addView(view);
+				LinearLayout.LayoutParams.MATCH_PARENT, 1));
+		frame.addView(view);
 		
-		setContentView(layout);
+		resources = new ResourceView(this);
+		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+		params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+		frame.addView(resources, params);
+		
+		setContentView(frame);
 
 		board = app.getBoardInstance();
 
