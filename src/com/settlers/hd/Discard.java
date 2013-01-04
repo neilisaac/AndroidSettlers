@@ -1,6 +1,8 @@
 package com.settlers.hd;
 
+import android.app.ActionBar;
 import android.app.Activity;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -150,6 +152,12 @@ public class Discard extends Activity {
 				finish();
 			}
 		});
+		
+		if (player != null) {
+			int color = TextureManager.darken(TextureManager.getColor(player.getColor()), 0.35f);
+			ActionBar actionBar = getActionBar();
+			actionBar.setBackgroundDrawable(new ColorDrawable(color));
+		}
 	}
 
 	@Override

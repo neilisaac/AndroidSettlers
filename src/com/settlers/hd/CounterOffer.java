@@ -1,7 +1,9 @@
 package com.settlers.hd;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -75,5 +77,9 @@ public class CounterOffer extends Activity {
 				finish();
 			}
 		});
+
+		int color = TextureManager.darken(TextureManager.getColor(player.getColor()), 0.35f);
+		ActionBar actionBar = getActionBar();
+		actionBar.setBackgroundDrawable(new ColorDrawable(color));
 	}
 }
