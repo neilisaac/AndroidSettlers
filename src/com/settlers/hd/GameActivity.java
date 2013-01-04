@@ -123,7 +123,7 @@ public class GameActivity extends Activity {
 					break;
 
 				Intent intent = new Intent(GameActivity.this, Discard.class);
-				intent.setClassName("com.settlers", "com.settlers.Discard");
+				intent.setClassName("com.settlers.hd", "com.settlers.hd.Discard");
 				intent.putExtra(Discard.PLAYER_KEY, toDiscard.getIndex());
 				intent.putExtra(Discard.QUANTITY_KEY, extra);
 				GameActivity.this.startActivity(intent);
@@ -294,7 +294,7 @@ public class GameActivity extends Activity {
 			return false;
 
 		Intent intent = new Intent(this, PlayerTrade.class);
-		intent.setClassName("com.settlers", "com.settlers.PlayerTrade");
+		intent.setClassName("com.settlers.hd", "com.settlers.hd.PlayerTrade");
 		intent.putExtra(PlayerTrade.TYPE_KEY, index);
 		startActivity(intent);
 

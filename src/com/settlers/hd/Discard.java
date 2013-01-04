@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 public class Discard extends Activity {
 
-	public static final String QUANTITY_KEY = "com.settlers.DiscardQuantity";
-	public static final String PLAYER_KEY = "com.settlers.DiscardPlayer";
+	public static final String QUANTITY_KEY = "com.settlers.hd.DiscardQuantity";
+	public static final String PLAYER_KEY = "com.settlers.hd.DiscardPlayer";
 
 	private static final int[] RESOURCES = { R.id.trade_res1, R.id.trade_res2,
 			R.id.trade_res3, R.id.trade_res4, R.id.trade_res5 };

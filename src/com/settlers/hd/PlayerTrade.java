@@ -17,10 +17,10 @@ public class PlayerTrade extends Activity {
 
 	public static final int REQUEST_TRADE_COMPLETED = 0;
 
-	public static final String TYPE_KEY = "com.settlers.TradeType";
-	public static final String OFFER_KEY = "com.settlers.TradeOffer";
-	public static final String PLAYER_KEY = "com.settlers.TradePlayer";
-	public static final String INDEX_KEY = "com.settlers.TradeIndex";
+	public static final String TYPE_KEY = "com.settlers.hd.TradeType";
+	public static final String OFFER_KEY = "com.settlers.hd.TradeOffer";
+	public static final String PLAYER_KEY = "com.settlers.hd.TradePlayer";
+	public static final String INDEX_KEY = "com.settlers.hd.TradeIndex";
 
 	private static final int[] RESOURCES = { R.id.trade_res1, R.id.trade_res2,
 			R.id.trade_res3, R.id.trade_res4, R.id.trade_res5 };
@@ -195,7 +195,7 @@ public class PlayerTrade extends Activity {
 				}
 
 				Intent intent = new Intent(PlayerTrade.this, AcceptTrade.class);
-				intent.setClassName("com.settlers", "com.settlers.AcceptTrade");
+				intent.setClassName("com.settlers.hd", "com.settlers.hd.AcceptTrade");
 				intent.putExtra(TYPE_KEY, selected);
 				intent.putExtra(OFFER_KEY, trade);
 

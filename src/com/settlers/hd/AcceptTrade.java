@@ -108,8 +108,8 @@ public class AcceptTrade extends Activity {
 
 						Intent intent = new Intent(AcceptTrade.this,
 								CounterOffer.class);
-						intent.setClassName("com.settlers",
-								"com.settlers.CounterOffer");
+						intent.setClassName("com.settlers.hd",
+								"com.settlers.hd.CounterOffer");
 						intent.putExtra(PlayerTrade.TYPE_KEY, type.ordinal());
 						intent.putExtra(PlayerTrade.OFFER_KEY, trade);
 						intent.putExtra(PlayerTrade.PLAYER_KEY, player
