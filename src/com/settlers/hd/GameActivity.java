@@ -805,9 +805,15 @@ public class GameActivity extends Activity {
 				LinearLayout.LayoutParams.MATCH_PARENT, 1));
 		frame.addView(view);
 		
+		boolean horizontal = getResources().getDisplayMetrics().widthPixels < getResources().getDisplayMetrics().heightPixels;	
 		resources = new ResourceView(this);
-		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-		params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+		resources.setOrientation(horizontal ? LinearLayout.HORIZONTAL : LinearLayout.VERTICAL);
+		RelativeLayout.LayoutParams params;
+		if (horizontal)
+			params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+		else
+			params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
+		params.addRule(horizontal ? RelativeLayout.ALIGN_PARENT_BOTTOM : RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
 		frame.addView(resources, params);
 		
 		setContentView(frame);

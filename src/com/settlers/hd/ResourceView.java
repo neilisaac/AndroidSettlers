@@ -11,11 +11,11 @@ import android.widget.TextView;
 public class ResourceView extends LinearLayout {
 	
 	private static final int[] RESOURCES = {
-		R.drawable.res_lumber_large,
-		R.drawable.res_wool_large,
-		R.drawable.res_grain_large,
-		R.drawable.res_brick_large,
-		R.drawable.res_ore_large,
+		R.drawable.res_lumber_medium,
+		R.drawable.res_wool_medium,
+		R.drawable.res_grain_medium,
+		R.drawable.res_brick_medium,
+		R.drawable.res_ore_medium,
 	};
 	
 	TextView[] views;
@@ -26,14 +26,13 @@ public class ResourceView extends LinearLayout {
 		int padding = (int) (10 * context.getResources().getDisplayMetrics().density);
 
 		setVisibility(View.INVISIBLE);
-		setOrientation(LinearLayout.HORIZONTAL);
-		setPadding(padding, padding, padding, padding);
 		
 		views = new TextView[RESOURCES.length];
 		
 		for (int i = 0; i < RESOURCES.length; i++) {
 			ImageView image = new ImageView(context);
 			image.setImageResource(RESOURCES[i]);
+			image.setPadding(padding, padding, 0, padding);
 			
 			TextView text = new TextView(context);
 			text.setText("");
@@ -41,11 +40,15 @@ public class ResourceView extends LinearLayout {
 			text.setTextSize(24);
 			text.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT));
 			text.setGravity(Gravity.BOTTOM);
-			text.setPadding(0, 0, 2 * padding, 0);
+			text.setPadding(0, padding, padding, padding);
 			views[i] = text;
 			
-			addView(image);
-			addView(text);
+			LinearLayout row = new LinearLayout(context);
+			row.setOrientation(LinearLayout.HORIZONTAL);
+			row.addView(image);
+			row.addView(text);
+			
+			addView(row);
 		}
 	}
 
