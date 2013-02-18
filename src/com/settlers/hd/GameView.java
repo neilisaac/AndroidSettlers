@@ -65,8 +65,10 @@ public class GameView extends GLSurfaceView implements OnGestureListener,
 	@Override
 	public boolean onScroll(MotionEvent e1, MotionEvent e2, float distX,
 			float distY) {
-		// throw out button press if scrolling over a button
-		release((int) e2.getX(), (int) e2.getY(), false);
+		// ignore scrolling started over a button
+		for (UIButton button : buttons)
+			if (button.isPressed())
+				return false;
 
 		// shift the board
 		renderer.translate(distX, distY);
@@ -230,17 +232,15 @@ public class GameView extends GLSurfaceView implements OnGestureListener,
 	}
 	
 	public boolean press(int x, int y) {
-		boolean pressed = false;
-
 		// consider buttons
 		synchronized (buttons) {
 			for (UIButton button : buttons) {
 				if (button != null && button.press(x, height - y))
-					pressed = true;
+					return true;
 			}
 		}
 
-		return pressed;
+		return false;
 	}
 
 	public boolean release(int x, int y, boolean activate) {
