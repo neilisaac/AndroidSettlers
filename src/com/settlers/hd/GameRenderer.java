@@ -102,6 +102,8 @@ public class GameRenderer implements Renderer {
 		// translate to centered coordinates
 		float px = translateScreenX(x);
 		float py = translateScreenY(y);
+		
+		int select = -1;
 
 		switch (action) {
 		case NONE:
@@ -109,31 +111,24 @@ public class GameRenderer implements Renderer {
 
 		case ROBBER:
 			// select a hexagon
-			int select = geometry.getNearestHexagon(px, py);
-			if (select >= 0) {
-				game.select(action, board.getHexagon(select));
-				return true;
-			}
-
+			select = geometry.getNearestHexagon(px, py);
 			break;
 
 		case TOWN:
 		case CITY:
 			// select a vertex
-			Vertex vertex = board.getVertex(geometry.getNearestVertex(px, py));
-			if (vertex != null) {
-				game.select(action, vertex);
-				return true;
-			}
+			select = geometry.getNearestVertex(px, py);
 			break;
 
 		case ROAD:
 			// select an edge
-			Edge edge = board.getEdge(geometry.getNearestEdge(px, py));
-			if (edge != null) {
-				game.select(action, edge);
-				return true;
-			}
+			select = geometry.getNearestEdge(px, py);
+			break;
+		}
+		
+		if (select >= 0) {
+			game.queueSelection(action, select);
+			return true;
 		}
 
 		return false;
@@ -248,7 +243,7 @@ public class GameRenderer implements Renderer {
 		if (player != null
 				&& !canBuild
 				&& (action == Action.ROAD || action == Action.TOWN || action == Action.CITY)) {
-			game.cantBuild(action);
+			game.queueCantBuilt(action);
 		}
 
 		gl.glMatrixMode(GL10.GL_PROJECTION);

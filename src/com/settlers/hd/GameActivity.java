@@ -32,8 +32,8 @@ public class GameActivity extends Activity {
 
 	private static final int MIN_BOT_DELAY = 1000;
 
-	private static final int UPDATE_MESSAGE = 1, LOG_MESSAGE = 2,
-			DISCARD_MESSAGE = 3, CANT_BUILD_MESSAGE = 4, BUTTON_PRESS_MESSAGE = 5;
+	private static final int UPDATE_MESSAGE = 1, LOG_MESSAGE = 2, DISCARD_MESSAGE = 3, CANT_BUILD_MESSAGE = 4,
+			BUTTON_PRESS_MESSAGE = 5, SELECTION = 6, CANT_BUILD = 7;
 
 	private GameView view;
 	private Board board;
@@ -138,13 +138,51 @@ public class GameActivity extends Activity {
 				
 			case BUTTON_PRESS_MESSAGE:
 				buttonPress(UIButton.Type.values()[msg.getData().getInt("button")]);
+				break;
+				
+			case SELECTION:
+				Action action = Action.values()[msg.getData().getInt("action")];
+				int id = msg.getData().getInt("id");
+				switch (action) {
+				case ROBBER:
+					select(action, board.getHexagon(id));
+					break;
+					
+				case TOWN:
+				case CITY:
+					select(action, board.getVertex(id));
+					break;
+					
+				case ROAD:
+					select(action, board.getEdge(id));
+					break;
+					
+				default:
+					Log.e(getClass().getName(), "invalid selection type");
+					break;
+				}
+				break;
+				
+			case CANT_BUILD:
+				cantBuild(Action.values()[msg.getData().getInt("action")]);
+				break;
 			}
 
 			super.handleMessage(msg);
 		}
 	}
+	
+	public void queueSelection(Action action, int id) {
+		Message msg = new Message();
+		Bundle bundle = new Bundle();
+		bundle.putInt("action", action.ordinal());
+		bundle.putInt("id", id);
+		msg.what = SELECTION;
+		msg.setData(bundle);
+		turnHandler.sendMessage(msg);
+	}
 
-	public void select(Action action, Hexagon hexagon) {
+	private void select(Action action, Hexagon hexagon) {
 		if (action == Action.ROBBER) {
 			if (hexagon != board.getRobberLast()) {
 				board.setRobber(hexagon.getId());
@@ -156,7 +194,7 @@ public class GameActivity extends Activity {
 		}
 	}
 
-	public void select(Action action, Vertex vertex) {
+	private void select(Action action, Vertex vertex) {
 		int type = Vertex.NONE;
 		if (action == Action.TOWN)
 			type = Vertex.TOWN;
@@ -172,7 +210,7 @@ public class GameActivity extends Activity {
 		}
 	}
 
-	public void select(Action action, Edge edge) {
+	private void select(Action action, Edge edge) {
 		Player player = board.getCurrentPlayer();
 		if (player.build(edge)) {
 			renderer.setAction(Action.NONE);
@@ -302,8 +340,20 @@ public class GameActivity extends Activity {
 
 		return true;
 	}
+	
+	public void queueCantBuilt(Action action) {
+		if (turnHandler.hasMessages(CANT_BUILD))
+			return;
+		
+		Message msg = new Message();
+		Bundle bundle = new Bundle();
+		bundle.putInt("action", action.ordinal());
+		msg.what = CANT_BUILD;
+		msg.setData(bundle);
+		turnHandler.sendMessage(msg);
+	}
 
-	public void cantBuild(Action action) {
+	private void cantBuild(Action action) {
 		Board board = ((Settlers) getApplicationContext()).getBoardInstance();
 		Player player = board.getCurrentPlayer();
 
