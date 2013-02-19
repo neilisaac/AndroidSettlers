@@ -19,20 +19,19 @@ public class Main extends Activity {
 	private static final String DONATE_URL = "https://www.paypal.com/cgi-bin/"
 			+ "webscr?cmd=_donations&business=isaac.neil@gmail.com&"
 			+ "item_name=Island+Settlers+donation&no_shipping=1";
-	
-	private Vector<Runnable> actions; 
+
+	private Vector<Runnable> actions;
 
 	@Override
 	public void onResume() {
 		super.onResume();
 
 		Board board = ((Settlers) getApplicationContext()).getBoardInstance();
-		Settings settings = ((Settlers) getApplicationContext())
-				.getSettingsInstance();
-		
+		Settings settings = ((Settlers) getApplicationContext()).getSettingsInstance();
+
 		Vector<String> labels = new Vector<String>();
 		actions = new Vector<Runnable>();
-		
+
 		if (board != null && board.getWinner(settings) == null) {
 			labels.add(getString(R.string.resume_button));
 			actions.add(new Runnable() {
@@ -42,7 +41,7 @@ public class Main extends Activity {
 				}
 			});
 		}
-		
+
 		labels.add(getString(R.string.new_button));
 		actions.add(new Runnable() {
 			@Override
@@ -50,7 +49,7 @@ public class Main extends Activity {
 				Main.this.startActivity(new Intent(Main.this, LocalGame.class));
 			}
 		});
-		
+
 		labels.add(getString(R.string.stats));
 		actions.add(new Runnable() {
 			@Override
@@ -58,7 +57,7 @@ public class Main extends Activity {
 				Main.this.startActivity(new Intent(Main.this, Stats.class));
 			}
 		});
-		
+
 		labels.add(getString(R.string.rules_button));
 		actions.add(new Runnable() {
 			@Override
@@ -74,52 +73,46 @@ public class Main extends Activity {
 				final Builder aboutDialog = new AlertDialog.Builder(Main.this);
 				aboutDialog.setTitle(R.string.app_name);
 				aboutDialog.setIcon(R.drawable.icon);
-				aboutDialog.setMessage(getString(R.string.about_text) + "\n\n"
-						+ getString(R.string.acknowledgements) + "\n\n"
-						+ getString(R.string.translators));
-
-				aboutDialog.setPositiveButton(R.string.donate_button,
-						new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								Main.this.startActivity(new Intent(
-										Intent.ACTION_VIEW, Uri
-												.parse(DONATE_URL)));
-							}
-						});
-				aboutDialog.setNeutralButton(R.string.site_button,
-						new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								Main.this.startActivity(new Intent(
-										Intent.ACTION_VIEW,
-										Uri.parse(getString(R.string.website_url))));
-							}
-						});
+				aboutDialog.setMessage(getString(R.string.about_text) + "\n\n" + getString(R.string.acknowledgements)
+						+ "\n\n" + getString(R.string.translators));
 				aboutDialog.show();
 			}
 		});
-		
+
+		labels.add(getString(R.string.site_button));
+		actions.add(new Runnable() {
+			@Override
+			public void run() {
+				Main.this.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.website_url))));
+			}
+		});
+
+		labels.add(getString(R.string.donate_button));
+		actions.add(new Runnable() {
+			@Override
+			public void run() {
+				Main.this.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(DONATE_URL)));
+			}
+		});
+
 		String[] values = new String[labels.size()];
 		for (int i = 0; i < values.length; i++)
 			values[i] = labels.get(i);
-		
+
 		int padding = (int) (10 * getResources().getDisplayMetrics().density);
-        
-        ListView view = new ListView(this);
-        view.setPadding(padding, padding, padding, padding);
-        
-        view.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, values));
-        
-        view.setOnItemClickListener(new OnItemClickListener() {
+
+		ListView view = new ListView(this);
+		view.setPadding(padding, padding, padding, padding);
+
+		view.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, values));
+
+		view.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				actions.get(position).run();
 			}
 		});
-        
-        setContentView(view);
+
+		setContentView(view);
 	}
 }

@@ -4,7 +4,6 @@
 	<!-- Application name and misc strings: do no translate -->
 	<string name="app_name">Island Settlers HD</string>
 	<string name="nostring"></string>
-	<string name="website">omnionic.com</string>
 	<string name="website_url">http://github.com/neilisaac/AndroidSettlers/</string>
 	<string name="acknowledgements">Original code by Neil Isaac.
 		\nGraphics by Adam Garland.</string>
@@ -24,7 +23,7 @@
 		\nThanks for playing!</string>
 	<string name="dismiss_button">Back to the game!</string>
 	<string name="donate_button">Donate</string>
-	<string name="site_button">Visit website</string>
+	<string name="site_button">Code on GitHub</string>
 
 	<!-- Card types -->
 	<string name="soldier">soldier</string>
