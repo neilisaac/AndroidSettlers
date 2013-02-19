@@ -374,6 +374,8 @@ public class GameActivity extends Activity {
 			} else if (board.isProgressPhase2()) {
 				message += " " + getString(R.string.game_build_prog2_fail);
 				board.nextPhase();
+			} else {
+				buttonPress(Type.CANCEL);
 			}
 
 			break;
