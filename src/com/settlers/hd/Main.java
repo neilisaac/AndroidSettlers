@@ -29,22 +29,12 @@ public class Main extends Activity {
 		Board board = ((Settlers) getApplicationContext()).getBoardInstance();
 		Settings settings = ((Settlers) getApplicationContext())
 				.getSettingsInstance();
-
-		String events = settings.get("game_events");
 		
 		Vector<String> labels = new Vector<String>();
 		actions = new Vector<Runnable>();
 		
 		if (board != null && board.getWinner(settings) == null) {
 			labels.add(getString(R.string.resume_button));
-			actions.add(new Runnable() {
-				@Override
-				public void run() {
-					Main.this.startActivity(new Intent(Main.this, GameActivity.class));
-				}
-			});
-		} else if (board == null && events != null && events != "") {
-			labels.add(getString(R.string.load_button));
 			actions.add(new Runnable() {
 				@Override
 				public void run() {

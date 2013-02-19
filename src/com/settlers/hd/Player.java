@@ -184,8 +184,6 @@ public class Player {
 		if (!reaching.contains(vertex))
 			reaching.add(vertex);
 
-		board.addBuildEvent(this, edge);
-
 		return true;
 	}
 
@@ -252,7 +250,6 @@ public class Player {
 
 		appendAction(type == Vertex.TOWN ? R.string.player_town
 				: R.string.player_city);
-		board.addBuildEvent(this, vertex);
 
 		return true;
 	}
@@ -401,7 +398,6 @@ public class Player {
 		if (type != null) {
 			addResources(type, 1);
 			appendAction(R.string.player_stole_from, from.getName());
-			board.addStealEvent(this, from, type);
 		}
 		
 		return type;
@@ -447,9 +443,6 @@ public class Player {
 		addResources(type, 1);
 		player.useResources(type, 1);
 
-		board.addResourceEvent(this, type, 1);
-		board.addResourceEvent(player, type, -1);
-
 		for (int i = 0; i < Hexagon.TYPES.length; i++) {
 			if (trade[i] <= 0)
 				continue;
@@ -461,9 +454,6 @@ public class Player {
 				appendAction(R.string.player_traded_away, Hexagon
 						.getTypeStringResource(Hexagon.TYPES[i]));
 			}
-
-			board.addResourceEvent(this, Hexagon.TYPES[i], -trade[i]);
-			board.addResourceEvent(player, Hexagon.TYPES[i], trade[i]);
 		}
 
 		appendAction(R.string.player_traded_with, player.getName());
@@ -594,7 +584,6 @@ public class Player {
 			newCards.add(card);
 
 		appendAction(R.string.player_bought_card);
-		board.addBuyCardEvent(this, card);
 
 		return card;
 	}
@@ -688,8 +677,6 @@ public class Player {
 		if (!hasCard(card) || usedCard)
 			return false;
 
-		board.addCardEvent(this, card);
-
 		switch (card) {
 		case SOLDIER:
 			boolean hadLargest = (board.getLargestArmyOwner() == this);
@@ -723,7 +710,6 @@ public class Player {
 	public int monopoly(Type type) {
 		appendAction(R.string.player_monopoly, Hexagon
 				.getTypeStringResource(type));
-		board.addMonopolyEvent(this, type);
 
 		int total = 0;
 
@@ -856,8 +842,6 @@ public class Player {
 					&& getResources(Hexagon.TYPES[i]) >= 2 && trade[i] >= 2) {
 				addResources(type, 1);
 				useResources(Hexagon.TYPES[i], 2);
-				board.addResourceEvent(this, type, 1);
-				board.addResourceEvent(this, Hexagon.TYPES[i], -2);
 				return true;
 			}
 		}
@@ -877,12 +861,10 @@ public class Player {
 
 				appendAction(R.string.player_traded_for, Hexagon
 						.getTypeStringResource(type));
-				board.addResourceEvent(this, type, 1);
 
 				for (int j = 0; j < value; j++) {
 					appendAction(R.string.player_traded_away, Hexagon
 							.getTypeStringResource(Hexagon.TYPES[i]));
-					board.addResourceEvent(this, Hexagon.TYPES[i], -1);
 				}
 
 				return true;

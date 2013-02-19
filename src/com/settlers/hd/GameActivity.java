@@ -277,7 +277,6 @@ public class GameActivity extends Activity {
 
 		case ENDTURN:
 			board.nextPhase();
-			board.save(Settlers.getInstance().getSettingsInstance());
 			setup(true);
 			break;
 
@@ -385,9 +384,6 @@ public class GameActivity extends Activity {
 		Player winner = board.getWinner(((Settlers) getApplicationContext())
 				.getSettingsInstance());
 		if (!hadWinner && winner != null) {
-			// clear saved game
-			board.clear(Settlers.getInstance().getSettingsInstance());
-
 			// declare winner
 			final Builder infoDialog = new AlertDialog.Builder(this);
 			infoDialog.setTitle(getString(R.string.phase_game_over));
@@ -819,22 +815,6 @@ public class GameActivity extends Activity {
 		setContentView(frame);
 
 		board = app.getBoardInstance();
-
-		if (board == null) {
-			Settings settings = ((Settlers) getApplicationContext())
-					.getSettingsInstance();
-
-			String[] names = new String[4];
-			for (int i = 0; i < 4; i++)
-				names[i] = getString(LocalGame.DEFAULT_NAMES[i]);
-
-			board = new Board(names, LocalGame.DEFAULT_HUMANS, 10, false);
-
-			if (board.load(settings))
-				((Settlers) getApplicationContext()).setBoardInstance(board);
-			else
-				board = null;
-		}
 
 		if (board == null) {
 			finish();

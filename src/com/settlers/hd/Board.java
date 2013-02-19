@@ -2,7 +2,6 @@ package com.settlers.hd;
 
 import java.util.EmptyStackException;
 import java.util.Stack;
-import java.util.Vector;
 
 public class Board {
 
@@ -29,7 +28,6 @@ public class Board {
 	private Trader[] trader;
 	private int[] cards;
 	private Stack<Player> discardQueue;
-	private Vector<String> eventList;
 
 	private int robber, turn, turnNumber, roadCountId, longestRoad,
 			largestArmy, maxPoints, humans, robberLast, lastRoll;
@@ -95,7 +93,6 @@ public class Board {
 		winner = null;
 
 		discardQueue = new Stack<Player>();
-		eventList = new Vector<String>();
 
 		// initialize development cards
 		cards = new int[Cards.values().length];
@@ -181,7 +178,6 @@ public class Board {
 		}
 
 		lastRoll = roll;
-		addRollEvent(getCurrentPlayer(), roll);
 	}
 
 	/**
@@ -285,8 +281,6 @@ public class Board {
 	 */
 	public boolean nextPhase() {
 		boolean turnChanged = false;
-		
-		addNextPhaseEvent(getCurrentPlayer());
 
 		switch (phase) {
 		case SETUP1S:
@@ -776,11 +770,6 @@ public class Board {
 	 */
 	public boolean setRobber(int robber) {
 		this.robber = robber;
-		if (hexagon != null)
-			addRobberEvent(getCurrentPlayer(), hexagon[robber]);
-		else
-			addEvent("robber 0 " + robber);
-		
 		return true;
 	}
 
@@ -806,243 +795,5 @@ public class Board {
 		default:
 			return R.string.nostring;
 		}
-	}
-
-	/**
-	 * Add an event to the event list
-	 * 
-	 * @param event
-	 *            event string
-	 */
-	private void addEvent(String event) {
-		eventList.add(event);
-	}
-
-	public void addNextPhaseEvent(Player player) {
-		addEvent("next " + player.getIndex());
-	}
-
-	public void addRollEvent(Player player, int roll) {
-		addEvent("roll " + player.getIndex() + " " + roll);
-	}
-
-	public void addBuildEvent(Player player, Vertex vertex) {
-		String building = (vertex.getBuilding() == Vertex.TOWN ? "TOWN"
-				: "CITY");
-		addEvent("build " + player.getIndex() + " " + building + " "
-				+ vertex.getIndex());
-	}
-
-	public void addBuildEvent(Player player, Edge edge) {
-		addEvent("build " + player.getIndex() + " ROAD " + edge.getIndex());
-	}
-
-	public void addResourceEvent(Player player, Hexagon.Type type, int amount) {
-		addEvent("resource " + player.getIndex() + " " + type.ordinal() + " "
-				+ amount);
-	}
-
-	public void addBuyCardEvent(Player player, Cards card) {
-		addEvent("buy " + player.getIndex() + " " + card.ordinal());
-	}
-
-	public void addCardEvent(Player player, Cards card) {
-		addEvent("card " + player.getIndex() + " " + card.ordinal());
-	}
-
-	public void addMonopolyEvent(Player player, Hexagon.Type type) {
-		addEvent("monopoly " + player.getIndex() + " " + type.ordinal());
-	}
-
-	public void addRobberEvent(Player player, Hexagon robber) {
-		addEvent("robber " + (player != null ? player.getIndex() : "0") + " "
-				+ robber.getId());
-	}
-
-	public void addStealEvent(Player to, Player from, Hexagon.Type type) {
-		addEvent("steal " + to.getIndex() + " " + from.getIndex() + " "
-				+ type.toString());
-	}
-
-	/**
-	 * Execute an event
-	 * 
-	 * @param event
-	 *            string representing the event
-	 */
-	public void replayEvent(String event) {
-		String[] parts = event.split(" ");
-		if (parts.length < 2)
-			return;
-		
-		String action = parts[0];
-		
-		if (action == "hexagon") {
-			int index = Integer.parseInt(parts[1]);
-			int type = Integer.parseInt(parts[2]);
-			int roll = Integer.parseInt(parts[3]);
-			hexagon[index].setType(Hexagon.TYPES[type]);
-			hexagon[index].setRoll(roll);
-			addEvent(event);
-			return;
-		}
-		
-		else if (action == "trader") {
-			int index = Integer.parseInt(parts[1]);
-			int type = Integer.parseInt(parts[2]);
-			trader[index].setType(Hexagon.TYPES[type]);
-			addEvent(event);
-			return;
-		}
-		
-		else if (action == "setting") {
-			// TODO: load game rule settings
-			addEvent(event);
-			return;
-		}
-		
-		int playerIndex = Integer.parseInt(parts[1]);
-		if (playerIndex < 0 || playerIndex > 3)
-			return;
-		
-		Player player = this.player[playerIndex];
-		
-		// roll dice
-		if (action == "roll") {
-			roll(Integer.parseInt(parts[2]));
-			nextPhase();
-		}
-		
-		// build
-		else if (action == "build") {
-			String type = parts[2];
-			if (type == "ROAD") {
-				Edge edge = this.edge[Integer.parseInt(parts[3])];
-				player.build(edge);
-			} else if (type == "TOWN") {
-				Vertex vertex = this.vertex[Integer.parseInt(parts[3])];
-				player.build(vertex, Vertex.TOWN);
-			} else if (type == "CITY") {
-				Vertex vertex = this.vertex[Integer.parseInt(parts[3])];
-				player.build(vertex, Vertex.CITY);
-			}
-		}
-		
-		// give or take resource
-		else if (action == "resource") {
-			Hexagon.Type type = Hexagon.TYPES[Integer.parseInt(parts[2])];
-			int amount = Integer.parseInt(parts[3]);
-			if (amount > 0)
-				player.addResources(type, amount);
-			else
-				player.useResources(type, -amount);
-		}
-		
-		// buy card
-		else if (action == "buy") {
-			int card = Integer.parseInt(parts[2]);
-			player.buyCard(Cards.values()[card]);
-		}
-		
-		// use card
-		else if (action == "card") {
-			int card = Integer.parseInt(parts[2]);
-			player.useCard(Cards.values()[card]);
-		}
-		
-		// monopoly
-		else if (action == "monopoly") {
-			int type = Integer.parseInt(parts[2]);
-			player.monopoly(Hexagon.TYPES[type]);
-		}
-		
-		// move robber
-		else if (action == "robber") {
-			int index = Integer.parseInt(parts[2]);
-			setRobber(index);
-		}
-		
-		// steal
-		else if (action == "steal") {
-			Player from = this.player[Integer.parseInt(parts[2])];
-			int type = Integer.parseInt(parts[3]);
-			player.steal(from, Hexagon.TYPES[type]);
-		}
-		
-		// next phase
-		else if (action == "next") {
-			nextPhase();
-		}
-	}
-
-	/**
-	 * Get a textual dump of the board setup
-	 * 
-	 * @return string representing the board setup
-	 */
-	public String dumpSetup() {
-		String dump = "";
-
-		for (Hexagon hex : hexagon) {
-			dump += "hexagon " + hex.getId() + " " + hex.getType().ordinal()
-					+ " " + hex.getRoll() + "\n";
-		}
-
-		for (int i = 0; i < trader.length; i++) {
-			dump += "trader " + i + " " + trader[i].getType().ordinal() + "\n";
-		}
-		
-		// TODO: save game rule settings
-
-		return dump;
-	}
-
-	/**
-	 * Get a textual dump of the game events
-	 * 
-	 * @return string representing each event
-	 */
-	public String dumpEvents() {
-		String dump = "";
-
-		for (String event : eventList)
-			dump += event + "\n";
-
-		return dump;
-	}
-	
-	/**
-	 * Save the current state of the game into the application database
-	 * 
-	 * @param settings
-	 */
-	public void save(Settings settings) {
-		String events = dumpSetup() + dumpEvents();
-		settings.set("game_events", events);
-	}
-
-	/**
-	 * Load a game state from the application database
-	 * 
-	 * @param settings
-	 */
-	public boolean load(Settings settings) {
-		String events = settings.get("game_events");
-		if (events == null || events == "")
-			return false;
-		
-		for (String event : events.split("\n"))
-			replayEvent(event);
-		
-		return true;
-	}
-
-	/**
-	 * Clear any stored game state
-	 * 
-	 * @param settings
-	 */
-	public void clear(Settings settings) {
-		settings.set("game_events", "");
 	}
 }
