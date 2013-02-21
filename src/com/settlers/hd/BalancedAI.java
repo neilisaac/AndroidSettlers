@@ -460,7 +460,7 @@ public class BalancedAI extends Player implements AutomatedPlayer {
 		// don't trade with players who may be about to win
 		int points = player.getPublicVictoryPoints();
 		int max = board.getMaxPoints();
-		if (max - points <= 3)
+		if (max - points <= 1)
 			return null;
 
 		// get a resource list
