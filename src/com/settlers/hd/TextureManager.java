@@ -15,7 +15,7 @@ import android.opengl.GLUtils;
 public class TextureManager {
 
 	private enum Type {
-		NONE, BACKGROUND, SHORE, TILE, LIGHT, ROBBER, TRADER, RESOURCE, ROLL, ROAD, TOWN, CITY, ORNAMENT, BUTTONBG, BUTTON
+		NONE, BACKGROUND, SHORE, TILE, ROBBER, LIGHT, TRADER, RESOURCE, ROLL, ROAD, TOWN, CITY, ORNAMENT, BUTTONBG, BUTTON
 	}
 
 	public enum Location {
@@ -201,9 +201,11 @@ public class TextureManager {
 	}
 
 	public void draw(UIButton button, GL10 gl) {
+		float factor = 2 * Geometry.TILE_SIZE / Geometry.BUTTON_SIZE;
+		
 		gl.glPushMatrix();
 		gl.glTranslatef(button.getX(), button.getY(), 10);
-		gl.glScalef(Geometry.TILE_SIZE * 2, Geometry.TILE_SIZE * 2, 1);
+		gl.glScalef(button.getWidth() * factor, button.getHeight() * factor, 1);
 		
 		square.get(hash(Type.BUTTONBG, UIButton.Background.BACKDROP.ordinal())).render(gl);
 		
@@ -237,7 +239,7 @@ public class TextureManager {
 		gl.glPopMatrix();
 	}
 
-	public void draw(Hexagon hexagon, GL10 gl, Geometry geometry) {
+	public void draw1(Hexagon hexagon, GL10 gl, Geometry geometry) {
 		gl.glPushMatrix();
 
 		int id = hexagon.getId();
@@ -249,7 +251,33 @@ public class TextureManager {
 		gl.glPopMatrix();
 	}
 
-	public void draw(Hexagon hexagon, GL10 gl, Geometry geometry, int lastRoll) {
+	public void draw2(Hexagon hexagon, GL10 gl, Geometry geometry) {
+		gl.glPushMatrix();
+
+		int id = hexagon.getId();
+		gl.glTranslatef(geometry.getHexagonX(id), geometry.getHexagonY(id), 0);
+
+		if (hexagon.hasRobber())
+			square.get(hash(Type.ROBBER, 0)).render(gl);
+
+		gl.glPopMatrix();
+	}
+
+	public void draw3(Hexagon hexagon, GL10 gl, Geometry geometry, int lastRoll) {
+		gl.glPushMatrix();
+
+		int id = hexagon.getId();
+		gl.glTranslatef(geometry.getHexagonX(id), geometry.getHexagonY(id), 0);
+
+		int roll = hexagon.getRoll();
+		
+		if (!hexagon.hasRobber() && lastRoll != 0 && roll == lastRoll)
+			square.get(hash(Type.LIGHT, 0)).render(gl);
+
+		gl.glPopMatrix();
+	}
+
+	public void draw4(Hexagon hexagon, GL10 gl, Geometry geometry) {
 		gl.glPushMatrix();
 
 		int id = hexagon.getId();
@@ -257,15 +285,10 @@ public class TextureManager {
 
 		int roll = hexagon.getRoll();
 
-		if (hexagon.hasRobber())
-			square.get(hash(Type.ROBBER, 0)).render(gl);
-		
-		else if (lastRoll != 0 && roll == lastRoll)
-			square.get(hash(Type.LIGHT, 0)).render(gl);
-
-		if (roll != 0 && roll != 7)
+		if (roll != 0 && roll != 7) {
 			gl.glScalef(1.5f, 1.5f, 1);
 			square.get(hash(Type.ROLL, roll)).render(gl);
+		}
 
 		gl.glPopMatrix();
 	}

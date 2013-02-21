@@ -204,11 +204,15 @@ public class GameRenderer implements Renderer {
 
 		// draw the hexangons with backdrop
 		for (int i = 0; i < Hexagon.NUM_HEXAGONS; i++)
-			texture.draw(board.getHexagon(i), gl, geometry);
+			texture.draw1(board.getHexagon(i), gl, geometry);
 
 		// draw the roll numbers, robber, and highlighting
 		for (int i = 0; i < Hexagon.NUM_HEXAGONS; i++)
-			texture.draw(board.getHexagon(i), gl, geometry, lastRoll);
+			texture.draw2(board.getHexagon(i), gl, geometry);
+		for (int i = 0; i < Hexagon.NUM_HEXAGONS; i++)
+			texture.draw3(board.getHexagon(i), gl, geometry, lastRoll);
+		for (int i = 0; i < Hexagon.NUM_HEXAGONS; i++)
+			texture.draw4(board.getHexagon(i), gl, geometry);
 
 		// draw traders
 		for (int i = 0; i < Trader.NUM_TRADER; i++)
