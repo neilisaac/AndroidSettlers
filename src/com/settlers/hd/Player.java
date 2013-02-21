@@ -689,8 +689,10 @@ public class Player {
 		case PROGRESS:
 			board.progressPhase();
 			break;
-		default:
+		case VICTORY:
 			return false;
+		default:
+			break;
 		}
 
 		cards[card.ordinal()] -= 1;
