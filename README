@@ -1,8 +1,6 @@
-This is based off the "Island Settlers" code.  Android 1.6 or higher is required.  It is here for the academic interests of fellow developers :)
+This is based off the "Island Settlers" code and has been enhanced for Android 4.0 (ICS) and newer devices.
 
-This branch is a work-in-progress for porting the rendering engine to OpenGL ES.
-
-To build it, you need the Android API version 8 and either Ant or the ADT Eclipse plugin.
+It is here for the academic interests of fellow developers :)
 
 
 Code: Copyright (c) 2010 Neil Isaac
