@@ -264,6 +264,7 @@ public class TextureManager {
 			square.get(hash(Type.LIGHT, 0)).render(gl);
 
 		if (roll != 0 && roll != 7)
+			gl.glScalef(1.5f, 1.5f, 1);
 			square.get(hash(Type.ROLL, roll)).render(gl);
 
 		gl.glPopMatrix();
