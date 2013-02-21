@@ -167,7 +167,8 @@ public class GameView extends GLSurfaceView implements OnGestureListener,
 
 	public void addButton(Type type) {
 		synchronized (buttons) {
-			buttons.add(new UIButton(type, Geometry.BUTTON_SIZE, Geometry.BUTTON_SIZE));
+			int size = (int) (0.5 * Geometry.BUTTON_SIZE * Geometry.DENSITY);
+			buttons.add(new UIButton(type, size, size));
 			buttonsPlaced = false;
 		}
 	}

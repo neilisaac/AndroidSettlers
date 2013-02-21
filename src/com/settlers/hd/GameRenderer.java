@@ -49,7 +49,7 @@ public class GameRenderer implements Renderer {
 	}
 
 	public void setSize(DisplayMetrics screen, int width, int height) {
-		geometry.setSize(screen.widthPixels, screen.heightPixels);
+		geometry.setSize(screen.widthPixels, screen.heightPixels, screen.density);
 		this.width = width;
 		this.height = height;
 	}

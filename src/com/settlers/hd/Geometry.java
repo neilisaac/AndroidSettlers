@@ -9,6 +9,8 @@ public class Geometry {
 
 	private static final float REFERENCE_SIZE = 5f * 256f;
 	private static final float MAX_PAN = 2.5f;
+	
+	public static float DENSITY = 1.0f;
 
 	private int width, height;
 	private float cx, cy, zoom;
@@ -20,7 +22,9 @@ public class Geometry {
 		zoom = minZoom = maxZoom = highZoom = 1;
 	}
 
-	public void setSize(int w, int h) {
+	public void setSize(int w, int h, float d) {
+		DENSITY = d;
+		
 		width = w;
 		height = h;
 		
