@@ -35,8 +35,6 @@ public class Board {
 
 	private boolean autoDiscard;
 
-	private OnlineGame online;
-
 	/**
 	 * Create new board layout
 	 * 
@@ -49,7 +47,6 @@ public class Board {
 			boolean autoDiscard) {
 		this.maxPoints = maxPoints;
 		commonInit();
-		online = null;
 
 		this.autoDiscard = autoDiscard;
 
@@ -266,11 +263,6 @@ public class Board {
 			}
 
 			nextPhase();
-		}
-
-		// process online turn
-		else if (online != null && player[turn].isOnline()) {
-
 		}
 	}
 
