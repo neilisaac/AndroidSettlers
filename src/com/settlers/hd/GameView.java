@@ -135,6 +135,10 @@ public class GameView extends GLSurfaceView implements OnGestureListener,
 
 	@Override
 	public boolean onDoubleTap(MotionEvent event) {
+		// try to ignore double taps on a button
+		if (release((int) event.getX(), (int) event.getY(), false))
+			return true;
+		
 		// double top zooms to point or zooms out
 		if (renderer.isZoomed())
 			renderer.unZoom();
