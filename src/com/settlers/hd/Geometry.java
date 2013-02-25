@@ -30,8 +30,7 @@ public class Geometry {
 		highZoom = 2 * minZoom;
 		maxZoom = 3 * minZoom;
 		
-		if (zoom == 1)
-			zoom = minZoom;
+		setZoom(minZoom);
 	}
 
 	public int getWidth() {
