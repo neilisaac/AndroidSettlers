@@ -82,9 +82,6 @@ public class GameRenderer implements Renderer {
 	public boolean cancel() {
 		// TODO: cancel intermediate interactions
 
-		if (geometry.isZoomed())
-			return true;
-
 		return ((board.isProduction() || board.isBuild()) && action != Action.NONE);
 	}
 
