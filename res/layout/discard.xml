@@ -11,10 +11,6 @@
 			android:orientation="vertical" android:layout_width="fill_parent"
 			android:layout_height="fill_parent" android:padding="10dip">
 
-			<TextView android:layout_height="wrap_content" android:text="@string/discard_reason"
-				android:id="@+id/discard_reason" android:layout_width="fill_parent"
-				android:textSize="24dip" />
-
 			<TextView android:id="@+id/discard_instruction"
 				android:layout_height="wrap_content" android:text="@string/discard_instruction"
 				android:layout_width="fill_parent" android:textSize="24dip"

@@ -2,7 +2,6 @@ package com.settlers.hd;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -32,6 +31,8 @@ public class Discard extends Activity {
 	@Override
 	public void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
+		
+		setFinishOnTouchOutside(false);
 
 		setContentView(R.layout.discard);
 
@@ -55,10 +56,7 @@ public class Discard extends Activity {
 			return;
 		}
 
-		String reasonText = getString(R.string.discard_reason);
-		TextView reason = (TextView) findViewById(R.id.discard_reason);
-		reason.setText(String.format(reasonText, board.getCurrentPlayer()
-				.getName()));
+		setTitle(String.format(getString(R.string.discard_reason), board.getCurrentPlayer().getName()));
 
 		String instructionText = getString(R.string.discard_instruction);
 		TextView instruction = (TextView) findViewById(R.id.discard_instruction);
@@ -151,13 +149,9 @@ public class Discard extends Activity {
 			}
 		});
 	}
-
+	
 	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		// capture back button press to prevent skipping
-		if ((keyCode == KeyEvent.KEYCODE_BACK))
-			return true;
-
-		return super.onKeyDown(keyCode, event);
+	public void onBackPressed() {
+		// don't allow bypassing discard stage by pressing back
 	}
 }
