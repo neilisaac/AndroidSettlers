@@ -1,7 +1,5 @@
 package com.settlers.hd;
 
-import android.util.Log;
-
 public class Geometry {
 
 	public static final int TILE_SIZE = 256;
@@ -56,7 +54,7 @@ public class Geometry {
 	public void zoomTo(float x, float y) {
 		translate(x, y);
 		zoom = highZoom;
-		Log.d("getZoom", "zoom is " + zoom);
+		translate(0, 0);
 	}
 
 	public boolean isZoomed() {
@@ -66,9 +64,11 @@ public class Geometry {
 	public boolean toggleZoom() {
 		if (isZoomed()) {
 			zoom = minZoom;
+			translate(0, 0);
 			return true;
 		} else {
 			zoom = highZoom;
+			translate(0, 0);
 			return false;
 		}
 	}
@@ -84,20 +84,21 @@ public class Geometry {
 			zoom = maxZoom;
 		else if (zoom < minZoom)
 			zoom = minZoom;
+		
+		translate(0, 0);
 	}
 
 	public void translate(float dx, float dy) {
 		cx += dx;
-		if (cx > MAX_PAN)
-			cx = MAX_PAN;
-		else if (cx < -MAX_PAN)
-			cx = -MAX_PAN;
-
 		cy += dy;
-		if (cy > MAX_PAN)
-			cy = MAX_PAN;
-		else if (cy < -MAX_PAN)
-			cy = -MAX_PAN;
+		
+		float radius = (float) Math.sqrt(cx * cx + cy * cy);
+		float maxRadius = MAX_PAN * (zoom - minZoom) / (maxZoom - minZoom);
+		
+		if (radius > maxRadius) {
+			cx *= maxRadius / radius;
+			cy *= maxRadius / radius;
+		}
 	}
 
 	public float getTranslateX() {
