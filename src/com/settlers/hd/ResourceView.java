@@ -26,13 +26,13 @@ public class ResourceView extends LinearLayout {
 		int padding = (int) (10 * context.getResources().getDisplayMetrics().density);
 
 		setVisibility(View.INVISIBLE);
+		setGravity(Gravity.CENTER);
 		
 		views = new TextView[RESOURCES.length];
 		
 		for (int i = 0; i < RESOURCES.length; i++) {
 			ImageView image = new ImageView(context);
 			image.setImageResource(RESOURCES[i]);
-			image.setPadding(padding, padding, 0, padding);
 			
 			TextView text = new TextView(context);
 			text.setText("");
@@ -40,11 +40,11 @@ public class ResourceView extends LinearLayout {
 			text.setTextSize(24);
 			text.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT));
 			text.setGravity(Gravity.BOTTOM);
-			text.setPadding(0, padding, padding, padding);
 			views[i] = text;
 			
 			LinearLayout row = new LinearLayout(context);
 			row.setOrientation(LinearLayout.HORIZONTAL);
+			row.setPadding(padding, padding, padding, padding);
 			row.addView(image);
 			row.addView(text);
 			
