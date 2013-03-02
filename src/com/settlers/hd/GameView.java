@@ -1,6 +1,6 @@
 package com.settlers.hd;
 
-import java.util.Vector;
+import javax.microedition.khronos.opengles.GL10;
 
 import com.settlers.hd.UIButton.Type;
 
@@ -24,7 +24,7 @@ public class GameView extends GLSurfaceView implements OnGestureListener,
 	private GestureDetector gesture;
 	private ScaleGestureDetector pinch;
 
-	public Vector<UIButton> buttons;
+	private UIButton[] buttons;
 	private boolean buttonsPlaced = false;
 	private GameActivity game;
 
@@ -38,7 +38,11 @@ public class GameView extends GLSurfaceView implements OnGestureListener,
 		
 		setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
 
-		buttons = new Vector<UIButton>();
+		buttons = new UIButton[UIButton.Type.values().length];
+		int size = (int) (0.5 * Geometry.BUTTON_SIZE * getResources().getDisplayMetrics().density);
+		for (UIButton.Type type : UIButton.Type.values())
+			buttons[type.ordinal()] = new UIButton(type, size, size);
+		
 		buttonsPlaced = false;
 	}
 
@@ -116,14 +120,17 @@ public class GameView extends GLSurfaceView implements OnGestureListener,
 	@Override
 	public void onLongPress(MotionEvent event) {
 		// TODO: long press resource to trade for it
+		
+		Vibrator vibrator = (Vibrator) getContext().getSystemService(
+				Context.VIBRATOR_SERVICE);
 
 		// consider buttons then a click on the board
 		if (release((int) event.getX(), (int) event.getY(), true) ||
-				renderer.click((int) event.getX(), (int) event.getY())) {
-			Vibrator vibrator = (Vibrator) getContext().getSystemService(
-					Context.VIBRATOR_SERVICE);
+				click((int) event.getX(), (int) event.getY())) {
 
 			vibrator.vibrate(50);
+		} else {
+			vibrator.vibrate(20);
 		}
 	}
 
@@ -171,15 +178,15 @@ public class GameView extends GLSurfaceView implements OnGestureListener,
 
 	public void addButton(Type type) {
 		synchronized (buttons) {
-			int size = (int) (0.5 * Geometry.BUTTON_SIZE * Geometry.DENSITY);
-			buttons.add(new UIButton(type, size, size));
+			buttons[type.ordinal()].setEnabled(true);
 			buttonsPlaced = false;
 		}
 	}
 
 	public void removeButtons() {
 		synchronized (buttons) {
-			buttons.clear();
+			for (UIButton button : buttons)
+				button.setEnabled(false);
 		}
 	}
 
@@ -193,6 +200,9 @@ public class GameView extends GLSurfaceView implements OnGestureListener,
 
 		synchronized (buttons) {
 			for (UIButton button : buttons) {
+				if (!button.isEnabled())
+					continue;
+				
 				int endwidth = width - button.getWidth() / 2;
 				int endheight = button.getHeight() / 2;
 
@@ -236,7 +246,16 @@ public class GameView extends GLSurfaceView implements OnGestureListener,
 		buttonsPlaced = true;
 	}
 	
-	public boolean press(int x, int y) {
+	public void drawButtons(TextureManager texture, GL10 gl) {
+		synchronized (buttons) {
+			for (UIButton button : buttons) {
+				if (button.isEnabled())
+					texture.draw(button, gl);
+			}
+		}
+	}
+
+	private boolean press(int x, int y) {
 		// consider buttons
 		synchronized (buttons) {
 			for (UIButton button : buttons) {

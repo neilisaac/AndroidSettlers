@@ -3,7 +3,7 @@ package com.settlers.hd;
 public class UIButton {
 
 	public enum Type {
-		INFO, ROLL, ROAD, TOWN, CITY, DEVCARD, TRADE, ENDTURN, CANCEL
+		INFO, TRADE, ROLL, ROAD, TOWN, CITY, DEVCARD, CANCEL, ENDTURN
 	}
 	
 	public enum Background {
@@ -28,7 +28,7 @@ public class UIButton {
 		this.height = height;
 
 		pressed = false;
-		enabled = true;
+		enabled = false;
 	}
 
 	public int getX() {

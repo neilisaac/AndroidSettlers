@@ -49,7 +49,7 @@ public class GameRenderer implements Renderer {
 	}
 
 	public void setSize(DisplayMetrics screen, int width, int height) {
-		geometry.setSize(screen.widthPixels, screen.heightPixels, screen.density);
+		geometry.setSize(screen.widthPixels, screen.heightPixels);
 		this.width = width;
 		this.height = height;
 	}
@@ -257,11 +257,6 @@ public class GameRenderer implements Renderer {
 
 		// draw the buttons
 		view.placeButtons(width, height);
-
-		synchronized (view.buttons) {
-			for (UIButton button : view.buttons) {
-				texture.draw(button, gl);
-			}
-		}
+		view.drawButtons(texture, gl);
 	}
 }
