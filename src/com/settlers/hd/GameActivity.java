@@ -266,6 +266,8 @@ public class GameActivity extends Activity {
 			break;
 
 		case ROAD:
+			// TODO: check full canBuild
+			// 	cantBuild(Action.values()[msg.getData().getInt("action")]);
 			if (board.getCurrentPlayer().getNumRoads() >= Player.MAX_ROADS) {
 				popup(getString(R.string.game_build_fail),
 						getString(R.string.game_build_road_max));
@@ -279,6 +281,7 @@ public class GameActivity extends Activity {
 			break;
 
 		case TOWN:
+			// TODO: check full canBuild
 			if (board.getCurrentPlayer().getNumTowns() >= Player.MAX_TOWNS) {
 				popup(getString(R.string.game_build_fail),
 						getString(R.string.game_build_town_max));
@@ -292,6 +295,7 @@ public class GameActivity extends Activity {
 			break;
 
 		case CITY:
+			// TODO: check full canBuild
 			if (board.getCurrentPlayer().getNumCities() >= Player.MAX_CITIES) {
 				popup(getString(R.string.game_build_fail),
 						getString(R.string.game_build_city_max));

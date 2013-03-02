@@ -196,14 +196,11 @@ public class GameRenderer implements Renderer {
 		for (int i = 0; i < Trader.NUM_TRADER; i++)
 			texture.draw(board.getTrader(i), gl, geometry);
 
-		boolean canBuild = false;
-
 		// draw edges
 		for (int i = 0; i < Edge.NUM_EDGES; i++) {
 			Edge edge = board.getEdge(i);
 			boolean build = action == Action.ROAD && player != null
 					&& player.canBuild(edge);
-			canBuild |= build;
 
 			if (build || edge.getOwner() != null)
 				texture.draw(edge, build, gl, geometry);
@@ -216,16 +213,8 @@ public class GameRenderer implements Renderer {
 					&& player.canBuild(vertex, Vertex.TOWN);
 			boolean city = player != null && action == Action.CITY
 					&& player.canBuild(vertex, Vertex.CITY);
-			canBuild |= town | city;
 
 			texture.draw(vertex, town, city, gl, geometry);
-		}
-
-		// check if player is trying to build but can't
-		if (player != null
-				&& !canBuild
-				&& (action == Action.ROAD || action == Action.TOWN || action == Action.CITY)) {
-			game.queueCantBuilt(action);
 		}
 
 		gl.glMatrixMode(GL10.GL_PROJECTION);
