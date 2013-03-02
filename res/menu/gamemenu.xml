@@ -2,14 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/status"
-        android:icon="@drawable/ic_action_about"
-        android:title="@string/status"
-        android:showAsAction="ifRoom|withText">
-    </item>
-    <item
         android:id="@+id/reference"
-        android:icon="@drawable/ic_action_help"
+        android:icon="@drawable/ic_action_about"
         android:title="@string/reference"
         android:showAsAction="ifRoom|withText">
     </item>

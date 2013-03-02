@@ -910,9 +910,6 @@ public class GameActivity extends Activity {
 		case R.id.reference:
 			GameActivity.this.startActivity(new Intent(GameActivity.this, Reference.class));
 			return true;
-		case R.id.status:
-			GameActivity.this.startActivity(new Intent(GameActivity.this, Status.class));
-			return true;
 		}
 
 		return super.onOptionsItemSelected(item);
