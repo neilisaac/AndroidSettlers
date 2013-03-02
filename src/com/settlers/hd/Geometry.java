@@ -107,8 +107,8 @@ public class Geometry {
 		int best = -1;
 		double dist2 = zoom * zoom / 4;
 		for (int i = 0; i < length; i++) {
-			double x2 = Math.pow(x - edgeX[i], 2);
-			double y2 = Math.pow(y - edgeY[i], 2);
+			double x2 = Math.pow(x - rx[i], 2);
+			double y2 = Math.pow(y - ry[i], 2);
 			if (x2 + y2 < dist2) {
 				dist2 = x2 + y2;
 				best = i;
@@ -127,30 +127,6 @@ public class Geometry {
 
 	public int getNearestVertex(float x, float y) {
 		return getNearest(x, y, POINT_X, POINT_Y, Vertex.NUM_VERTEX);
-	}
-
-	public float getOffsetX(Hexagon hexagon) {
-		return HEXAGON_X[hexagon.getId()];
-	}
-
-	public float getOffsetY(Hexagon hexagon) {
-		return HEXAGON_Y[hexagon.getId()];
-	}
-
-	public float getOffsetX(Vertex vertex) {
-		return POINT_X[vertex.getIndex()];
-	}
-
-	public float getOffsetY(Vertex vertex) {
-		return POINT_Y[vertex.getIndex()];
-	}
-
-	public float getOffsetX(Edge edge) {
-		return EDGE_X[edge.getIndex()];
-	}
-
-	public float getOffsetY(Edge edge) {
-		return EDGE_Y[edge.getIndex()];
 	}
 
 	public float getHexagonX(int index) {
