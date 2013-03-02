@@ -226,7 +226,7 @@ public class GameView extends GLSurfaceView implements OnGestureListener,
 						// portrait
 						int size = button.getWidth();
 						x += size;
-						if (x + size > endwidth) {
+						if (x + 1.5 * size > endwidth) {
 							x = 0;
 							y -= button.getHeight();
 						}
@@ -234,7 +234,7 @@ public class GameView extends GLSurfaceView implements OnGestureListener,
 						// landscape
 						int size = button.getHeight();
 						y -= size;
-						if (y - size < endheight) {
+						if (y - 1.5 * size < endheight) {
 							y = height;
 							x += button.getWidth();
 						}
