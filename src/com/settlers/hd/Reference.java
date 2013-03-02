@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
+@SuppressWarnings("deprecation")
 public class Reference extends TabActivity {
 
 	private static final int[] CONTENT = { R.id.ref_content1,

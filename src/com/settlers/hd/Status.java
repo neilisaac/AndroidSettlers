@@ -2,16 +2,14 @@ package com.settlers.hd;
 
 import com.settlers.hd.Board.Cards;
 
-import android.app.ActionBar;
 import android.app.TabActivity;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.widget.ProgressBar;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.TabHost.TabSpec;
 
+@SuppressWarnings("deprecation")
 public class Status extends TabActivity {
 
 	private static final int[] TEXT = { R.id.status_text1, R.id.status_text2,
