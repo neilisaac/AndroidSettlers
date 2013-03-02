@@ -425,7 +425,7 @@ public class GameActivity extends Activity {
 				board.getRoll());
 		
 		if (setZoom)
-			renderer.unZoom();
+			renderer.getGeometry().zoomOut();
 
 		// show card stealing dialog
 		if (board.isRobberPhase() && board.getRobber() != null)

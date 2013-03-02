@@ -67,15 +67,14 @@ public class GameView extends GLSurfaceView implements OnGestureListener,
 	}
 
 	@Override
-	public boolean onScroll(MotionEvent e1, MotionEvent e2, float distX,
-			float distY) {
+	public boolean onScroll(MotionEvent e1, MotionEvent e2, float distX, float distY) {
 		// ignore scrolling started over a button
 		for (UIButton button : buttons)
 			if (button.isPressed())
 				return false;
 
 		// shift the board
-		renderer.translate(distX, distY);
+		renderer.getGeometry().translate(distX, distY);
 		
 		return true;
 	}
@@ -145,20 +144,18 @@ public class GameView extends GLSurfaceView implements OnGestureListener,
 		// try to ignore double taps on a button
 		if (release((int) event.getX(), (int) event.getY(), false))
 			return true;
-		
+
 		// double top zooms to point or zooms out
-		if (renderer.isZoomed())
-			renderer.unZoom();
-		else
-			renderer.zoom((int) event.getX(), (int) event.getY());
+		Geometry geometry = renderer.getGeometry();
+		geometry.toggleZoom((int) event.getX(), (int) event.getY());
 
 		return true;
 	}
 
 	@Override
 	public boolean onScale(ScaleGestureDetector detector) {
-		float factor = detector.getScaleFactor();
-		renderer.zoomBy(factor);
+		Geometry geometry = renderer.getGeometry();
+		geometry.zoomBy(detector.getScaleFactor());
 		return true;
 	}
 

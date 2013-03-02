@@ -61,34 +61,15 @@ public class GameRenderer implements Renderer {
 	public Action getAction() {
 		return action;
 	}
-
-	public void zoom(int x, int y) {
-		geometry.zoomTo(translateScreenX(x), translateScreenY(y));
+	
+	public Geometry getGeometry() {
+		return geometry;
 	}
-
-	public void zoomBy(float factor) {
-		geometry.setZoom(geometry.getZoom() * factor);
-	}
-
-	public boolean isZoomed() {
-		return geometry.isZoomed();
-	}
-
-	public void unZoom() {
-		geometry.reset();
-	}
-
 
 	public boolean cancel() {
 		// TODO: cancel intermediate interactions
 
 		return ((board.isProduction() || board.isBuild()) && action != Action.NONE);
-	}
-
-
-	public void translate(float dx, float dy) {
-		int min = geometry.getMinimalSize();
-		geometry.translate(2 * dx / min, -2 * dy / min);
 	}
 
 	public boolean click(int x, int y) {

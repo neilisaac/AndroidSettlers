@@ -37,39 +37,35 @@ public class Geometry {
 		return height;
 	}
 
-	public int getMinimalSize() {
+	private int getMinimalSize() {
 		return width < height ? width : height;
 	}
+	
+	public float getZoom() {
+		return zoom;
+	}
 
-	public void reset() {
+	public void zoomOut() {
 		cx = cy = 0;
 		zoom = minZoom;
 	}
 
-	public void zoomTo(float x, float y) {
-		translate(x, y);
+	public void zoomTo(int userX, int userY) {
+		cx = getScreenX(userX);
+		cy = getScreenY(userY);
 		zoom = highZoom;
 		translate(0, 0);
 	}
 
-	public boolean isZoomed() {
-		return zoom > (highZoom - 0.01f);
+	public void toggleZoom(int userX, int userY) {
+		if (zoom > (highZoom - 0.01f))
+			zoomOut();
+		else
+			zoomTo(userX, userY);
 	}
-
-	public boolean toggleZoom() {
-		if (isZoomed()) {
-			zoom = minZoom;
-			translate(0, 0);
-			return true;
-		} else {
-			zoom = highZoom;
-			translate(0, 0);
-			return false;
-		}
-	}
-
-	public float getZoom() {
-		return zoom;
+	
+	public void zoomBy(float z) {
+		setZoom(zoom * z);
 	}
 	
 	public void setZoom(float z) {
@@ -84,8 +80,10 @@ public class Geometry {
 	}
 
 	public void translate(float dx, float dy) {
-		cx += dx;
-		cy += dy;
+		float halfMin = (float) getMinimalSize() / 2.0f;
+		
+		cx += dx / halfMin;
+		cy -= dy / halfMin;
 		
 		float radius = (float) Math.sqrt(cx * cx + cy * cy);
 		float maxRadius = MAX_PAN * (zoom - minZoom) / (maxZoom - minZoom);
