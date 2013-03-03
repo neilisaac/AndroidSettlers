@@ -174,17 +174,13 @@ public class GameView extends GLSurfaceView implements OnGestureListener,
 	}
 
 	public void addButton(Type type) {
-		synchronized (buttons) {
-			buttons[type.ordinal()].setEnabled(true);
-			buttonsPlaced = false;
-		}
+		buttons[type.ordinal()].setEnabled(true);
+		buttonsPlaced = false;
 	}
 
 	public void removeButtons() {
-		synchronized (buttons) {
-			for (UIButton button : buttons)
-				button.setEnabled(false);
-		}
+		for (UIButton button : buttons)
+			button.setEnabled(false);
 	}
 
 	public void placeButtons(int width, int height) {
@@ -195,46 +191,44 @@ public class GameView extends GLSurfaceView implements OnGestureListener,
 		int x = 0;
 		int y = height;
 
-		synchronized (buttons) {
-			for (UIButton button : buttons) {
-				if (!button.isEnabled())
-					continue;
-				
-				int endwidth = width - button.getWidth() / 2;
-				int endheight = button.getHeight() / 2;
+		for (UIButton button : buttons) {
+			if (!button.isEnabled())
+				continue;
+			
+			int endwidth = width - button.getWidth() / 2;
+			int endheight = button.getHeight() / 2;
 
-				// set position
-				UIButton.Type type = button.getType();
-				if (type == UIButton.Type.CANCEL || type == UIButton.Type.ROLL
-						|| type == UIButton.Type.ENDTURN) {
-					// set position to far right/bottom
-					if (width < height)
-						button.setPosition(endwidth,
-								height - button.getHeight() / 2);
-					else
-						button.setPosition(button.getWidth() / 2, endheight);
+			// set position
+			UIButton.Type type = button.getType();
+			if (type == UIButton.Type.CANCEL || type == UIButton.Type.ROLL
+					|| type == UIButton.Type.ENDTURN) {
+				// set position to far right/bottom
+				if (width < height)
+					button.setPosition(endwidth,
+							height - button.getHeight() / 2);
+				else
+					button.setPosition(button.getWidth() / 2, endheight);
+			} else {
+				// set to next available position
+				button.setPosition(x + button.getWidth() / 2,
+						y - button.getHeight() / 2);
+
+				// get next position
+				if (height >= width) {
+					// portrait
+					int size = button.getWidth();
+					x += size;
+					if (x + 1.5 * size > endwidth) {
+						x = 0;
+						y -= button.getHeight();
+					}
 				} else {
-					// set to next available position
-					button.setPosition(x + button.getWidth() / 2,
-							y - button.getHeight() / 2);
-
-					// get next position
-					if (height >= width) {
-						// portrait
-						int size = button.getWidth();
-						x += size;
-						if (x + 1.5 * size > endwidth) {
-							x = 0;
-							y -= button.getHeight();
-						}
-					} else {
-						// landscape
-						int size = button.getHeight();
-						y -= size;
-						if (y - 1.5 * size < endheight) {
-							y = height;
-							x += button.getWidth();
-						}
+					// landscape
+					int size = button.getHeight();
+					y -= size;
+					if (y - 1.5 * size < endheight) {
+						y = height;
+						x += button.getWidth();
 					}
 				}
 			}
@@ -244,11 +238,9 @@ public class GameView extends GLSurfaceView implements OnGestureListener,
 	}
 	
 	public void drawButtons(TextureManager texture, GL10 gl) {
-		synchronized (buttons) {
-			for (UIButton button : buttons) {
-				if (button.isEnabled())
-					texture.draw(button, gl);
-			}
+		for (UIButton button : buttons) {
+			if (button.isEnabled())
+				texture.draw(button, gl);
 		}
 	}
 
@@ -293,11 +285,9 @@ public class GameView extends GLSurfaceView implements OnGestureListener,
 	
 	private boolean press(int x, int y) {
 		// consider buttons
-		synchronized (buttons) {
-			for (UIButton button : buttons) {
-				if (button != null && button.press(x, height - y))
-					return true;
-			}
+		for (UIButton button : buttons) {
+			if (button != null && button.press(x, height - y))
+				return true;
 		}
 
 		return false;
@@ -307,13 +297,11 @@ public class GameView extends GLSurfaceView implements OnGestureListener,
 		boolean released = false;
 
 		// consider buttons
-		synchronized (buttons) {
-			for (UIButton button : buttons) {
-				if (button.release(x, height - y)) {
-					released = true;
-					if (activate)
-						game.buttonPress(button.getType());
-				}
+		for (UIButton button : buttons) {
+			if (button.release(x, height - y)) {
+				released = true;
+				if (activate)
+					game.buttonPress(button.getType());
 			}
 		}
 
