@@ -59,10 +59,7 @@ public class ResourceView extends LinearLayout {
 		}
 		
 		setVisibility(View.VISIBLE);
-
-		int color = TextureManager.darken(TextureManager.getColor(player.getColor()), 0.35f);
-		color = Color.argb(128, Color.red(color), Color.green(color), Color.blue(color));
-		setBackgroundColor(color);
+		setBackgroundColor(Color.argb(200, 0, 0, 0));
 		
 		int[] resources = player.getResources();
 		for (int i = 0; i < Hexagon.TYPES.length; i++)
