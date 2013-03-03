@@ -4,7 +4,6 @@
     android:layout_height="match_parent" >
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -53,16 +52,15 @@
         </TextView>
 
         <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" >
 
             <EditText
                 android:id="@+id/name1"
-                android:inputType="text"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:inputType="text"
                 android:text="" >
             </EditText>
 
@@ -82,16 +80,15 @@
         </TextView>
 
         <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" >
 
             <EditText
                 android:id="@+id/name2"
-                android:inputType="text"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:inputType="text"
                 android:text="" >
             </EditText>
 
@@ -111,16 +108,15 @@
         </TextView>
 
         <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" >
 
             <EditText
                 android:id="@+id/name3"
-                android:inputType="text"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:inputType="text"
                 android:text="" >
             </EditText>
 
@@ -140,16 +136,15 @@
         </TextView>
 
         <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" >
 
             <EditText
                 android:id="@+id/name4"
-                android:inputType="text"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:inputType="text"
                 android:text="" >
             </EditText>
 

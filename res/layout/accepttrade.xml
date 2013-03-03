@@ -1,118 +1,193 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent" android:layout_height="fill_parent"
-	android:orientation="vertical">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
 
-	<ScrollView android:layout_width="fill_parent"
-		android:layout_height="fill_parent" android:layout_weight="1">
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1" >
 
-		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-			android:orientation="vertical" android:layout_width="fill_parent"
-			android:layout_height="fill_parent" android:padding="10dip">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:padding="10dip" >
 
-			<TextView android:id="@+id/trade_player_wants"
-				android:textSize="24dip" android:textColor="#FFFFFF"
-				android:layout_height="wrap_content" android:layout_width="fill_parent" />
+            <TextView
+                android:id="@+id/trade_player_wants"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#FFFFFF"
+                android:textSize="24dip" />
 
-			<TextView android:id="@+id/trade_player_offer"
-				android:layout_height="wrap_content" android:layout_width="fill_parent" />
+            <TextView
+                android:id="@+id/trade_player_offer"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
 
-			<LinearLayout android:orientation="horizontal"
-				android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
 
-				<ImageView android:src="@drawable/res_lumber_medium"
-					android:layout_gravity="center_vertical" android:layout_width="wrap_content"
-					android:layout_height="wrap_content"></ImageView>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/res_lumber_medium" >
+                </ImageView>
 
-				<TextView android:id="@+id/trade_res1" android:textSize="18dip"
-					android:layout_gravity="center_vertical" android:text="0"
-					android:layout_height="wrap_content" android:layout_width="wrap_content"
-					android:paddingRight="14dip" />
+                <TextView
+                    android:id="@+id/trade_res1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingRight="14dip"
+                    android:text="0"
+                    android:textSize="18dip" />
 
-				<ImageView android:src="@drawable/res_wool_medium"
-					android:layout_gravity="center_vertical" android:layout_width="wrap_content"
-					android:layout_height="wrap_content"></ImageView>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/res_wool_medium" >
+                </ImageView>
 
-				<TextView android:id="@+id/trade_res2" android:textSize="18dip"
-					android:layout_gravity="center_vertical" android:text="0"
-					android:layout_height="wrap_content" android:layout_width="wrap_content"
-					android:paddingRight="14dip" />
+                <TextView
+                    android:id="@+id/trade_res2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingRight="14dip"
+                    android:text="0"
+                    android:textSize="18dip" />
 
-				<ImageView android:src="@drawable/res_grain_medium"
-					android:layout_gravity="center_vertical" android:layout_width="wrap_content"
-					android:layout_height="wrap_content"></ImageView>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/res_grain_medium" >
+                </ImageView>
 
-				<TextView android:id="@+id/trade_res3" android:textSize="18dip"
-					android:layout_gravity="center_vertical" android:text="0"
-					android:layout_height="wrap_content" android:layout_width="wrap_content"
-					android:paddingRight="14dip" />
+                <TextView
+                    android:id="@+id/trade_res3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingRight="14dip"
+                    android:text="0"
+                    android:textSize="18dip" />
 
-				<ImageView android:src="@drawable/res_brick_medium"
-					android:layout_gravity="center_vertical" android:layout_width="wrap_content"
-					android:layout_height="wrap_content"></ImageView>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/res_brick_medium" >
+                </ImageView>
 
-				<TextView android:id="@+id/trade_res4" android:textSize="18dip"
-					android:layout_gravity="center_vertical" android:text="0"
-					android:layout_height="wrap_content" android:layout_width="wrap_content"
-					android:paddingRight="14dip" />
+                <TextView
+                    android:id="@+id/trade_res4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingRight="14dip"
+                    android:text="0"
+                    android:textSize="18dip" />
 
-				<ImageView android:src="@drawable/res_ore_medium"
-					android:layout_gravity="center_vertical" android:layout_width="wrap_content"
-					android:layout_height="wrap_content"></ImageView>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/res_ore_medium" >
+                </ImageView>
 
-				<TextView android:id="@+id/trade_res5" android:textSize="18dip"
-					android:layout_gravity="center_vertical" android:text="0"
-					android:layout_height="wrap_content" android:layout_width="wrap_content"
-					android:paddingRight="14dip" />
+                <TextView
+                    android:id="@+id/trade_res5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingRight="14dip"
+                    android:text="0"
+                    android:textSize="18dip" />
+            </LinearLayout>
 
-			</LinearLayout>
+            <TextView
+                android:id="@+id/trade_consider"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/trade_consider_trades" />
 
-			<TextView android:id="@+id/trade_consider" android:text="@string/trade_consider_trades"
-				android:layout_height="wrap_content" android:layout_width="fill_parent" />
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
 
-			<LinearLayout android:orientation="horizontal"
-				android:layout_width="fill_parent" android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/trade_player1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:text="" >
+                </Button>
 
-				<Button android:id="@+id/trade_player1" android:text=""
-					android:enabled="false" android:layout_height="wrap_content"
-					android:layout_width="wrap_content" android:layout_weight="1"></Button>
+                <Button
+                    android:id="@+id/trade_player1_offer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/trade_make_offer"
+                    android:visibility="gone" >
+                </Button>
+            </LinearLayout>
 
-				<Button android:id="@+id/trade_player1_offer" android:text="@string/trade_make_offer"
-					android:layout_height="wrap_content" android:visibility="gone"
-					android:layout_width="wrap_content"></Button>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
 
-			</LinearLayout>
+                <Button
+                    android:id="@+id/trade_player2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:text="" >
+                </Button>
 
-			<LinearLayout android:orientation="horizontal"
-				android:layout_width="fill_parent" android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/trade_player2_offer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/trade_make_offer"
+                    android:visibility="gone" >
+                </Button>
+            </LinearLayout>
 
-				<Button android:id="@+id/trade_player2" android:text=""
-					android:enabled="false" android:layout_height="wrap_content"
-					android:layout_width="wrap_content" android:layout_weight="1"></Button>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
 
-				<Button android:id="@+id/trade_player2_offer" android:text="@string/trade_make_offer"
-					android:layout_height="wrap_content" android:visibility="gone"
-					android:layout_width="wrap_content"></Button>
+                <Button
+                    android:id="@+id/trade_player3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:text="" >
+                </Button>
 
-			</LinearLayout>
-
-			<LinearLayout android:orientation="horizontal"
-				android:layout_width="fill_parent" android:layout_height="wrap_content">
-
-				<Button android:id="@+id/trade_player3" android:text=""
-					android:enabled="false" android:layout_height="wrap_content"
-					android:layout_width="fill_parent" android:layout_weight="1"></Button>
-
-				<Button android:id="@+id/trade_player3_offer" android:text="@string/trade_make_offer"
-					android:layout_height="wrap_content" android:visibility="gone"
-					android:layout_width="wrap_content"></Button>
-
-			</LinearLayout>
-
-		</LinearLayout>
-
-	</ScrollView>
+                <Button
+                    android:id="@+id/trade_player3_offer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/trade_make_offer"
+                    android:visibility="gone" >
+                </Button>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
-				
