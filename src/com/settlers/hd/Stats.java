@@ -14,7 +14,7 @@ public class Stats extends ListActivity {
 	public void onCreate(Bundle state) {
 		super.onCreate(state);
 
-		setTitle(getString(R.string.app_name) + " " + getString(R.string.stats));
+		setTitle(getString(R.string.stats));
 
 		Settings settings = ((Settlers) getApplicationContext())
 				.getSettingsInstance();
