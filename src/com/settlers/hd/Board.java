@@ -444,6 +444,10 @@ public class Board {
 
 		return hexagon[index];
 	}
+	
+	public Hexagon[] getHexagons() {
+		return hexagon;
+	}
 
 	/**
 	 * Get a given trader
@@ -472,6 +476,10 @@ public class Board {
 
 		return edge[index];
 	}
+	
+	public Edge[] getEdges() {
+		return edge;
+	}
 
 	/**
 	 * Get the given vertex
@@ -485,6 +493,10 @@ public class Board {
 			return null;
 
 		return vertex[index];
+	}
+	
+	public Vertex[] getVertices() {
+		return vertex;
 	}
 
 	/**

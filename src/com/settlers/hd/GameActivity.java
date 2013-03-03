@@ -32,7 +32,7 @@ public class GameActivity extends Activity {
 
 	private static final int MIN_BOT_DELAY = 1000;
 
-	private static final int UPDATE_MESSAGE = 1, LOG_MESSAGE = 2, DISCARD_MESSAGE = 3, CANT_BUILD_MESSAGE = 4;
+	private static final int UPDATE_MESSAGE = 1, LOG_MESSAGE = 2, DISCARD_MESSAGE = 3;
 
 	private GameView view;
 	private Board board;
@@ -104,7 +104,6 @@ public class GameActivity extends Activity {
 		@Override
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
-
 			case UPDATE_MESSAGE:
 				setup(false);
 				break;
@@ -129,10 +128,6 @@ public class GameActivity extends Activity {
 				intent.putExtra(Discard.PLAYER_KEY, toDiscard.getIndex());
 				intent.putExtra(Discard.QUANTITY_KEY, extra);
 				GameActivity.this.startActivity(intent);
-				break;
-				
-			case CANT_BUILD_MESSAGE:
-				popup(getString(R.string.game_build_fail), msg.getData().getString("message"));
 				break;
 			}
 
@@ -199,6 +194,18 @@ public class GameActivity extends Activity {
 				setup(true);
 			} else if (board.isProgressPhase()) {
 				board.nextPhase();
+				
+				boolean canBuild = false;
+				for (Edge other : board.getEdges()) {
+					if (other.canBuild(player))
+						canBuild = true;
+				}
+				
+				if (!canBuild) {
+					board.nextPhase();
+					cantBuild(Action.ROAD);
+				}
+				
 				setup(false);
 			} else {
 				setup(false);
@@ -207,6 +214,9 @@ public class GameActivity extends Activity {
 	}
 
 	public boolean buttonPress(Type button) {
+		boolean canBuild = false;
+		Player player = board.getCurrentPlayer();
+		
 		switch (button) {
 		case INFO:
 			GameActivity.this.startActivity(new Intent(GameActivity.this, Status.class));
@@ -236,8 +246,16 @@ public class GameActivity extends Activity {
 			break;
 
 		case ROAD:
-			// TODO: check full canBuild
-			// 	cantBuild(Action.values()[msg.getData().getInt("action")]);
+			for (Edge edge : board.getEdges()) {
+				if (edge.canBuild(player))
+					canBuild = true;
+			}
+			
+			if (!canBuild) {
+				cantBuild(Action.ROAD);
+				break;
+			}
+			
 			if (board.getCurrentPlayer().getNumRoads() >= Player.MAX_ROADS) {
 				popup(getString(R.string.game_build_fail),
 						getString(R.string.game_build_road_max));
@@ -251,7 +269,16 @@ public class GameActivity extends Activity {
 			break;
 
 		case TOWN:
-			// TODO: check full canBuild
+			for (Vertex vertex : board.getVertices()) {
+				if (vertex.canBuild(player, Vertex.TOWN, false))
+					canBuild = true;
+			}
+			
+			if (!canBuild) {
+				cantBuild(Action.TOWN);
+				break;
+			}
+			
 			if (board.getCurrentPlayer().getNumTowns() >= Player.MAX_TOWNS) {
 				popup(getString(R.string.game_build_fail),
 						getString(R.string.game_build_town_max));
@@ -265,7 +292,16 @@ public class GameActivity extends Activity {
 			break;
 
 		case CITY:
-			// TODO: check full canBuild
+			for (Vertex vertex : board.getVertices()) {
+				if (vertex.canBuild(player, Vertex.CITY, false))
+					canBuild = true;
+			}
+			
+			if (!canBuild) {
+				cantBuild(Action.CITY);
+				break;
+			}
+
 			if (board.getCurrentPlayer().getNumCities() >= Player.MAX_CITIES) {
 				popup(getString(R.string.game_build_fail),
 						getString(R.string.game_build_city_max));
@@ -336,15 +372,11 @@ public class GameActivity extends Activity {
 			} else if (board.isProgressPhase2()) {
 				message += " " + getString(R.string.game_build_prog2_fail);
 				board.nextPhase();
-			} else {
-				buttonPress(Type.CANCEL);
 			}
 
 			break;
 
 		case TOWN:
-			buttonPress(Type.CANCEL);
-
 			if (player.getNumTowns() == Player.MAX_TOWNS)
 				message = getString(R.string.game_build_town_max);
 			else
@@ -353,8 +385,6 @@ public class GameActivity extends Activity {
 			break;
 
 		case CITY:
-			buttonPress(Type.CANCEL);
-
 			if (player.getNumCities() == Player.MAX_CITIES)
 				message = getString(R.string.game_build_city_max);
 			else
@@ -366,16 +396,9 @@ public class GameActivity extends Activity {
 			return;
 		}
 		
-		Message msg = new Message();
-		Bundle bundle = new Bundle();
-		bundle.putString("message", message);
-		msg.what = CANT_BUILD_MESSAGE;
-		msg.setData(bundle);
-		turnHandler.sendMessage(msg);
+		popup(getString(R.string.game_build_fail), message);
 		
-		Message change = new Message();
-		change.what = UPDATE_MESSAGE;
-		turnHandler.sendMessage(change);
+		setup(false);
 	}
 
 	private void setup(boolean setZoom) {
@@ -415,16 +438,16 @@ public class GameActivity extends Activity {
 			infoDialog.show();
 		}
 
+		Action action = Action.NONE;
 		if (board.isSetupTown())
-			renderer.setAction(Action.TOWN);
+			action = Action.TOWN;
 		else if (board.isSetupRoad() || board.isProgressPhase())
-			renderer.setAction(Action.ROAD);
+			action = Action.ROAD;
 		else if (board.isRobberPhase() && board.getRobber() == null)
-			renderer.setAction(Action.ROBBER);
-		else
-			renderer.setAction(Action.NONE);
-
-		setButtons(renderer.getAction());
+			action = Action.ROBBER;
+		
+		renderer.setAction(action);
+		setButtons(action);
 
 		setTitleColor(Color.WHITE);
 
@@ -556,23 +579,45 @@ public class GameActivity extends Activity {
 					if (item > 0 && player.hasCard(type)) {
 						item--;
 					} else if (item == 0 && player.hasCard(type)) {
-						if (type == Board.Cards.HARVEST) {
+						switch (type) {
+						case HARVEST:
 							harvest();
-						} else if (type == Board.Cards.MONOPOLY) {
+							return;
+							
+						case MONOPOLY:
 							monopoly();
-						} else if (player.useCard(type)) {
-							if (type == Board.Cards.SOLDIER) {
+							return;
+							
+						case SOLDIER:
+							if (player.useCard(type)) {
 								toast(getString(R.string.game_used_soldier));
 								setup(true);
-							} else {
+								return;
+							}
+							break;
+								
+						case PROGRESS:
+							boolean canBuild = false;
+							for (Edge edge : board.getEdges()) {
+								if (edge.canBuild(player))
+									canBuild = true;
+							}
+							
+							if (!canBuild) {
+								cantBuild(Action.ROAD);
+								return;
+							} else if (player.useCard(type)) {
 								toast(getString(R.string.game_used_progress));
 								setup(false);
+								return;
 							}
-						} else {
-							toast(getString(R.string.game_card_fail));
+							break;
+							
+						case VICTORY:
+							break;
 						}
-
-						return;
+						
+						toast(getString(R.string.game_card_fail));
 					}
 				}
 			}
