@@ -2,52 +2,43 @@ package com.settlers.hd;
 
 import com.settlers.hd.Board.Cards;
 
-import android.app.TabActivity;
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.PagerTitleStrip;
+import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.TabHost;
 import android.widget.TextView;
-import android.widget.TabHost.TabSpec;
 
-@SuppressWarnings("deprecation")
-public class Status extends TabActivity {
-
-	private static final int[] TEXT = { R.id.status_text1, R.id.status_text2,
-			R.id.status_text3, R.id.status_text4 };
-
-	private static final int[] POINTS = { R.id.status_points1,
-			R.id.status_points2, R.id.status_points3, R.id.status_points4 };
-
-	private static final int[] PROGRESS = { R.id.status_progress1,
-			R.id.status_progress2, R.id.status_progress3, R.id.status_progress4 };
-
-	private static final int[] CONTENT = { R.id.status_content1,
-			R.id.status_content2, R.id.status_content3, R.id.status_content4 };
-
-	private static final Player.Color[] COLORS = { Player.Color.RED,
-			Player.Color.BLUE, Player.Color.GREEN, Player.Color.ORANGE };
-
-	private static final int[] ICONS = { R.drawable.city_red_small,
-			R.drawable.city_blue_small, R.drawable.city_green_small,
-			R.drawable.city_orange_small };
+public class Status extends Activity {
+	
+	private View[] views;
 
 	@Override
 	public void onCreate(Bundle state) {
 		super.onCreate(state);
+		
 		setContentView(R.layout.status);
-		TabHost host = getTabHost();
-		host.setup();
+		setTitle(getString(R.string.status));
 
+		LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+		views = new View[4];
+		
 		Board board = ((Settlers) getApplicationContext()).getBoardInstance();
 		if (board == null) {
 			finish();
 			return;
 		}
-
-		setTitle(getString(R.string.app_name) + " "
-				+ getString(R.string.status_turn) + " " + board.getTurnNumber());
-
+		
 		for (int i = 0; i < 4; i++) {
+			views[i] = inflater.inflate(R.layout.status_player, null);
+			
 			Player player = board.getPlayer(i);
 
 			boolean showAll = player == board.getCurrentPlayer()
@@ -126,33 +117,72 @@ public class Status extends TabActivity {
 			else if (turn != "")
 				message += getString(R.string.status_last_turn) + ":\n" + turn;
 
-			TextView text = (TextView) findViewById(TEXT[i]);
+			TextView text = (TextView) views[i].findViewById(R.id.status_text);
 			text.setText(message);
 
-			TextView point = (TextView) findViewById(POINTS[i]);
+			TextView point = (TextView) views[i].findViewById(R.id.status_points);
 			point.setText(getString(R.string.status_victory_points) + ": "
 					+ points + " / " + board.getMaxPoints());
 
-			ProgressBar progress = (ProgressBar) findViewById(PROGRESS[i]);
+			ProgressBar progress = (ProgressBar) views[i].findViewById(R.id.status_progress);
 			progress.setMax(board.getMaxPoints());
 			progress.setProgress(points);
-
-			int drawable = R.drawable.city_purple_small;
-			for (int j = 0; j < COLORS.length; j++) {
-				if (player.getColor() == COLORS[j]) {
-					drawable = ICONS[j];
-					break;
-				}
+		}
+		
+		ViewPager viewPager = (ViewPager) findViewById(R.id.status);
+		viewPager.setAdapter(new StatusTabAdapter());
+		viewPager.setCurrentItem(board.getCurrentPlayer().getIndex());
+		
+		PagerTitleStrip titleStrip = (PagerTitleStrip) findViewById(R.id.status_title_strip);
+		titleStrip.setBackgroundColor(TextureManager.darken(TextureManager.getColor(
+				Settlers.getInstance().getBoardInstance().getPlayer(board.getCurrentPlayer().getIndex()).getColor()), 0.35));
+		
+		viewPager.setOnPageChangeListener(new OnPageChangeListener() {
+			@Override
+			public void onPageScrollStateChanged(int state) {
 			}
 
-			TabSpec spec = host.newTabSpec(player.getName());
-			spec.setIndicator(player.getName(), getResources().getDrawable(
-					drawable));
-			spec.setContent(CONTENT[i]);
-			host.addTab(spec);
+			@Override
+			public void onPageScrolled(int position, float offset, int offsetPixels) {
+			}
 
-			if (player == board.getCurrentPlayer())
-				host.setCurrentTab(i);
+			@Override
+			public void onPageSelected(int position) {
+				int color = TextureManager.getColor(Settlers.getInstance().getBoardInstance().getPlayer(position).getColor());
+				color = TextureManager.darken(color, 0.35);
+				
+				PagerTitleStrip titleStrip = (PagerTitleStrip) findViewById(R.id.status_title_strip);
+				titleStrip.setBackgroundColor(color);
+			}
+		});
+	}
+
+	public class StatusTabAdapter extends PagerAdapter {
+
+		@Override
+		public int getCount() {
+			return views.length;
+		}
+
+		@Override
+		public boolean isViewFromObject(View view, Object object) {
+			return view == object;
+		}
+
+		@Override
+		public Object instantiateItem(ViewGroup collection, int position) {
+			collection.addView(views[position]);
+			return views[position];
+		}
+
+		@Override
+		public void destroyItem(ViewGroup collection, int position, Object view) {
+			collection.removeView((View) view);
+		}
+
+		@Override
+		public CharSequence getPageTitle(int position) {
+			return Settlers.getInstance().getBoardInstance().getPlayer(position).getName();
 		}
 	}
 }
