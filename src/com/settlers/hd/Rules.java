@@ -3,9 +3,11 @@ package com.settlers.hd;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.webkit.WebView;
 
 public class Rules extends Activity {
@@ -14,6 +16,11 @@ public class Rules extends Activity {
 		super.onCreate(state);
 
 		setContentView(R.layout.rules);
+		setTitle(R.string.rules_button);
+
+		ActionBar actionBar = getActionBar();
+		actionBar.setHomeButtonEnabled(true);
+		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		String data = null;
 
@@ -36,12 +43,21 @@ public class Rules extends Activity {
 
 			data = baos.toString();
 		} catch (Exception e) {
-			Log.e(this.getClass().getName(),
-					"failed to load resource to string", e);
+			Log.e(this.getClass().getName(), "failed to load resource to string", e);
 		}
 
 		final WebView rules = (WebView) findViewById(R.id.rules);
-		rules.loadData(data != null ? data : getString(R.string.rules_failed),
-				"text/html", "utf-8");
+		rules.loadData(data != null ? data : getString(R.string.rules_failed), "text/html", "utf-8");
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			finish();
+			return true;
+		}
+
+		return super.onOptionsItemSelected(item);
 	}
 }
