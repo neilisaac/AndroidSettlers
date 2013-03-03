@@ -54,6 +54,7 @@ public class PlayerTrade extends Activity {
 			selected = extras.getInt(TYPE_KEY);
 
 		setContentView(R.layout.playertrade);
+		setTitle(R.string.trade);
 
 		Board board = ((Settlers) getApplicationContext()).getBoardInstance();
 		if (board == null) {
