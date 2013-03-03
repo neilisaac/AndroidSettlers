@@ -5,7 +5,6 @@ public class Geometry {
 	public static final int TILE_SIZE = 256;
 	public static final int BUTTON_SIZE = 128;
 
-	private static final float REFERENCE_SIZE = 5f * 256f;
 	private static final float MAX_PAN = 2.5f;
 
 	private int width, height;
@@ -22,7 +21,10 @@ public class Geometry {
 		width = w;
 		height = h;
 		
-		minZoom = 0.6f * (w < h ? w : h) / REFERENCE_SIZE;
+		float minZoomX = width / (6.9f * TILE_SIZE);
+		float minZoomY = height / (6.8f * TILE_SIZE);
+		
+		minZoom = Math.min(minZoomX, minZoomY);
 		highZoom = 2 * minZoom;
 		maxZoom = 3 * minZoom;
 		
