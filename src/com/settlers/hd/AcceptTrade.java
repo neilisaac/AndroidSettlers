@@ -1,13 +1,12 @@
 package com.settlers.hd;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -44,6 +43,12 @@ public class AcceptTrade extends Activity {
 		trade = extras.getIntArray(PlayerTrade.OFFER_KEY);
 
 		setContentView(R.layout.accepttrade);
+		setTitle(R.string.trade);
+
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+		WindowManager.LayoutParams lp = getWindow().getAttributes();
+		lp.dimAmount = 1.0f;
+		getWindow().setAttributes(lp);
 
 		for (int i = 0; i < RESOURCES.length; i++) {
 			TextView text = (TextView) findViewById(RESOURCES[i]);
@@ -163,10 +168,6 @@ public class AcceptTrade extends Activity {
 
 			index += 1;
 		}
-
-		int color = TextureManager.darken(TextureManager.getColor(board.getCurrentPlayer().getColor()), 0.35f);
-		ActionBar actionBar = getActionBar();
-		actionBar.setBackgroundDrawable(new ColorDrawable(color));
 	}
 
 	@Override
