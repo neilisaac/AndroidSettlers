@@ -2,7 +2,7 @@
 <resources>
 
 	<!-- Application name and misc strings: do no translate -->
-	<string name="app_name">Island Settlers HD</string>
+	<string name="app_name">Island Settlers</string>
 	<string name="nostring"></string>
 	<string name="website_url">http://github.com/neilisaac/AndroidSettlers/</string>
 	<string name="acknowledgements">Original code by Neil Isaac.
