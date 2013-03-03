@@ -104,6 +104,9 @@
 	<string name="trade_for_resource">Trade for %s</string> 
 	<string name="trade_for_past">Traded for</string>
 	<string name="trade_invalid">Invalid trade</string>
+	<string name="trade_plus">+</string>
+	<string name="trade_minus">-</string>
+	<string name="trade_zero">0</string>
 	<string name="resources">Road: lumber, brick
 		\nTown: lumber, wool, grain,
 		brick
@@ -295,7 +298,7 @@
 	<string name="game_used_harvest">Used a harvest card</string>
 	<string name="game_used_monopoly">Used a monopoly card: stole %d resources</string>
 	<string name="game_card">card</string>
-	<string name="game_ok">Ok</string>
+	<string name="game_ok">OK</string>
 	<string name="game_cancel">Cancel</string>
 	<string name="game_dev_cards">Development cards</string>
 	<string name="game_buy_dev">Buy development card (wool, grain, ore)</string>

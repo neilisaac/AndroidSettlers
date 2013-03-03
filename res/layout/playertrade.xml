@@ -1,204 +1,375 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent" android:layout_height="fill_parent"
-	android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dip" >
 
-	<ScrollView android:layout_width="fill_parent"
-		android:layout_height="fill_parent" android:layout_weight="1">
+        <Spinner
+            android:id="@+id/trade_type"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:prompt="@string/trade_select" >
+        </Spinner>
 
-		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-			android:orientation="vertical" android:layout_width="fill_parent"
-			android:layout_height="fill_parent" android:padding="10dip">
-			
-			<Spinner android:id="@+id/trade_type" android:layout_height="wrap_content"
-				android:layout_width="fill_parent" android:prompt="@string/trade_select"></Spinner>
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/trade_offer" />
 
-			<TextView android:layout_height="wrap_content" android:text="@string/trade_offer"
-				android:layout_width="fill_parent" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
 
-			<LinearLayout android:orientation="horizontal"
-				android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/trade_img1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@string/lumber"
+                android:src="@drawable/res_lumber_large" >
+            </ImageView>
 
-				<ImageView android:src="@drawable/res_lumber_large"
-					android:layout_width="wrap_content" android:layout_height="wrap_content"
-					android:id="@+id/trade_img1" android:layout_gravity="center_vertical"></ImageView>
+            <TextView
+                android:id="@+id/trade_res1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:text="@string/trade_zero"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:width="28dip" />
 
-				<TextView android:id="@+id/trade_res1" android:textSize="18dip"
-					android:layout_gravity="bottom" android:text="0"
-					android:layout_height="wrap_content" android:layout_width="wrap_content"
-					android:width="28dip" android:textColor="#FFFFFF" />
+            <Button
+                android:id="@+id/trade_minus1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:enabled="false"
+                android:text="@string/trade_minus"
+                android:width="46dip" />
 
-				<Button android:id="@+id/trade_minus1" android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:text="-"
-					android:width="46dip" android:enabled="false"
-					android:layout_gravity="center_vertical" />
+            <TextView
+                android:id="@+id/trade_offer1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="12dip"
+                android:text="@string/trade_zero"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:width="40dip" />
 
-				<TextView android:id="@+id/trade_offer1" android:textSize="18dip"
-					android:text="0" android:textColor="#FFFFFF" android:layout_height="wrap_content"
-					android:layout_width="wrap_content" android:paddingLeft="12dip"
-					android:width="40dip" android:layout_gravity="center_vertical" />
+            <TextView
+                android:id="@+id/resource1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="@string/lumber"
+                android:textSize="18sp" />
 
-				<TextView android:id="@+id/resource1" android:textSize="18dip" android:text="@string/lumber"
-					android:layout_weight="1" android:layout_height="wrap_content"
-					android:layout_width="wrap_content" android:layout_gravity="center_vertical" />
+            <Button
+                android:id="@+id/trade_plus1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/trade_plus"
+                android:width="48dip" />
+        </LinearLayout>
 
-				<Button android:id="@+id/trade_plus1" android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:text="+"
-					android:width="48dip" android:layout_gravity="center_vertical" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
 
-			</LinearLayout>
+            <ImageView
+                android:id="@+id/trade_img2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@string/wool"
+                android:src="@drawable/res_wool_large" >
+            </ImageView>
 
-			<LinearLayout android:orientation="horizontal"
-				android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/trade_res2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:text="@string/trade_zero"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:width="28dip" />
 
-				<ImageView android:src="@drawable/res_wool_large"
-					android:layout_width="wrap_content" android:layout_height="wrap_content"
-					android:id="@+id/trade_img2" android:layout_gravity="center_vertical"></ImageView>
+            <Button
+                android:id="@+id/trade_minus2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:enabled="false"
+                android:text="@string/trade_minus"
+                android:width="46dip" />
 
-				<TextView android:id="@+id/trade_res2" android:textSize="18dip"
-					android:layout_gravity="bottom" android:text="0"
-					android:layout_height="wrap_content" android:layout_width="wrap_content"
-					android:width="28dip" android:textColor="#FFFFFF" />
+            <TextView
+                android:id="@+id/trade_offer2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="12dip"
+                android:text="@string/trade_zero"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:width="40dip" />
 
-				<Button android:id="@+id/trade_minus2" android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:text="-"
-					android:width="46dip" android:enabled="false"
-					android:layout_gravity="center_vertical" />
+            <TextView
+                android:id="@+id/resource2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="@string/wool"
+                android:textSize="18sp" />
 
-				<TextView android:id="@+id/trade_offer2" android:textSize="18dip"
-					android:text="0" android:textColor="#FFFFFF" android:layout_height="wrap_content"
-					android:layout_width="wrap_content" android:paddingLeft="12dip"
-					android:width="40dip" android:layout_gravity="center_vertical" />
+            <Button
+                android:id="@+id/trade_plus2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/trade_plus"
+                android:width="48dip" />
+        </LinearLayout>
 
-				<TextView android:id="@+id/resource2" android:textSize="18dip" android:text="@string/wool"
-					android:layout_weight="1" android:layout_height="wrap_content"
-					android:layout_width="wrap_content" android:layout_gravity="center_vertical" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
 
-				<Button android:id="@+id/trade_plus2" android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:text="+"
-					android:width="48dip" android:layout_gravity="center_vertical" />
+            <ImageView
+                android:id="@+id/trade_img3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@string/grain"
+                android:src="@drawable/res_grain_large" >
+            </ImageView>
 
-			</LinearLayout>
+            <TextView
+                android:id="@+id/trade_res3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:text="@string/trade_zero"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:width="28dip" />
 
-			<LinearLayout android:orientation="horizontal"
-				android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/trade_minus3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:enabled="false"
+                android:text="@string/trade_minus"
+                android:width="46dip" />
 
-				<ImageView android:src="@drawable/res_grain_large"
-					android:layout_width="wrap_content" android:layout_height="wrap_content"
-					android:id="@+id/trade_img3" android:layout_gravity="center_vertical"></ImageView>
+            <TextView
+                android:id="@+id/trade_offer3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="12dip"
+                android:text="@string/trade_zero"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:width="40dip" />
 
-				<TextView android:id="@+id/trade_res3" android:textSize="18dip"
-					android:layout_gravity="bottom" android:text="0"
-					android:layout_height="wrap_content" android:layout_width="wrap_content"
-					android:width="28dip" android:textColor="#FFFFFF" />
+            <TextView
+                android:id="@+id/resource3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="@string/grain"
+                android:textSize="18sp" />
 
-				<Button android:id="@+id/trade_minus3" android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:text="-"
-					android:width="46dip" android:enabled="false"
-					android:layout_gravity="center_vertical" />
+            <Button
+                android:id="@+id/trade_plus3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/trade_plus"
+                android:width="48dip" />
+        </LinearLayout>
 
-				<TextView android:id="@+id/trade_offer3" android:textSize="18dip"
-					android:text="0" android:textColor="#FFFFFF" android:layout_height="wrap_content"
-					android:layout_width="wrap_content" android:paddingLeft="12dip"
-					android:width="40dip" android:layout_gravity="center_vertical" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
 
-				<TextView android:id="@+id/resource3" android:textSize="18dip" android:text="@string/grain"
-					android:layout_weight="1" android:layout_height="wrap_content"
-					android:layout_width="wrap_content" android:layout_gravity="center_vertical" />
+            <ImageView
+                android:id="@+id/trade_img4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@string/brick"
+                android:src="@drawable/res_brick_large" >
+            </ImageView>
 
-				<Button android:id="@+id/trade_plus3" android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:text="+"
-					android:width="48dip" android:layout_gravity="center_vertical" />
+            <TextView
+                android:id="@+id/trade_res4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:text="@string/trade_zero"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:width="28dip" />
 
-			</LinearLayout>
+            <Button
+                android:id="@+id/trade_minus4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:enabled="false"
+                android:text="@string/trade_minus"
+                android:width="46dip" />
 
-			<LinearLayout android:orientation="horizontal"
-				android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/trade_offer4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="12dip"
+                android:text="@string/trade_zero"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:width="40dip" />
 
-				<ImageView android:src="@drawable/res_brick_large"
-					android:layout_width="wrap_content" android:layout_height="wrap_content"
-					android:id="@+id/trade_img4" android:layout_gravity="center_vertical"></ImageView>
+            <TextView
+                android:id="@+id/resource4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="@string/brick"
+                android:textSize="18sp" />
 
-				<TextView android:id="@+id/trade_res4" android:textSize="18dip"
-					android:layout_gravity="bottom" android:text="0"
-					android:layout_height="wrap_content" android:layout_width="wrap_content"
-					android:width="28dip" android:textColor="#FFFFFF" />
+            <Button
+                android:id="@+id/trade_plus4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/trade_plus"
+                android:width="48dip" />
+        </LinearLayout>
 
-				<Button android:id="@+id/trade_minus4" android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:text="-"
-					android:width="46dip" android:enabled="false"
-					android:layout_gravity="center_vertical" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
 
-				<TextView android:id="@+id/trade_offer4" android:textSize="18dip"
-					android:text="0" android:textColor="#FFFFFF" android:layout_height="wrap_content"
-					android:layout_width="wrap_content" android:paddingLeft="12dip"
-					android:width="40dip" android:layout_gravity="center_vertical" />
+            <ImageView
+                android:id="@+id/trade_img5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@string/ore"
+                android:src="@drawable/res_ore_large" >
+            </ImageView>
 
-				<TextView android:id="@+id/resource4" android:textSize="18dip" android:text="@string/brick"
-					android:layout_weight="1" android:layout_height="wrap_content"
-					android:layout_width="wrap_content" android:layout_gravity="center_vertical" />
+            <TextView
+                android:id="@+id/trade_res5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:text="@string/trade_zero"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:width="28dip" />
 
-				<Button android:id="@+id/trade_plus4" android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:text="+"
-					android:width="48dip" android:layout_gravity="center_vertical" />
+            <Button
+                android:id="@+id/trade_minus5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:enabled="false"
+                android:text="@string/trade_minus"
+                android:width="46dip" />
 
-			</LinearLayout>
+            <TextView
+                android:id="@+id/trade_offer5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="12dip"
+                android:text="@string/trade_zero"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:width="40dip" />
 
-			<LinearLayout android:orientation="horizontal"
-				android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/resource5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="@string/ore"
+                android:textSize="18sp" />
 
-				<ImageView android:src="@drawable/res_ore_large"
-					android:layout_gravity="center_vertical" android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:id="@+id/trade_img5"></ImageView>
+            <Button
+                android:id="@+id/trade_plus5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/trade_plus"
+                android:width="48dip" />
+        </LinearLayout>
 
-				<TextView android:id="@+id/trade_res5" android:textSize="18dip"
-					android:layout_gravity="bottom" android:text="0"
-					android:layout_height="wrap_content" android:layout_width="wrap_content"
-					android:width="28dip" android:textColor="#FFFFFF" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
 
-				<Button android:id="@+id/trade_minus5" android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:text="-"
-					android:width="46dip" android:enabled="false"
-					android:layout_gravity="center_vertical" />
+            <Button
+                android:id="@+id/trade_bank"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:enabled="false"
+                style="@android:attr/buttonBarButtonStyle"
+                android:text="@string/trade_bank" >
+            </Button>
 
-				<TextView android:id="@+id/trade_offer5" android:textSize="18dip"
-					android:text="0" android:textColor="#FFFFFF" android:layout_height="wrap_content"
-					android:layout_width="wrap_content" android:paddingLeft="12dip"
-					android:width="40dip" android:layout_gravity="center_vertical" />
+            <Button
+                android:id="@+id/trade_propose"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:enabled="false"
+                style="@android:attr/buttonBarButtonStyle"
+                android:text="@string/trade_propose" >
+            </Button>
+        </LinearLayout>
 
-				<TextView android:id="@+id/resource5" android:textSize="18dip" android:text="@string/ore"
-					android:layout_weight="1" android:layout_height="wrap_content"
-					android:layout_width="wrap_content" android:layout_gravity="center_vertical" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/reference_tab1" >
+        </TextView>
 
-				<Button android:id="@+id/trade_plus5" android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:text="+"
-					android:width="48dip" android:layout_gravity="center_vertical" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/resources"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" >
+        </TextView>
+    </LinearLayout>
 
-			</LinearLayout>
-
-			<LinearLayout android:orientation="horizontal"
-				android:layout_width="fill_parent" android:layout_height="wrap_content">
-
-				<Button android:text="@string/trade_bank" android:id="@+id/trade_bank"
-					android:layout_width="fill_parent" android:layout_height="wrap_content"
-					android:enabled="false" android:layout_weight="1"></Button>
-
-				<Button android:id="@+id/trade_propose" android:layout_width="fill_parent"
-					android:layout_height="wrap_content" android:text="@string/trade_propose"
-					android:enabled="false" android:layout_weight="1"></Button>
-
-			</LinearLayout>
-
-			<TextView android:text="@string/reference_tab1"
-				android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
-
-			<TextView android:text="@string/resources" android:textSize="16dip"
-				android:textColor="#FFFFFF" android:layout_width="wrap_content"
-				android:layout_height="wrap_content"></TextView>
-
-		</LinearLayout>
-
-	</ScrollView>
-
-</LinearLayout>
+</ScrollView>
