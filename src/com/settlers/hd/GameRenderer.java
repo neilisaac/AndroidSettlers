@@ -15,7 +15,6 @@ public class GameRenderer implements Renderer {
 	private TextureManager texture;
 	private Board board;
 	private Player player;
-	private GameActivity game;
 	private int lastRoll;
 	private Action action;
 
@@ -39,17 +38,15 @@ public class GameRenderer implements Renderer {
 		action = Action.NONE;
 	}
 
-	public void setState(GameActivity game, Board board, Player player,
-			TextureManager texture, int lastRoll) {
+	public void setState(Board board, Player player, TextureManager texture, int lastRoll) {
 		this.texture = texture;
 		this.board = board;
 		this.player = player;
-		this.game = game;
 		this.lastRoll = lastRoll;
 	}
 
 	public void setSize(DisplayMetrics screen, int width, int height) {
-		geometry.setSize(screen.widthPixels, screen.heightPixels);
+		geometry.setSize(width, height);
 		this.width = width;
 		this.height = height;
 	}
@@ -70,58 +67,6 @@ public class GameRenderer implements Renderer {
 		// TODO: cancel intermediate interactions
 
 		return ((board.isProduction() || board.isBuild()) && action != Action.NONE);
-	}
-
-	public boolean click(int x, int y) {
-		// ignore presses during non-human turns
-		if (player == null)
-			return false;
-
-		// translate to centered coordinates
-		float px = translateScreenX(x);
-		float py = translateScreenY(y);
-		
-		int select = -1;
-
-		switch (action) {
-		case NONE:
-			return false;
-
-		case ROBBER:
-			// select a hexagon
-			select = geometry.getNearestHexagon(px, py);
-			break;
-
-		case TOWN:
-		case CITY:
-			// select a vertex
-			select = geometry.getNearestVertex(px, py);
-			break;
-
-		case ROAD:
-			// select an edge
-			select = geometry.getNearestEdge(px, py);
-			break;
-		}
-		
-		if (select >= 0) {
-			game.queueSelection(action, select);
-			return true;
-		}
-
-		return false;
-	}
-
-	private float translateScreenX(int x) {
-		float min = (width < height ? width : height) / 2f;
-		return (float) ((x - width / 2) / min + geometry.getTranslateX())
-				/ geometry.getZoom();
-	}
-
-	private float translateScreenY(int y) {
-		float min = (width < height ? width : height) / 2f;
-		return (float) ((height / 2 - y) / min + geometry.getTranslateY())
-				/ geometry.getZoom();
 	}
 
 	@Override

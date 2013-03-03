@@ -252,6 +252,45 @@ public class GameView extends GLSurfaceView implements OnGestureListener,
 		}
 	}
 
+	private boolean click(int x, int y) {
+		Player player = Settlers.getInstance().getBoardInstance().getCurrentPlayer();
+		Geometry geometry = renderer.getGeometry();
+		GameRenderer.Action action = renderer.getAction();
+
+		if (!player.isHuman())
+			return false;
+
+		int select = -1;
+
+		switch (action) {
+		case NONE:
+			return false;
+
+		case ROBBER:
+			// select a hexagon
+			select = geometry.getNearestHexagon(x, y);
+			break;
+
+		case TOWN:
+		case CITY:
+			// select a vertex
+			select = geometry.getNearestVertex(x, y);
+			break;
+
+		case ROAD:
+			// select an edge
+			select = geometry.getNearestEdge(x, y);
+			break;
+		}
+
+		if (select >= 0) {
+			game.select(action, select);
+			return true;
+		}
+
+		return false;
+	}
+	
 	private boolean press(int x, int y) {
 		// consider buttons
 		synchronized (buttons) {
@@ -264,7 +303,7 @@ public class GameView extends GLSurfaceView implements OnGestureListener,
 		return false;
 	}
 
-	public boolean release(int x, int y, boolean activate) {
+	private boolean release(int x, int y, boolean activate) {
 		boolean released = false;
 
 		// consider buttons
@@ -273,7 +312,7 @@ public class GameView extends GLSurfaceView implements OnGestureListener,
 				if (button.release(x, height - y)) {
 					released = true;
 					if (activate)
-						game.queueButtonPress(button.getType());
+						game.buttonPress(button.getType());
 				}
 			}
 		}

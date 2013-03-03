@@ -51,8 +51,8 @@ public class Geometry {
 	}
 
 	public void zoomTo(int userX, int userY) {
-		cx = getScreenX(userX);
-		cy = getScreenY(userY);
+		cx = translateScreenX(userX);
+		cy = translateScreenY(userY);
 		zoom = highZoom;
 		translate(0, 0);
 	}
@@ -102,8 +102,20 @@ public class Geometry {
 		return cy;
 	}
 
-	private int getNearest(float x, float y, float[] edgeX, float[] edgeY,
-			int length) {
+	private float translateScreenX(int x) {
+		float halfMin = (width < height ? width : height) / 2f;
+		return (float) ((x - width / 2) / halfMin + cx) / zoom;
+	}
+
+	private float translateScreenY(int y) {
+		float halfMin = (width < height ? width : height) / 2f;
+		return (float) ((height / 2 - y) / halfMin + cy) / zoom;
+	}
+
+	private int getNearest(int userX, int userY, float[] rx, float[] ry, int length) {
+		float x = translateScreenX(userX);
+		float y = translateScreenY(userY);
+		
 		int best = -1;
 		double dist2 = zoom * zoom / 4;
 		for (int i = 0; i < length; i++) {
@@ -117,16 +129,16 @@ public class Geometry {
 		return best;
 	}
 
-	public int getNearestHexagon(float x, float y) {
-		return getNearest(x, y, HEXAGON_X, HEXAGON_Y, Hexagon.NUM_HEXAGONS);
+	public int getNearestHexagon(int userX, int userY) {
+		return getNearest(userX, userY, HEXAGON_X, HEXAGON_Y, Hexagon.NUM_HEXAGONS);
 	}
 
-	public int getNearestEdge(float x, float y) {
-		return getNearest(x, y, EDGE_X, EDGE_Y, Edge.NUM_EDGES);
+	public int getNearestEdge(int userX, int userY) {
+		return getNearest(userX, userY, EDGE_X, EDGE_Y, Edge.NUM_EDGES);
 	}
 
-	public int getNearestVertex(float x, float y) {
-		return getNearest(x, y, POINT_X, POINT_Y, Vertex.NUM_VERTEX);
+	public int getNearestVertex(int userX, int userY) {
+		return getNearest(userX, userY, POINT_X, POINT_Y, Vertex.NUM_VERTEX);
 	}
 
 	public float getHexagonX(int index) {
