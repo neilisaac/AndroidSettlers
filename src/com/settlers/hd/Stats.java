@@ -1,54 +1,50 @@
 package com.settlers.hd;
 
-import android.app.ListActivity;
+import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
 
-public class Stats extends ListActivity {
+public class Stats extends Activity {
 
 	@Override
 	public void onCreate(Bundle state) {
 		super.onCreate(state);
 
-		setTitle(getString(R.string.stats));
+		int padding = (int) (10 * getResources().getDisplayMetrics().density);
 
-		Settings settings = ((Settlers) getApplicationContext())
-				.getSettingsInstance();
-		String[] games = settings.getStatList(getResources());
+		ListView view = new ListView(this);
+		view.setPadding(padding, padding, padding, padding);
+
+		String[] items;
+		String[] games = Settlers.getInstance().getSettingsInstance().getStatList(getResources());
 
 		if (games == null || games.length == 0) {
-			games = new String[1];
-			games[0] = getString(R.string.stats_none);
+			items = new String[1];
+			items[0] = getString(R.string.stats_none);
+		} else {
+			items = new String[games.length + 1];
+			items[0] = getString(R.string.stats_clear);
+			for (int i = 0; i < games.length; i++)
+				items[i + 1] = games[i];
+
+			view.setOnItemClickListener(new OnItemClickListener() {
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					if (position == 0) {
+						Settlers.getInstance().getSettingsInstance().resetScores();
+						finish();
+					}
+				}
+			});
 		}
 
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, games);
+		view.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items));
 
-		setListAdapter((ListAdapter) adapter);
-		getListView().setTextFilterEnabled(true);
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.stats, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.clear:
-			((Settlers) getApplicationContext()).getSettingsInstance()
-					.resetScores();
-			finish();
-			return true;
-		}
-
-		return super.onOptionsItemSelected(item);
+		setContentView(view);
+		setTitle(getString(R.string.stats));
 	}
 }
