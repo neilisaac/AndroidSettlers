@@ -7,7 +7,7 @@ import java.nio.ShortBuffer;
 
 import javax.microedition.khronos.opengles.GL10;
 
-public class Square implements Drawable {
+public class Square {
 
 	private static final float[] texture = { 0f, 1f, 0f, 0f, 1f, 1f, 1f, 0f };
 	private static final short[] indices = { 0, 1, 2, 3 };
