@@ -73,6 +73,8 @@ public class GameRenderer implements Renderer {
 	public void onSurfaceChanged(GL10 gl, int width, int height) {
 		this.width = width;
 		this.height = height;
+		
+		geometry.setSize(width, height);
 
 		float aspect = (float) width / (float) height;
 		if (width > height)

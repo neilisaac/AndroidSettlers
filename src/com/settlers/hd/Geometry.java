@@ -21,8 +21,9 @@ public class Geometry {
 		width = w;
 		height = h;
 		
-		float minZoomX = width / (6.9f * TILE_SIZE);
-		float minZoomY = height / (6.8f * TILE_SIZE);
+		float aspect = (float) width / (float) height;
+		float minZoomX = 0.5f * (float) width / (5.5f * TILE_SIZE);
+		float minZoomY = 0.5f * (float) width / aspect / (5.1f * TILE_SIZE);
 		
 		minZoom = Math.min(minZoomX, minZoomY);
 		highZoom = 2 * minZoom;
