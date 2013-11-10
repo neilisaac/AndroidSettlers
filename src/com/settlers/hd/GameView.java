@@ -36,7 +36,7 @@ public class GameView extends GLSurfaceView implements OnGestureListener,
 		gesture = new GestureDetector(context, this);
 		pinch = new ScaleGestureDetector(context, this);
 		
-		setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
+		setSystemUiVisibility(getSystemUiVisibility() | View.SYSTEM_UI_FLAG_LOW_PROFILE);
 
 		buttons = new UIButton[UIButton.Type.values().length];
 		int size = (int) (0.5 * Geometry.BUTTON_SIZE * getResources().getDisplayMetrics().density);
@@ -90,7 +90,7 @@ public class GameView extends GLSurfaceView implements OnGestureListener,
 
 	@Override
 	public boolean onDown(MotionEvent event) {
-		setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
+		setSystemUiVisibility(getSystemUiVisibility() | View.SYSTEM_UI_FLAG_LOW_PROFILE);
 		
 		// press down (consider activating buttons)
 		press((int) event.getX(), (int) event.getY());
